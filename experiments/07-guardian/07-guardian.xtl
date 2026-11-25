@@ -1,0 +1,111 @@
+#!/usr/bin/env xetal
+## 07 Guardian: defective policy revisions rejected or rolled back, the
+## history kept whole, and what verifying costs.
+##
+## Run with "just run-exp 07". A deterministic simulation on the
+## Workshop world (the model is Workshop's expert). Eight candidate
+## policies (a tool table and a call budget per task) are proposed in
+## turn; after each decision a production batch of three tasks runs
+## with whatever policy is then running. Costs (tokens): a call 500, a
+## tool's schema 20 in every prompt. Tools may hold ops 1 to 7: delivery
+## (8) needs the model's own call. Three guardians:
+##   builds    Exo's default: accept anything that is a tool table (layer 1)
+##   breaker   the same, rolling back after a production batch fails a task
+##   layered   layers 1 to 6 (Guardian's r_eview), then the same breaker
+##   drift     layered, its held-out tasks the most recent batch (the
+##             work as it is now, not as it was)
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+"gd:" u_se< "Guardian"
+"k:" u_se< "Check"
+
+### The candidates
+
+train := 8 3 r_eshape 1 1 1 3 1 1 2 1 1 5 1 1 1 1 1 4 1 1 2 1 1 3 1 1
+(dt, jt) := (train, po:n_one 8, 0, 500) po:w_orkload 200
+long := (2, 8, 3, 8) po:s_ynthesize jt
+short := (2, 3, 3, 8) po:s_ynthesize jt
+deliver := 1 8 r_eshape 7 8 0 0 0 0 0 0
+junk := 7 8 r_eshape 1 1 0 0 0 0 0 0 1 3 0 0 0 0 0 0 3 3 0 0 0 0 0 0 3 1 0 0 0 0 0 0 5 5 0 0 0 0 0 0 5 1 0 0 0 0 0 0 7 7 0 0 0 0 0 0
+inert := 2 8 r_eshape 1 1 0 0 0 0 0 0 5 5 0 0 0 0 0 0
+## 1 learned tools, 2 an unknown op code, 3 a tool that delivers
+## unsupervised, 4 ten tools, 5 the learned tools with a budget of 8
+## calls, 6 two tools that never fit added, 7 the learned tools
+## reordered (no gain), 8 short tools (after the work shifts).
+cands := (e_nclose long) c_at (e_nclose 1 8 r_eshape 1 2 12 0 0 0 0 0) c_at (e_nclose long c_at deliver) c_at (e_nclose long c_at junk) c_at (e_nclose long) c_at (e_nclose long c_at inert) c_at (e_nclose 3 2 1 s_elect long) c_at e_nclose short
+budgets := 60 60 60 60 8 60 60 60
+"candidates' tool counts and budgets:"
+m_ix '{ t -> t_ally d_isclose t } m_ap cands
+budgets
+
+### The work
+
+## The review's suite and held-out tasks; then eight production
+## batches, the last two of shifted recipes (2 wood or 2 ore).
+suite := 3 3 r_eshape 2 1 1 6 1 1 1 1 1
+held := 3 3 r_eshape 4 1 1 2 1 1 3 1 1
+## Batch 1 comes before the first candidate (the shadow run's recent
+## work); batches 2 to 9 follow candidates 1 to 8.
+batches := 9 3 3 r_eshape 2 1 1 3 1 1 1 1 1 4 1 1 2 1 1 3 1 1 3 1 1 2 1 1 2 1 1 1 1 1 4 1 1 2 1 1 2 1 1 3 1 1 3 1 1 1 1 1 2 1 1 4 1 1 2 1 1 3 1 1 2 1 1 2 2 1 3 1 2 2 2 1 3 1 2 2 2 1 2 1 2
+
+### Running the guardians
+
+## The history rolled back when the flag is set.
+u:b_reak := { (h, flag) ->
+  flag ? gd:r_ollback h
+  h
+}
+## Eight rounds of review, then production: (history, verdicts, the
+## version running each batch, production tokens, review tokens, tasks
+## failed, deliveries no call supervised, rollbacks).
+## The held-out tasks: the fixed set, or the recent batch.
+u:h_eld := { (drift, recent) ->
+  drift ? recent
+  held
+}
+u:g_uard := { (upto, breaker, drift) ->
+  (h, _, ons, prod, ver, fails, unsup, backs) := 8 '{ (h0, i, ons0, prod0, ver0, fails0, unsup0, backs0) ->
+    cand := (d_isclose i s_elect cands, i s_elect budgets)
+    (verdict, cost) := (suite, u:h_eld (drift, i s_elect batches), i s_elect batches, 1 2 3 4 5 6 7, 6, 500, 20, upto) gd:r_eview (cand, gd:a_ctive h0)
+    h1 := h0 gd:p_ropose (cand, verdict)
+    (T, b) := gd:a_ctive h1
+    (_, _, _, on1) := h1
+    work := (i + 1) s_elect batches
+    (d, j) := (work, T, i, 500, 20 * t_ally T, 0) po:w_orkloadWith b
+    (t, v, o, c, k) := j
+    failed := (t_ally work) - d
+    back := breaker & failed > 0
+    (u:b_reak (h1, back), i + 1, ons0 c_at on1, prod0 + jr:t_otal j, ver0 + cost, fails0 + failed, unsup0 + '+ r_/ (o = 8) & c = 0, backs0 + back)
+  } p_ower (gd:b_egin (po:n_one 8, 60), 1, 0 r_eshape 0, 0, 0, 0, 0, 0)
+  (_, _, verdicts, last) := h
+  (verdicts, ons, prod c_at ver c_at fails c_at unsup c_at backs c_at last)
+}
+(vb, ob, rb) := u:g_uard (1, 0, 0)
+(vk, ok, rk) := u:g_uard (1, 1, 0)
+(vl, ol, rl) := u:g_uard (6, 1, 0)
+(vd, od, rd) := u:g_uard (6, 1, 1)
+"verdicts of the 8 candidates (0 accepted, else the layer failed), builds, layered, drift:"
+1 d_rop vb
+1 d_rop vl
+1 d_rop vd
+"the version running each production batch, builds, breaker, layered, drift:"
+ob
+ok
+ol
+od
+"rows builds, breaker, layered, drift; columns production tokens, review tokens, tasks failed, unsupervised deliveries, rollbacks, version running at the end:"
+4 6 r_eshape rb c_at rk c_at rl c_at rd
+"review tokens per candidate, layered and drift:"
+((2 s_elect rl) c_at 2 s_elect rd) d_iv 8
+
+### The claims, checked
+
+x1 := "the layered guardian stops each defect at its own layer" k:t_est (1 d_rop vl) k:i_s 0 1 2 3 4 5 6 5
+x2 := "Exo's default accepts every formed candidate" k:t_est (1 d_rop vb) k:i_s 0 1 0 0 0 0 0 0
+x3 := "without layers a task fails and deliveries go unsupervised" k:t_est (3 4 s_elect rb) k:i_s 1 3
+x4 := "the breaker rolls back after the failure but does not prevent it" k:t_est (3 4 5 s_elect rk) k:i_s 1 3 1
+x5 := "with layers nothing fails and every delivery is supervised" k:t_est ((3 4 s_elect rl) c_at 3 4 s_elect rd) k:i_s 0 0 0 0
+x6 := "a fixed held-out set rejects the adaptation, a recent one accepts it" k:t_est ((f_irst r_ev vl) c_at f_irst r_ev vd) k:i_s 5 0
+x7 := "following the work, the layered guardian also spends the least in production" k:t_est ((1 s_elect rd) <= (1 s_elect rb) m_in 1 s_elect rl) k:i_s 1
+k:r_eport x1 k:a_nd x2 k:a_nd x3 k:a_nd x4 k:a_nd x5 k:a_nd x6 k:a_nd x7

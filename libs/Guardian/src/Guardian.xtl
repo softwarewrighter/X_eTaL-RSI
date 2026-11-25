@@ -1,0 +1,146 @@
+## Guardian: the layered guardian: checks a candidate policy must pass before it replaces the running one, the version history and rollback
+## Import it with an alias of your choice: "gd:" u_se< "Guardian".
+## Put libs/Guardian/src on XETAL_PATH ("just path"); the reference is libs/Guardian/docs.
+## Names with l: are exported; h: names are private to this file.
+##
+## Exo's guardian authorizes replacing the running harness; by default it
+## checks only that the replacement builds. This one is layered (plan
+## A8), cheapest first, and stops at the first layer that fails:
+##
+##   1 formed      a tool table: a matrix of op codes 0 to 9, each row
+##                 its ops then 0 padding, at least 2 ops a tool
+##   2 capable     every op in a tool is one the harness may automate
+##   3 context     no more tools than the prompt can afford
+##   4 correct     a test suite: every task done within the budget
+##   5 regression  held-out tasks all done, at no more tokens than the
+##                 running policy
+##   6 shadow      recent tasks run beside the running policy: strictly
+##                 fewer tokens, or there is no reason to switch
+##
+## A policy is (T, budget): a Policy tool table and the model calls a
+## task may take. Layers 4 to 6 run episodes, so verifying costs tokens,
+## and the review reports how many. The criteria are arguments the
+## policy never sees: it cannot edit them.
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+
+### The layers
+
+## `L f_ormed T`: 1 if T is a tool table of rows of L ops: a matrix,
+## op codes 0 to 9, each row its ops then 0 padding, each tool at least
+## 2 ops (an empty table is formed).
+## >> "gd:" u_se< "Guardian"
+## >> 4 gd:f_ormed 2 4 r_eshape 1 2 0 0 3 4 5 0
+## 1
+## >> 4 gd:f_ormed 2 4 r_eshape 1 0 2 0 3 4 5 0
+## 0
+## >> 4 gd:f_ormed 1 4 r_eshape 1 12 0 0
+## 0
+l:f_ormed := { L T ->
+  2 != t_ally s_hape T ? 0
+  L != 2 s_elect s_hape T ? 0
+  nz := T != 0
+  codes := '& r_/ r_avel (T >= 0) & T <= 9
+  packed := nz m_atch '& s_\_2 nz
+  long := '& r_/ 2 <= '+ r_/_2 nz
+  codes & packed & long
+}
+
+## `allowed c_apable T`: 1 if every op in every tool is in allowed.
+## >> "gd:" u_se< "Guardian"
+## >> 1 2 3 4 5 6 7 gd:c_apable 1 4 r_eshape 6 7 8 0
+## 0
+l:c_apable := { allowed T -> '& r_/ r_avel (T = 0) | T m_ember? allowed }
+
+## Tasks done and tokens spent by policy (T, b) on tasks, each call
+## costing call plus per for each tool in the prompt.
+h:c_ost := { (tasks, T, b, call, per) ->
+  (d, j) := (tasks, T, 0, call, per * t_ally T, 0) po:w_orkloadWith b
+  (d, jr:t_otal j)
+}
+
+### The review
+
+## `(suite, held, recent, allowed, most, call, per, upto) r_eview
+## ((T, b), (Ti, bi))`: the first layer (1 to 6) the candidate (T, b)
+## fails against the running policy (Ti, bi), or 0 if it passes all,
+## and the tokens the episodes of the review cost. Layers beyond upto
+## are not checked (upto = 1 is Exo's default guardian, "it builds";
+## 6 is all of them). suite, held and recent are task tables (rows
+## q w r); allowed the ops tools may hold; most the most tools; call
+## a model call's tokens; per a tool's tokens in every prompt.
+## >> "gd:" u_se< "Guardian"
+## >> "po:" u_se< "Policy"
+## >> tasks := 2 3 r_eshape 2 1 1 3 1 1
+## >> g := (tasks, tasks, tasks, r_ange 9, 5, 500, 20, 6)
+## >> g gd:r_eview ((1 8 r_eshape 1 2 3 4 5 6 0 0, 50), (po:n_one 8, 50))
+## (0, 48040)
+## >> g gd:r_eview ((po:n_one 8, 5), (po:n_one 8, 50))
+## (4, 5000)
+l:r_eview := { (suite, held, recent, allowed, most, call, per, upto) ((T, b), (Ti, bi)) ->
+  L := 2 s_elect s_hape Ti
+  0 = L l:f_ormed T ? (1, 0)
+  upto < 2 ? (0, 0)
+  0 = allowed l:c_apable T ? (2, 0)
+  upto < 3 ? (0, 0)
+  most < t_ally T ? (3, 0)
+  upto < 4 ? (0, 0)
+  (d4, k4) := h:c_ost (suite, T, b, call, per)
+  d4 < t_ally suite ? (4, k4)
+  upto < 5 ? (0, k4)
+  (d5, k5) := h:c_ost (held, T, b, call, per)
+  (di, ki) := h:c_ost (held, Ti, bi, call, per)
+  (d5 < t_ally held) | k5 > ki ? (5, k4 + k5 + ki)
+  upto < 6 ? (0, k4 + k5 + ki)
+  (d6, k6) := h:c_ost (recent, T, b, call, per)
+  (dj, kj) := h:c_ost (recent, Ti, bi, call, per)
+  k6 >= kj ? (6, k4 + k5 + ki + k6 + kj)
+  (0, k4 + k5 + ki + k6 + kj)
+}
+
+### Versions
+
+## A history is (tables, budgets, verdicts, active): every policy ever
+## proposed, in order (the tables boxed, as their sizes differ), each
+## review's verdict (0 accepted, else the layer that failed), and the
+## running version's number. Nothing in it is ever removed.
+
+## `b_egin (T, b)`: a history holding one accepted version, running.
+## >> "gd:" u_se< "Guardian"
+## >> (ts, bs, vs, on) := gd:b_egin (0 8 r_eshape 0, 50)
+## >> vs c_at on
+## 0 1
+l:b_egin := { (T, b) -> (r_avel e_nclose T, r_avel b, r_avel 0, 1) }
+
+## `h p_ropose ((T, b), verdict)`: the history with the candidate added
+## and, when its verdict is 0, running.
+## >> "gd:" u_se< "Guardian"
+## >> h := gd:b_egin (0 8 r_eshape 0, 50)
+## >> (ts, bs, vs, on) := (h gd:p_ropose ((1 8 r_eshape 9, 50), 1)) gd:p_ropose ((1 8 r_eshape 1, 50), 0)
+## >> vs c_at on
+## 0 1 0 3
+## >> (ts2, bs2, vs2, on2) := (ts, bs, vs, on) gd:p_ropose ((1 8 r_eshape 9, 50), 5)
+## >> vs2 c_at on2
+## 0 1 0 5 3
+l:p_ropose := { (ts, bs, vs, on) ((T, b), verdict) ->
+  n := 1 + t_ally vs
+  (ts c_at e_nclose T, bs c_at b, vs c_at verdict, ((verdict = 0) * n) + (verdict != 0) * on)
+}
+
+## `a_ctive h`: the running policy, (T, b).
+l:a_ctive := { (ts, bs, vs, on) -> (d_isclose on s_elect ts, on s_elect bs) }
+
+## `r_ollback h`: the history running the last accepted version before
+## the running one (the same history if there is none); every version
+## stays in it.
+## >> "gd:" u_se< "Guardian"
+## >> h := (gd:b_egin (0 8 r_eshape 0, 50)) gd:p_ropose ((1 8 r_eshape 1, 50), 0)
+## >> (ts, bs, vs, on) := gd:r_ollback h
+## >> (t_ally vs) c_at on
+## 2 1
+l:r_ollback := { (ts, bs, vs, on) ->
+  earlier := w_here (vs = 0) & (r_ange t_ally vs) < on
+  0 = t_ally earlier ? (ts, bs, vs, on)
+  (ts, bs, vs, f_irst r_ev earlier)
+}

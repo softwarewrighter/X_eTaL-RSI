@@ -48,7 +48,7 @@ each one says so.
 | - | ---------- | ------ |
 | 01 | [tool synthesis](experiments/01-tool-synthesis/README.md): repeated action sequences become tools; tools beat hints, short tools transfer | done |
 | 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |
-| 07 | guardian: defective revisions rejected or rolled back | planned |
+| 07 | [guardian](experiments/07-guardian/README.md): defective revisions rejected or rolled back; what verifying costs | done |
 
 The full list, the hypotheses and the roadmap are in
 [docs/plan.md](docs/plan.md).
@@ -70,7 +70,7 @@ whether the improver itself improves.
 | [Journal](libs/Journal/docs/README.md) | the event history as columns; repeated sequences and their cost | done |
 | [Workshop](libs/Workshop/docs/README.md) | a deterministic resource and manufacturing world (gather, carry, make, deliver) | done |
 | [Policy](libs/Policy/docs/README.md) | policies as op-code tables run by a fixed interpreter: episodes, tools, calls | done |
-| Guardian | layered acceptance checks, versions and rollback | planned |
+| [Guardian](libs/Guardian/docs/README.md) | layered acceptance checks, versions and rollback | done |
 
 ## Development
 

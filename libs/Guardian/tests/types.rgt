@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Guardian.xtl"
+exit_code = 0

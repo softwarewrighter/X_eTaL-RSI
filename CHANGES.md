@@ -11,6 +11,9 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 20:36 `exp` Experiment 07, the guardian (step 11): eight candidates, each with one defect, under Exo's default (it builds), the same with a circuit breaker, the layered guardian and the layered one judging regressions on recent work; the layers stop each defect at its own layer, the default lets through 3 unsupervised deliveries and a failed task, the breaker rolls back only after it, a fixed held-out set rejects the adaptation to drifted work while a recent one accepts it; reviews cost 35k to 40k tokens a candidate; 7 claims checked.
+- 20:36 `feat` The Guardian library (step 11): r_eview (formed, capable, context, correct, regression, shadow; stops at the first failure, reports its tokens; upto 1 is Exo's default), f_ormed, c_apable, the append-only history (b_egin, p_ropose, a_ctive, r_ollback); 25 doc examples, basics, the review demo.
+- 23:20 `chore` Step 10 (tool-synthesis) closed.
 - 20:19 `exp` Experiment 01, tool synthesis (step 10): groups A, B (hints in the prompt), C (tools) and C-short on the Workshop, tools learned from the fixed harness's journal; on held-out tasks of the training recipe tools cut calls 98 to 44 with the same ops, hints match the calls at 21% more tokens; on shifted recipes the long route never fits and its schema costs 12% (hints 36%), while tools of at most 3 ops still cut calls 24%; 8 claim checks.
 - 20:19 `feat` Policy gains e_pisodeWith and w_orkloadWith (a per-call context cost, a table ignored every k-th call) and s_ynthesize (the k sequences worth most calls saved, from a journal, as a tool table); 30 doc examples; the existing baselines unchanged, types reblessed after review (three new exports).
 - 22:15 `chore` Step 9 (explain-05) closed.

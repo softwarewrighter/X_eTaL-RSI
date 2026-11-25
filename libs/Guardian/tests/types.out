@@ -1,0 +1,7 @@
+l:f_ormed : Num a => Int -> a -> Int
+l:c_apable : (Num a, Truthy b) => a -> a -> b
+l:r_eview : (Num a, Num b, Num c, Num d, Num e) => (a, b, c, Int, Int, Int, Int, d) -> ((Int, Int), (Int, Int)) -> (e, Int)
+l:b_egin : (Any a, Num c, Num d) => (a, b) -> (Box a, b, c, d)
+l:p_ropose : (Any a, Num c) => (Box a, b, c, Int) -> ((a, b), c) -> (Box a, b, c, Int)
+l:a_ctive : (Any a, Any c) => (Box a, b, c, Int) -> (a, b)
+l:r_ollback : (Any a, Any b, Num c) => (a, b, c, Int) -> (a, b, c, Int)

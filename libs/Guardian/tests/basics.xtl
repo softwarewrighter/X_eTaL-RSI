@@ -1,0 +1,34 @@
+#!/usr/bin/env xetal
+## Guardian: each layer's verdict on a candidate made to fail it, pinned.
+
+"gd:" u_se< "Guardian"
+"po:" u_se< "Policy"
+
+route := 1 8 r_eshape 1 2 3 4 5 6 0 0
+on := (po:n_one 8, 60)
+suite := 2 3 r_eshape 4 1 1 2 1 1
+g := (suite, suite, suite, 1 2 3 4 5 6 7, 3, 500, 20, 6)
+## 1 a 0 inside a tool; 2 delivery in a tool; 3 four tools; 4 a budget
+## too small; 5 a tool that never fits; 6 the running policy again;
+## then the route, accepted.
+g gd:r_eview ((1 8 r_eshape 1 0 2 0 0 0 0 0, 60), on)
+g gd:r_eview ((1 8 r_eshape 7 8 0 0 0 0 0 0, 60), on)
+g gd:r_eview ((4 8 r_eshape 1 2 3 4 5 6 0 0, 60), on)
+g gd:r_eview ((route, 3), on)
+g gd:r_eview ((1 8 r_eshape 1 1 0 0 0 0 0 0, 60), on)
+g gd:r_eview (on, on)
+g gd:r_eview ((route, 60), on)
+## Exo's default guardian accepts the budget cut it cannot see.
+(suite, suite, suite, 1 2 3 4 5 6 7, 3, 500, 20, 1) gd:r_eview ((route, 3), on)
+## A history: begun, a rejection, an acceptance, a rollback.
+h1 := (gd:b_egin on) gd:p_ropose ((1 8 r_eshape 7 8 0 0 0 0 0 0, 60), 2)
+h2 := h1 gd:p_ropose ((route, 60), 0)
+(ts, bs, vs, n2) := h2
+vs
+n2
+(ts3, bs3, vs3, n3) := gd:r_ollback h2
+n3
+t_ally ts3
+(T, b) := gd:a_ctive gd:r_ollback h2
+s_hape T
+b

@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../07-guardian.xtl"
+exit_code = 0
