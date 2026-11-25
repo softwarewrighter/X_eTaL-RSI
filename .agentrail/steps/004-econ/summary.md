@@ -1,0 +1,1 @@
+econ: Econ library (ski rental, budget) with tests and demo; experiment 05 with groups A, D, D-ski, hindsight, budget; results in README
