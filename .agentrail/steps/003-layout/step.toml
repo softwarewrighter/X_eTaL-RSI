@@ -1,8 +1,9 @@
 number = 3
 slug = "layout"
-status = "in-progress"
+status = "completed"
 description = "Libraries and experiments layout (plan A6): templates/Library and templates/E..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
-commits = []
+completed_at = "2026-11-24T18:07:02"
+commits = ["bb3a34c98e24cea93e884b931d47a2d4dcb571b6"]
