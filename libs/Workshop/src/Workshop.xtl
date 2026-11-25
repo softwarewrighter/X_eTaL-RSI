@@ -1,0 +1,95 @@
+## Workshop: a deterministic resource and manufacturing world: places, gathering, making and delivering, as op codes
+## Import it with an alias of your choice: "ws:" u_se< "Workshop".
+## Put libs/Workshop/src on XETAL_PATH ("just path"); the reference is libs/Workshop/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## The world of the experiments on tools and policies (the research's
+## "resource-gathering and manufacturing game"): four places (1 forest,
+## 2 mine, 3 workshop, 4 store), an agent who carries wood and ore,
+## makes devices at the workshop from a recipe and delivers them to the
+## store. A state is five Ints, (pos, wood, ore, made, delivered); a
+## task is (q, w, r): deliver q devices, each made from w wood and r
+## ore. Everything an agent can do is one of nine op codes:
+##
+##   1 go to the forest   2 gather wood (at the forest)
+##   3 go to the mine     4 gather ore (at the mine)
+##   5 go to the workshop 6 make a device (at the workshop, w wood, r ore)
+##   7 go to the store    8 deliver what was made (at the store)
+##   9 look (changes nothing)
+##
+## An op whose precondition does not hold fails and changes nothing.
+## The world is pure: the same state and op always give the same
+## result, so whole episodes are reproducible.
+
+### The world
+
+## `s_tart @`: the agent at the store with nothing: (4, 0, 0, 0, 0).
+l:s_tart := { @ -> (4, 0, 0, 0, 0) }
+
+## `(q, w, r) s_tep ((pos, wood, ore, made, delivered), op)`: the state
+## after op, and 1 if it succeeded or 0 if it failed (the state then
+## unchanged).
+## >> "ws:" u_se< "Workshop"
+## >> (2, 1, 1) ws:s_tep ((1, 0, 0, 0, 0), 2)
+## ((1, 1, 0, 0, 0), 1)
+## >> (2, 1, 1) ws:s_tep ((1, 0, 0, 0, 0), 4)
+## ((1, 0, 0, 0, 0), 0)
+l:s_tep := { (q, w, r) ((pos, wood, ore, made, delivered), op) ->
+  op = 1 ? ((1, wood, ore, made, delivered), 1)
+  (op = 2) & pos = 1 ? ((pos, wood + 1, ore, made, delivered), 1)
+  op = 3 ? ((2, wood, ore, made, delivered), 1)
+  (op = 4) & pos = 2 ? ((pos, wood, ore + 1, made, delivered), 1)
+  op = 5 ? ((3, wood, ore, made, delivered), 1)
+  (op = 6) & (pos = 3) & (wood >= w) & ore >= r ? ((pos, wood - w, ore - r, made + 1, delivered), 1)
+  op = 7 ? ((4, wood, ore, made, delivered), 1)
+  (op = 8) & (pos = 4) & made > 0 ? ((pos, wood, ore, 0, delivered + made), 1)
+  op = 9 ? ((pos, wood, ore, made, delivered), 1)
+  ((pos, wood, ore, made, delivered), 0)
+}
+
+## `(q, w, r) d_one state`: 1 once q devices have been delivered.
+## >> "ws:" u_se< "Workshop"
+## >> (2, 1, 1) ws:d_one (4, 0, 0, 0, 2)
+## 1
+l:d_one := { (q, w, r) (pos, wood, ore, made, delivered) -> delivered >= q }
+
+### The expert
+
+## `(q, w, r) e_xpert state`: the op a competent agent does next: make
+## the devices still needed one at a time (gather the wood, then the
+## ore, then make one), then take them all to the store and deliver;
+## 0 when the task is done. The experiments' stand-in for a model's
+## choice of action: deterministic, always right, and charged for.
+## >> "ws:" u_se< "Workshop"
+## >> (1, 1, 1) ws:e_xpert ws:s_tart @
+## 1
+l:e_xpert := { (q, w, r) (pos, wood, ore, made, delivered) ->
+  need := q - delivered + made
+  have := (wood >= w) & ore >= r
+  (need > 0) & have & pos = 3 ? 6
+  (need > 0) & have ? 5
+  (need > 0) & (wood < w) & pos = 1 ? 2
+  (need > 0) & wood < w ? 1
+  (need > 0) & pos = 2 ? 4
+  need > 0 ? 3
+  (made > 0) & pos = 4 ? 8
+  made > 0 ? 7
+  0
+}
+
+## `n_ame op`: an op code's name, for reports.
+## >> "ws:" u_se< "Workshop"
+## >> ws:n_ame 6
+## make
+l:n_ame := { op ->
+  op = 1 ? "go-forest"
+  op = 2 ? "gather-wood"
+  op = 3 ? "go-mine"
+  op = 4 ? "gather-ore"
+  op = 5 ? "go-workshop"
+  op = 6 ? "make"
+  op = 7 ? "go-store"
+  op = 8 ? "deliver"
+  op = 9 ? "look"
+  "?"
+}

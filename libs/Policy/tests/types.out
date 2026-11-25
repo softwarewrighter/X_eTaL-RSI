@@ -1,0 +1,7 @@
+l:n_one : Num a => Int -> a
+l:l_ookahead : (Num a, Num b, Num c, Num d, Num e) => ((a, b, c), (d, b, c, a, a)) -> Int -> e
+l:c_hoose : Num a => a -> a -> Int
+l:r_un : (Any a, Num b, Num c, Num d, Num e, Num f, Num g) => (a, b, c) -> ((d, b, c, e, e), f) -> ((d, b, c, e, e), f, g)
+l:e_pisode : (Num a, Num b, Num c, Num d, Truthy d, Num e) => ((a, b, c), d, d, d, d) -> Int -> ((e, b, c, a, a), (d, d, d, d, d))
+l:w_orkload : Num a => (a, Int, Int, Int) -> Int -> (Int, (Int, Int, Int, Int, Int))
+l:c_alls : (Any a, Any b, Any c, Num d, Any e) => (a, b, c, d, e) -> Int

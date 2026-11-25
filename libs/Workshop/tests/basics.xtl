@@ -1,0 +1,24 @@
+#!/usr/bin/env xetal
+## Workshop: each op from each place, and the expert's whole route, pinned.
+
+"ws:" u_se< "Workshop"
+
+task := (2, 1, 1)
+s0 := ws:s_tart @
+s0
+## Every op from the start (at the store, nothing carried): only the
+## moves, look and nothing else succeed.
+m_ix '{ op -> (_, ok) := task ws:s_tep (s0, op); ok } m_ap 1 2 3 4 5 6 7 8 9
+## The expert's ops for two devices of 1 wood and 1 ore, stepped by hand.
+(s1, _) := task ws:s_tep (s0, task ws:e_xpert s0)
+task ws:e_xpert s1
+(s2, _) := task ws:s_tep (s1, task ws:e_xpert s1)
+s2
+## A device that needs 2 wood: gather twice before going to the mine.
+(1, 2, 1) ws:e_xpert (1, 1, 0, 0, 0)
+(1, 2, 1) ws:e_xpert (1, 2, 0, 0, 0)
+## Made but not delivered: to the store, then deliver.
+(1, 1, 1) ws:e_xpert (3, 0, 0, 1, 0)
+(1, 1, 1) ws:e_xpert (4, 0, 0, 1, 0)
+(1, 1, 1) ws:e_xpert (4, 0, 0, 0, 1)
+ws:n_ame 4

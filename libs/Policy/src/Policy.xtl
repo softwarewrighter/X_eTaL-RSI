@@ -1,0 +1,134 @@
+## Policy: policies as data: a harness's tools as an op-code table, run by an interpreter the policy cannot change
+## Import it with an alias of your choice: "po:" u_se< "Policy".
+## Put libs/Policy/src on XETAL_PATH ("just path"); the reference is libs/Policy/docs.
+## Names with l: are exported; h: names are private to this file.
+##
+## X_eTaL has no run-time execute (its B29), so what a harness learns is
+## data (plan A1): a tool table T, one row per tool, each row a sequence
+## of Workshop op codes padded with 0 (k tools of at most L ops: a k by
+## L Int array). An empty table (0 rows) is the fixed harness. This
+## library is the interpreter, the protected mechanism: it runs an
+## episode, charges each model call, and journals every op; a policy
+## can only change T.
+##
+## One model call: the model (Workshop's expert, the stand-in) is shown
+## the tools; it uses the longest tool whose ops are exactly what it
+## would do next (it looks ahead L ops), or else does one op itself.
+## The chosen ops run until one fails. Each op is journaled (Journal's
+## columns) with the call's cost on the first op of the call and 0 on
+## the rest, so the calls are the events with a cost.
+
+"ws:" u_se< "Workshop"
+"jr:" u_se< "Journal"
+
+### Tools
+
+## `n_one L`: the empty tool table with rows of L ops (the fixed harness).
+## >> "po:" u_se< "Policy"
+## >> s_hape po:n_one 6
+## 0 6
+l:n_one := { L -> (0 c_at L) r_eshape 0 }
+
+## `(task, s) l_ookahead n`: the next n ops the expert would do from
+## state s of task (0 once the task is done).
+## >> "po:" u_se< "Policy"
+## >> "ws:" u_se< "Workshop"
+## >> ((1, 1, 1), ws:s_tart @) po:l_ookahead 8
+## 1 2 3 4 5 6 7 8
+l:l_ookahead := { (task, s) n ->
+  (_, ops) := n '{ (st, acc) ->
+    o := task ws:e_xpert st
+    (nx, _) := task ws:s_tep (st, o)
+    (nx, acc c_at o)
+  } p_ower (s, 0 r_eshape 0)
+  ops
+}
+
+## `T c_hoose la`: the tool (its row, from 1) whose ops are exactly the
+## start of la, the longest if several, or 0 when none of at least two
+## ops fits (la has L ops, one per column of T).
+## >> "po:" u_se< "Policy"
+## >> (3 4 r_eshape 1 2 0 0 1 2 3 0 5 6 0 0) po:c_hoose 1 2 3 4
+## 2
+l:c_hoose := { T la ->
+  0 = t_ally T ? 0
+  lens := '+ r_/_2 T != 0
+  fits := '& r_/_2 (T = 0) | T = (s_hape T) r_eshape la
+  score := fits * lens
+  best := f_irst g_rade n_eg score
+  (best s_elect score) >= 2 ? best
+  0
+}
+
+## The ops one call runs: tool i's row, or the op o alone (padded to L).
+h:o_ps := { T (i, o) ->
+  i > 0 ? i s_elect T
+  o c_at ((2 s_elect s_hape T) - 1) r_eshape 0
+}
+
+## `task r_un (s, seq)`: run the ops of seq (0s ignored) from state s,
+## stopping at the first that fails: (state, ops done, their oks).
+## >> "po:" u_se< "Policy"
+## >> "ws:" u_se< "Workshop"
+## >> (s, ops, oks) := (1, 1, 1) po:r_un (ws:s_tart @, 1 2 4 3)
+## >> ops
+## 1 2 4
+## >> oks
+## 1 1 0
+l:r_un := { task (s, seq) ->
+  (s2, _, _, ops, oks) := (t_ally seq) '{ (st, i, alive, os, ks) ->
+    o := i s_elect seq
+    (alive = 0) | o = 0 ? (st, i + 1, 0, os, ks)
+    (nx, ok) := task ws:s_tep (st, o)
+    (nx, i + 1, ok, os c_at o, ks c_at ok)
+  } p_ower (s, 1, 1, 0 r_eshape 0, 0 r_eshape 0)
+  (s2, ops, oks)
+}
+
+### Episodes
+
+## `(task, T, id, ver, call) e_pisode budget`: task done by a harness
+## with tool table T, at most budget model calls: (final state,
+## journal). Each call costs call (tokens) and is journaled under task
+## id and policy version ver.
+## >> "po:" u_se< "Policy"
+## >> "jr:" u_se< "Journal"
+## >> (s, j) := ((1, 1, 1), po:n_one 1, 1, 0, 500) po:e_pisode 20
+## >> jr:t_otal j
+## 4000
+l:e_pisode := { (task, T, id, ver, call) budget ->
+  L := 2 s_elect s_hape T
+  budget '{ (s, j) ->
+    task ws:d_one s ? (s, j)
+    la := (task, s) l:l_ookahead L
+    (s2, ops, oks) := task l:r_un (s, T h:o_ps (T l:c_hoose la, f_irst la))
+    n := t_ally ops
+    (s2, j jr:r_ecord (n r_eshape id, n r_eshape ver, ops, call * 1 = r_ange n, oks))
+  } p_ower (ws:s_tart @, jr:e_mpty @)
+}
+
+## `(tasks, T, ver, call) w_orkload budget`: each task in turn (tasks
+## an m by 3 array, a row (q, w, r) per task, numbered 1 to m) by the
+## same harness, each with at most budget calls: (tasks done, journal).
+## >> "po:" u_se< "Policy"
+## >> "jr:" u_se< "Journal"
+## >> (done, j) := (2 3 r_eshape 1 1 1 2 1 1, po:n_one 1, 0, 500) po:w_orkload 40
+## >> done
+## 2
+## >> jr:l_ength j
+## 22
+l:w_orkload := { (tasks, T, ver, call) budget ->
+  (done, j, _) := (t_ally tasks) '{ (d, jj, i) ->
+    row := i s_elect tasks
+    task := (1 s_elect row, 2 s_elect row, 3 s_elect row)
+    (s, je) := (task, T, i, ver, call) l:e_pisode budget
+    (d + task ws:d_one s, jj jr:r_ecord je, i + 1)
+  } p_ower (0, jr:e_mpty @, 1)
+  (done, j)
+}
+
+## `c_alls j`: the model calls in a journal (the events with a cost).
+## >> "po:" u_se< "Policy"
+## >> po:c_alls (1 1 1, 0 0 0, 1 2 3, 500 0 500, 1 1 1)
+## 2
+l:c_alls := { (t, v, o, c, k) -> '+ r_/ c > 0 }

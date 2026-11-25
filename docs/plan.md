@@ -184,7 +184,7 @@ policies lower the capability needed to self-improve.
    browser.
 7. journal [DONE]: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
-8. workshop: the Workshop world and the Policy interpreter: op codes,
+8. workshop [DONE]: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
 9. tool-synthesis: experiment 01: groups A, B, C on the Workshop,

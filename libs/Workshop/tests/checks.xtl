@@ -1,0 +1,32 @@
+#!/usr/bin/env xetal
+## Workshop's properties, checked with Check: the expert finishes every
+## task of a range of sizes and recipes in the number of ops it must
+## take, and no op it chooses ever fails.
+
+"ws:" u_se< "Workshop"
+"k:" u_se< "Check"
+
+## Run the expert for at most n ops: (state, ops taken, failures).
+u:r_un := { task n ->
+  n '{ (s, k, f) ->
+    task ws:d_one s ? (s, k, f)
+    (nx, ok) := task ws:s_tep (s, task ws:e_xpert s)
+    (nx, k + 1, f + ok = 0)
+  } p_ower (ws:s_tart @, 0, 0)
+}
+## For q devices of w wood and r ore: q * (w + r + 4) ops (go to the
+## forest, w gathers, go to the mine, r gathers, go to the workshop,
+## make), then go to the store and deliver.
+u:o_ps := { (q, w, r) -> 2 + q * w + r + 4 }
+u:c_ase := { (q, w, r) ->
+  (s, k, f) := (q, w, r) u:r_un 500
+  ((q, w, r) ws:d_one s) & (f = 0) & k = u:o_ps (q, w, r)
+}
+c1 := "1 device of 1 and 1" k:t_est (u:c_ase (1, 1, 1)) k:i_s 1
+c2 := "5 devices of 1 and 1" k:t_est (u:c_ase (5, 1, 1)) k:i_s 1
+c3 := "3 devices of 2 wood and 1 ore" k:t_est (u:c_ase (3, 2, 1)) k:i_s 1
+c4 := "4 devices of 1 wood and 3 ore" k:t_est (u:c_ase (4, 1, 3)) k:i_s 1
+((p5, w5, o5, m5, d5), ok5) := (2, 1, 1) ws:s_tep ((4, 0, 0, 0, 0), 6)
+c5 := "a failed op changes nothing" k:t_est (p5 c_at w5 c_at o5 c_at m5 c_at d5 c_at ok5) k:i_s 4 0 0 0 0 0
+c6 := "a done task asks for nothing" k:t_est ((1, 1, 1) ws:e_xpert (4, 0, 0, 0, 1)) k:i_s 0
+k:r_eport c1 k:a_nd c2 k:a_nd c3 k:a_nd c4 k:a_nd c5 k:a_nd c6

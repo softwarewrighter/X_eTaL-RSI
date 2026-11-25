@@ -1,0 +1,30 @@
+#!/usr/bin/env xetal
+## Policy: the interpreter's answers, pinned.
+
+"po:" u_se< "Policy"
+"ws:" u_se< "Workshop"
+"jr:" u_se< "Journal"
+
+T := 3 6 r_eshape 1 2 3 4 5 6 7 8 0 0 0 0 1 2 0 0 0 0
+s_hape po:n_one 6
+((2, 1, 1), ws:s_tart @) po:l_ookahead 6
+## The route fits row 1; go-store then deliver fits row 2; forest-wood alone row 3.
+T po:c_hoose 1 2 3 4 5 6
+T po:c_hoose 7 8 0 0 0 0
+T po:c_hoose 1 2 9 9 9 9
+T po:c_hoose 3 4 5 6 7 8
+## A sequence stopped by a failure (gather ore at the forest).
+(s, ops, oks) := (1, 1, 1) po:r_un (ws:s_tart @, 1 2 4 3 0 0)
+s
+ops
+oks
+## One task by the fixed harness and with the tools.
+(sa, ja) := ((2, 1, 1), po:n_one 6, 1, 0, 500) po:e_pisode 50
+(sc, jc) := ((2, 1, 1), T, 1, 1, 500) po:e_pisode 50
+sa
+sc
+po:c_alls ja
+po:c_alls jc
+(t, v, o, c, k) := jc
+o
+c

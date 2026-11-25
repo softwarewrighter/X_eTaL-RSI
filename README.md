@@ -68,8 +68,8 @@ whether the improver itself improves.
 | ------- | ---- | ------ |
 | [Econ](libs/Econ/docs/README.md) | the economics of specialization: break-even, ski rental, budgets | done |
 | [Journal](libs/Journal/docs/README.md) | the event history as columns; repeated sequences and their cost | done |
-| Workshop | a deterministic resource and manufacturing world (gather, carry, make, deliver) | planned |
-| Policy | policies as op-code programs: run, compose, define tools | planned |
+| [Workshop](libs/Workshop/docs/README.md) | a deterministic resource and manufacturing world (gather, carry, make, deliver) | done |
+| [Policy](libs/Policy/docs/README.md) | policies as op-code tables run by a fixed interpreter: episodes, tools, calls | done |
 | Guardian | layered acceptance checks, versions and rollback | planned |
 
 ## Development

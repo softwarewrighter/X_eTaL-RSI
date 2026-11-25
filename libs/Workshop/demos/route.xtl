@@ -1,0 +1,19 @@
+#!/usr/bin/env xetal
+## Workshop in use: the expert delivers 3 devices (1 wood and 1 ore
+## each), every op it takes named.
+
+"ws:" u_se< "Workshop"
+
+task := (3, 1, 1)
+(s, ops) := 20 '{ (st, acc) ->
+  task ws:d_one st ? (st, acc)
+  o := task ws:e_xpert st
+  (nx, _) := task ws:s_tep (st, o)
+  (nx, acc c_at o)
+} p_ower (ws:s_tart @, 0 r_eshape 0)
+"ops taken:"
+ops
+"the op codes 1 to 8 by name:"
+'ws:n_ame m_ap 1 2 3 4 5 6 7 8
+"final state (pos, wood, ore, made, delivered):"
+s

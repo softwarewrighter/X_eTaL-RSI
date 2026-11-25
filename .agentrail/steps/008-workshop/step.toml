@@ -1,6 +1,6 @@
 number = 8
 slug = "workshop"
-status = "pending"
+status = "in-progress"
 description = "The Workshop world and Policy interpreter (ws:, po:): a deterministic resourc..."
 role = "production"
 context_files = []

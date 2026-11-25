@@ -11,6 +11,8 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 20:06 `feat` The Workshop world and the Policy interpreter (step 8): nine op codes over four places, pure s_tep with preconditions, d_one, the e_xpert that stands in for a model's choice, n_ame; tool tables as data (plan A1) run by po:e_pisode and po:w_orkload, one charged and journaled call per primitive op or per fitting tool (longest by lookahead), a step budget; 32 doc examples, basics, 14 checks (the expert's op counts, tools change calls but never outcomes or ops, 5 calls saved per device, a never-fitting tool is inert, the budget stops an episode); the fixed harness on six tasks: 120 calls, 55 with the route as a tool.
+- 21:05 `chore` Step 7 (journal) closed.
 - 19:57 `feat` The Journal library (step 7): an agent's history as five columns (task, version, op, cost, ok), append-only (e_mpty, r_ecord, l_ength, t_otal, v_ersion); n-grams of ops within a task as base-100 keys (k_eys, d_ecode) and each one's count, cost and failures ordered by calls a tool would save (s_equences); 21 doc examples, basics, seven checks against brute force, the repeats demo.
 - 20:00 `chore` Step 6 (pages) closed.
 - 19:53 `docs` The site is live (GitHub Pages from gh-pages, enabled by the user): just check-live finds the catalog at 761b797 and experiment 05's page running X_eTaL in headless Chrome (4 checks).

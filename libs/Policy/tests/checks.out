@@ -1,0 +1,9 @@
+ok: the fixed harness finishes every task
+ok: so does the harness with the tool
+ok: the same ops, in the same order
+ok: no op fails
+ok: the fixed harness makes one call per op
+ok: the tool saves 5 calls per device made with it
+ok: a tool that never fits changes nothing
+ok: the budget stops an episode
+8 checks, all passed
