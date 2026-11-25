@@ -1,0 +1,1 @@
+tool-synthesis: Policy e_pisodeWith/w_orkloadWith/s_ynthesize; experiment 01 groups A/B/C/C-short, held-out same and shifted recipes; tools halve calls, hints cost more tokens, long tools over-specialize, short tools transfer; 8 claim checks

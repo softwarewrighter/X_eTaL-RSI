@@ -1,8 +1,9 @@
 number = 10
 slug = "tool-synthesis"
-status = "in-progress"
+status = "completed"
 description = "Experiment 01 (tool synthesis): groups A, B, C on the Workshop; tools synthes..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
-commits = []
+completed_at = "2026-11-24T20:19:58"
+commits = ["a75710ffe9e3822058297ac43fdf22d8310f7bef"]
