@@ -1,0 +1,1 @@
+pages: shared/microscope (ML shell core on this pin), experiment 05 live page with sliders, curves, sweep, decorated program; build/publish/browser-check/check-live scripts; live at softwarewrighter.github.io/X_eTaL-RSI, check-live ok
