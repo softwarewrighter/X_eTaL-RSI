@@ -1,0 +1,1 @@
+The Guardian library (gd:) and experiment 07: layered checks (well-formed, capability, tests, held-out regression, budget, shadow run), version history and rollback with the journal intact; deliberately defective candidates rejected or rolled back.

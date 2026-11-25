@@ -1,0 +1,1 @@
+The Journal library (jr:): the append-only event history as columns (task, policy version, op, cost, outcome), n-gram counts of op sequences, cost per sequence, the top tool candidates; tests and doc examples.

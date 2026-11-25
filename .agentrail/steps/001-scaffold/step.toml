@@ -1,0 +1,8 @@
+number = 1
+slug = "scaffold"
+status = "in-progress"
+description = "Scaffold the repo as the siblings are (../X_eTaL-ML): CLAUDE.md with the agen..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T16:14:14"
+commits = []

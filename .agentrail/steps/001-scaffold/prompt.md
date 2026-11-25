@@ -1,0 +1,1 @@
+Scaffold the repo as the siblings are (../X_eTaL-ML): CLAUDE.md with the agentrail briefing and repo rules, AGENTS.md a symlink to it, README.md (what, why X_eTaL, the paper, experiments, copyright, license), COPYRIGHT and LICENSE as given, CHANGES.md as in ../X_eTaL, docs/plan.md, docs/xetal-asks.md, .gitignore, justfile, scripts/gate.sh (markdown, spelling).

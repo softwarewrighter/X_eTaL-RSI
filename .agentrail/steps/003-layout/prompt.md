@@ -1,0 +1,1 @@
+Libraries and experiments layout (plan A6): templates/Library and templates/Experiment, scripts/test-libs.sh and test-experiments.sh (reg-rs; types.rgt; FAIL lines fail), new-lib.sh, new-experiment.sh, libs.py layout check; just test, test-lib, test-experiment, bless, new-lib, new-experiment; the gate runs them.

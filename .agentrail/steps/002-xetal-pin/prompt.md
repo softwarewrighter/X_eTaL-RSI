@@ -1,0 +1,1 @@
+Pin X_eTaL and X_eTaL-libraries as X_eTaL-ML does: XETAL_COMMIT and XETAL_LIBRARIES_COMMIT, scripts/xetal.sh, xetal-pin.sh, xetal-libraries.sh (Check and the others used), scripts/xt (every libs/*/src and work/libs/*/src on XETAL_PATH), scripts/py and .python-version, check-xetal.sh and check-asks.py in the gate; just xetal, xetal-pin, libs-pin, eval.

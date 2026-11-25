@@ -1,0 +1,1 @@
+The Econ library (ec:): fixed cost nB against improving cost I + nA, break-even I/(B-A), cumulative curves, a bounded improvement budget allocated by expected reuse; tests with Check and doc examples. Experiment 05 (specialization cost): workloads of varying repetition, when improvement pays and when it does not, groups A (fixed) and D (always improve) and a budgeted policy.

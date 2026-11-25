@@ -1,0 +1,8 @@
+number = 3
+slug = "layout"
+status = "pending"
+description = "Libraries and experiments layout (plan A6): templates/Library and templates/E..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T16:14:14"
+commits = []

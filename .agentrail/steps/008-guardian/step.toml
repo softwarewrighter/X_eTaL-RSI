@@ -1,0 +1,8 @@
+number = 8
+slug = "guardian"
+status = "pending"
+description = "The Guardian library (gd:) and experiment 07: layered checks (well-formed, ca..."
+role = "production"
+context_files = []
+created_at = "2026-11-24T16:14:14"
+commits = []

@@ -1,0 +1,1 @@
+Experiment 01 (tool synthesis): groups A, B, C on the Workshop; tools synthesized from the Journal's n-grams as macro ops; model calls, cost and correctness on training and held-out tasks; README with results and limits.
