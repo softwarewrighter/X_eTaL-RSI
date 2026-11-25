@@ -9,6 +9,10 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 `design` a decision recorded, `plan` saga planning and reordering,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-25
+
+- 14:17 `plan` Saga 1 (foundation) archived; Saga 2 (recursion) started: six steps, Evolve and experiment 03, the recursive optimizer (04), the third page, transfer (06), context optimization (02), a report.
+
 ## 2026-11-24
 
 - 22:11 `docs` The second page is live (check-live: the catalog at f2f6061, both pages run X_eTaL there); the plan's step list matches the saga's numbering; Saga 1 done.

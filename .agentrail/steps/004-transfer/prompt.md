@@ -1,0 +1,1 @@
+Experiment 06, transfer (H2): a harness evolved on one family of Workshop tasks run on near families (new recipes) and unrelated ones (wood-only, ore-only devices), frozen and with continued evolution; what transfers, what is dead weight in the prompt. Claims checked, README, gate, docs, commit, push.

@@ -1,0 +1,8 @@
+number = 4
+slug = "transfer"
+status = "pending"
+description = "Experiment 06, transfer (H2): a harness evolved on one family of Workshop tas..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T14:16:22"
+commits = []

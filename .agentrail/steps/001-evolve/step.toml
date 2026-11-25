@@ -1,0 +1,8 @@
+number = 1
+slug = "evolve"
+status = "in-progress"
+description = "The Evolve library (ev:): the improvement loop as protected mechanism (plan A..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T14:16:22"
+commits = []

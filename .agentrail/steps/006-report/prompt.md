@@ -1,0 +1,1 @@
+docs/report.md: what experiments 01 to 07 show, hypothesis by hypothesis (H1 to H8, those tested), negative results and limits included, linked from README; gate, docs, commit, push.

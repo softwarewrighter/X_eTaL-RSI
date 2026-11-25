@@ -198,12 +198,37 @@ policies lower the capability needed to self-improve.
 12. page-01 [DONE]: the second live page (the user asked when): experiment 01
     in the browser.
 
-## Saga 2 -- recursion  [PROPOSED]
+## Saga 2 -- recursion  [ACTIVE 2026-11-25]
 
 Experiments 03 (policy evolution), 04 (recursive optimizer: groups D
 and E, the optimizer's own parameters as an editable policy), 06
 (transfer to unseen and unrelated task families), and 02 (context
-optimization). A written report of results, negative ones included.
+optimization), with a written report of the results, negative ones
+included.
+
+1. evolve: the Evolve library (`ev:`), the improvement loop as
+   protected mechanism: an optimizer is a parameter vector (shortest
+   and longest tool, tools kept, the journal window learned from, how
+   often to revise), interpreted by fixed code that synthesizes
+   candidates from the recent journal, reviews them with the Guardian
+   and runs the work with whatever is accepted. Experiment 03 (policy
+   evolution): A fixed, C tools learned once, D evolving (guarded and
+   unguarded) on a stream of batches whose recipe shifts; the timeline
+   of accepted and rejected revisions and what each cost.
+2. recursive: experiment 04 (the paper's central question, H3): group
+   E edits its own optimizer vector (a fixed meta-level replays recent
+   work under neighboring optimizers and adopts a better one through
+   the guardian) against D with fixed optimizers, well and badly
+   tuned; what the meta-level costs and when it pays.
+3. page-04: the third live page: experiments 03 and 04 in the browser
+   (the policy timeline, D against E).
+4. transfer: experiment 06: a harness evolved on one family run on
+   near (new recipes) and unrelated (wood-only, ore-only) families,
+   with and without continued evolution (H2).
+5. context: experiment 02: which tools stay in the prompt (retiring
+   unused ones by a learned rule), prompt size against calls saved.
+6. report: `docs/report.md`: what the experiments show, hypothesis by
+   hypothesis, negative results and limits included.
 
 ## Saga 3 -- models  [PROPOSED]
 

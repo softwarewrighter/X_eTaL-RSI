@@ -1,0 +1,1 @@
+The third live page: experiments 03 and 04 in the browser (the policy timeline with accepted and rejected revisions, D against E with the optimizer's settings on sliders), page tests against the command-line experiments, background with references, published and check-live.

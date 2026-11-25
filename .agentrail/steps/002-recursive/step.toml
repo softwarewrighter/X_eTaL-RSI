@@ -1,0 +1,8 @@
+number = 2
+slug = "recursive"
+status = "pending"
+description = "Experiment 04, the recursive optimizer (the paper's central question, hypothe..."
+role = "production"
+context_files = []
+created_at = "2026-11-25T14:16:22"
+commits = []

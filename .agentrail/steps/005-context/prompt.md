@@ -1,0 +1,1 @@
+Experiment 02, context optimization: which tools stay in the prompt; a rule that retires tools unused in recent work (its threshold a policy parameter) against keeping everything and against no tools; prompt size against calls saved, on a shifting stream. Claims checked, README, gate, docs, commit, push.

@@ -18,7 +18,9 @@ question so that later architectures fit.
 
 Source: `docs/research.pdf` (an analysis of the Exo paper with
 proposed experiments, archival, not normative). This plan turns it
-into sagas and steps. Development is driven by agentrail sagas (one
+into sagas and steps; `docs/related.md` relates it to earlier work on
+improving agents (ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs,
+all-together-now). Development is driven by agentrail sagas (one
 active saga in `.agentrail/`, finished sagas archived to
 `.agentrail-archive/`), as in the sibling repos. Every step ends with
 the gate (`just gate`), docs updated (`README.md`, `CHANGES.md`, this
@@ -133,7 +135,7 @@ work/                   gitignored: the X_eTaL clones, scratch
 | ------- | ----- | ---- |
 | Econ | `ec:` | the economics of specialization: fixed versus improving cost, break-even, a bounded improvement budget |
 | Journal | `jr:` | the append-only event history as columns; frequency of action sequences (n-grams), cost by sequence |
-| Workshop | `ws:` | the deterministic task world: gather, carry, make, deliver, with an op-code action set and its cost meter |
+| Workshop | `ws:` | the deterministic task world: gather, carry, make, deliver (the research's resource and manufacturing world), with an op-code action set and its cost meter |
 | Policy | `po:` | policies as op-code programs: interpret, compose, define a tool (macro op), diff two versions |
 | Guardian | `gd:` | the layered acceptance checks, version history and rollback |
 
@@ -160,35 +162,73 @@ revisions; H6 stronger guardians pay for their cost; H7
 specialization partly makes up for a weaker model; H8 structured
 policies lower the capability needed to self-improve.
 
-## Saga 1 -- foundation  [ACTIVE, begun 2026-11-24]
+## Saga 1 -- foundation  [DONE 2026-11-24]
 
-1. scaffold: agentrail, CLAUDE.md/AGENTS.md, README, CHANGES, license
+1. scaffold [DONE]: agentrail, CLAUDE.md/AGENTS.md, README, CHANGES, license
    files, this plan, the asks file, `.gitignore`, justfile, the gate.
-2. xetal-pin: the pinned X_eTaL and X_eTaL-libraries (clones in
+2. xetal-pin [DONE]: the pinned X_eTaL and X_eTaL-libraries (clones in
    `work/`), `scripts/xt`, `just eval`, the X_eTaL check and the asks
    check in the gate.
-3. layout: `libs/` and `experiments/` with templates, runners (reg-rs),
+3. layout [DONE]: `libs/` and `experiments/` with templates, runners (reg-rs),
    `just new-lib`, `just new-experiment`, `just test`.
-4. econ: the Econ library and experiment 05 (specialization cost):
+4. econ [DONE]: the Econ library and experiment 05 (specialization cost):
    break-even over workloads of varying repetition, and a bounded
    budget allocated by expected reuse.
-5. journal: the Journal library: events as columns, n-gram counts of
+5. related [DONE]: docs/related.md (the user): this repository beside
+   ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs,
+   all-together-now and the continuous-learning architecture of the
+   author's blog.
+6. pages [DONE]: the first live page, on GitHub Pages (pulled forward at the
+   user's request): X_eTaL-ML's page shell and publishing, and
+   experiment 05 as the break-even simulator, computed in X_eTaL in the
+   browser.
+7. journal [DONE]: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
-6. workshop: the Workshop world and the Policy interpreter: op codes,
+8. workshop [DONE]: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
-7. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
+9. explain-05 [DONE]: experiment 05's page and README explain where its
+   rules come from (the user asked), with references.
+10. tool-synthesis [DONE]: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and
    correctness compared, held-out tasks.
-8. guardian: the Guardian library and experiment 07: layered checks,
+11. guardian [DONE]: the Guardian library and experiment 07: layered checks,
    deliberately defective candidates, rollback with history intact.
 
-## Saga 2 -- recursion  [PROPOSED]
+12. page-01 [DONE]: the second live page (the user asked when): experiment 01
+    in the browser.
+
+## Saga 2 -- recursion  [ACTIVE 2026-11-25]
 
 Experiments 03 (policy evolution), 04 (recursive optimizer: groups D
 and E, the optimizer's own parameters as an editable policy), 06
 (transfer to unseen and unrelated task families), and 02 (context
-optimization). A written report of results, negative ones included.
+optimization), with a written report of the results, negative ones
+included.
+
+1. evolve: the Evolve library (`ev:`), the improvement loop as
+   protected mechanism: an optimizer is a parameter vector (shortest
+   and longest tool, tools kept, the journal window learned from, how
+   often to revise), interpreted by fixed code that synthesizes
+   candidates from the recent journal, reviews them with the Guardian
+   and runs the work with whatever is accepted. Experiment 03 (policy
+   evolution): A fixed, C tools learned once, D evolving (guarded and
+   unguarded) on a stream of batches whose recipe shifts; the timeline
+   of accepted and rejected revisions and what each cost.
+2. recursive: experiment 04 (the paper's central question, H3): group
+   E edits its own optimizer vector (a fixed meta-level replays recent
+   work under neighboring optimizers and adopts a better one through
+   the guardian) against D with fixed optimizers, well and badly
+   tuned; what the meta-level costs and when it pays.
+3. page-04: the third live page: experiments 03 and 04 in the browser
+   (the policy timeline, D against E).
+4. transfer: experiment 06: a harness evolved on one family run on
+   near (new recipes) and unrelated (wood-only, ore-only) families,
+   with and without continued evolution (H2).
+5. context: experiment 02: which tools stay in the prompt (retiring
+   unused ones by a learned rule), prompt size against calls saved.
+6. report: `docs/report.md`: what the experiments show, hypothesis by
+   hypothesis, negative results and limits included.
 
 ## Saga 3 -- models  [PROPOSED]
 
