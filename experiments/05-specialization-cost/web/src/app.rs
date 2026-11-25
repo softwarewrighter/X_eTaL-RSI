@@ -140,6 +140,7 @@ pub fn App() -> Html {
                     { sweep(c) }
                 </section>
             </> }) }
+            { background() }
             <section class="panel">
                 <h2>{ "The X_eTaL program this page runs" }</h2>
                 <p class="note">{ "Rewritten from the sliders and run on every change; the Econ library is in libs/Econ." }</p>
@@ -147,5 +148,30 @@ pub fn App() -> Html {
             </section>
             { chrome::footer() }
         </main>
+    }
+}
+
+/// Where the groups and the cost-aware rule come from, with references.
+fn background() -> Html {
+    html! {
+        <section class="panel">
+            <h2>{ "Where the rules come from" }</h2>
+            <p>
+                { "The question is the Exo paper's: a frozen model improves the harness it runs in (its tools, procedures and memory) without any weight changing, and the paper finds that this costs more at first and pays only when the improvements are reused (Krentsel, Ratnasamy, Stoica, Casado and Goyal, " }
+                <a href="https://arxiv.org/abs/2611.00463" target="_blank">{ "Exo: An Architecture for Self-Improving Systems at Runtime" }</a>
+                { ", arXiv 2611.00463, 2026)." }
+            </p>
+            <p>
+                { "The group letters follow the ablation table this project uses to tell the kinds of improvement apart (A a fixed harness, B memory, C tools, D a harness that improves itself, E one that also improves how it improves). Here there are two versions of D. " }
+                <b>{ "D always improves" }</b>
+                { " buys the improvement for a kind of task before its first task. " }
+                <b>{ "D-ski" }</b>
+                { " decides when, by the rule for the ski-rental problem: you do not know how many days you will ski, renting costs a little a day and buying costs a lot once, so rent until the rent paid equals the price, then buy. Here renting is doing a task at the baseline cost b, buying is paying the investment i, and the rule is to improve a kind once k = i / (b - a), rounded up, of its tasks have been done at the baseline. Whatever the number of tasks turns out to be, that never costs more than twice the best choice made knowing it in advance (Karlin, Manasse, Rudolph and Sleator, \"Competitive snoopy caching\", Algorithmica 3, 1988, the paper usually cited for the rent-or-buy bound)." }
+            </p>
+            <p>
+                <b>{ "Best in hindsight" }</b>
+                { " is the cheaper of never improving and improving at once, chosen knowing the count: not a harness anyone can run, the yardstick the others are measured against. The command-line experiment adds a fifth harness that knows each kind's expected uses and spends a fixed budget where it returns most; it reaches the hindsight cost, which is why predicting reuse is worth learning." }
+            </p>
+        </section>
     }
 }

@@ -21,6 +21,28 @@ The model: each task kind can be improved once for i = 3000 tokens,
 cutting its cost from b = 1000 to a = 450 tokens (the research's
 example, a 55% saving). Break-even: 3000 / 550 = 5.45 tasks of a kind.
 
+## Background
+
+The question is the Exo paper's (Krentsel, Ratnasamy, Stoica, Casado
+and Goyal, [Exo: An Architecture for Self-Improving Systems at
+Runtime](https://arxiv.org/abs/2611.00463), arXiv 2611.00463, 2026): a
+harness that improves itself spends first and saves later, so the gain
+depends on reuse.
+
+The group letters are the research's ablation groups (A fixed, B memory,
+C tools, D self-improving harness, E recursive; see `docs/plan.md`, A5).
+"D-ski" is group D with the decision rule of the ski-rental problem, the
+classic rent-or-buy question: when you do not know how many days you
+will ski, rent until the rent paid equals the price of skis, then buy.
+Here renting is a task at the baseline cost b and buying is the
+investment i, so D-ski improves a kind of task once k = i / (b - a),
+rounded up, of its tasks have been done at the baseline. Whatever the
+number of tasks turns out to be, this never costs more than twice the
+best choice made in hindsight (Karlin, Manasse, Rudolph and Sleator,
+"Competitive snoopy caching", Algorithmica 3, 1988, the paper usually
+cited for the rent-or-buy bound). The library behind it is
+[Econ](../../libs/Econ/docs/README.md).
+
 ## Groups
 
 | Group | Memory | Tools | Harness | Optimizer | Rule |
