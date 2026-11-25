@@ -1,8 +1,9 @@
 number = 2
 slug = "xetal-pin"
-status = "in-progress"
+status = "completed"
 description = "Pin X_eTaL and X_eTaL-libraries as X_eTaL-ML does: XETAL_COMMIT and XETAL_LIB..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
-commits = []
+completed_at = "2026-11-24T16:54:45"
+commits = ["dfe221bcca5d2c2257d042d5755908ab7ce5c5ea"]

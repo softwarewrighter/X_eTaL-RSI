@@ -1,0 +1,1 @@
+xetal-pin: XETAL_COMMIT c925f58, XETAL_LIBRARIES_COMMIT c7e812e, xetal/xt/pin scripts from X_eTaL-ML, check-xetal and check-asks in the gate
