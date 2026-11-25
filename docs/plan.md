@@ -133,32 +133,9 @@ work/                   gitignored: the X_eTaL clones, scratch
 | ------- | ----- | ---- |
 | Econ | `ec:` | the economics of specialization: fixed versus improving cost, break-even, a bounded improvement budget |
 | Journal | `jr:` | the append-only event history as columns; frequency of action sequences (n-grams), cost by sequence |
-| Workshop | `ws:` | the deterministic task world: assembling electronic devices with manipulator arms (below), an op-code action set and its cost meter |
+| Workshop | `ws:` | the deterministic task world: gather, carry, make, deliver (the research's resource and manufacturing world), with an op-code action set and its cost meter |
 | Policy | `po:` | policies as op-code programs: interpret, compose, define a tool (macro op), diff two versions |
 | Guardian | `gd:` | the layered acceptance checks, version history and rollback |
-
-### The Workshop's manipulators (the user, 2026-11-24)
-
-The Workshop assembles electronic devices (through-hole parts on a
-board), so its op codes are the actions of manipulator arms, each
-with its own cost and failure modes:
-
-| Manipulator | Ops |
-| ----------- | --- |
-| gripper | grasp, release, place |
-| orienter | orient (rotate a part or the board to an angle) |
-| soldering iron | solder a joint (with a dwell time) |
-| heat sink | clamp a heat sink on a lead while it is soldered, then remove it |
-| viewer (camera) | view: inspect a joint or a part's position (gives an observation) |
-| wire bender | bend a lead or a wire to a pitch and angle |
-| cutter | cut excess leads after soldering; cut a wire of a length from a spool |
-
-A task is a bill of materials and a board layout; a tool the system
-synthesizes is a reusable sequence of these ops (for example
-cut-from-spool, bend, place, clamp heat sink, solder, unclamp, view,
-trim leads). Which arm does an op, and whether two arms can work at
-once, is the Workshop's to model (a later experiment may schedule
-them).
 
 ## The experiments (from the research, renumbered as built)
 
@@ -197,9 +174,8 @@ policies lower the capability needed to self-improve.
    budget allocated by expected reuse.
 5. journal: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
-6. workshop: the Workshop world (electronics assembly by manipulator
-   arms, above) and the Policy interpreter: op codes, a fixed-harness
-   baseline (group A) that consults the oracle for
+6. workshop: the Workshop world and the Policy interpreter: op codes,
+   a fixed-harness baseline (group A) that consults the oracle for
    every action.
 7. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and

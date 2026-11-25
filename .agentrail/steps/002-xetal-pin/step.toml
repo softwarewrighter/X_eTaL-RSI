@@ -1,6 +1,6 @@
 number = 2
 slug = "xetal-pin"
-status = "pending"
+status = "in-progress"
 description = "Pin X_eTaL and X_eTaL-libraries as X_eTaL-ML does: XETAL_COMMIT and XETAL_LIB..."
 role = "production"
 context_files = []

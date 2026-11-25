@@ -54,7 +54,7 @@ The full list, the hypotheses and the roadmap are in
 | ------- | ---- | ------ |
 | Econ | the economics of specialization: break-even, budgets | planned |
 | Journal | the event history as columns; repeated sequences and their cost | planned |
-| Workshop | a deterministic electronics-assembly world worked by manipulator arms | planned |
+| Workshop | a deterministic resource and manufacturing world (gather, carry, make, deliver) | planned |
 | Policy | policies as op-code programs: run, compose, define tools | planned |
 | Guardian | layered acceptance checks, versions and rollback | planned |
 

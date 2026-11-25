@@ -1,7 +1,7 @@
 number = 6
 slug = "workshop"
 status = "pending"
-description = "The Workshop world and Policy interpreter (ws:, po:): a deterministic electro..."
+description = "The Workshop world and Policy interpreter (ws:, po:): a deterministic resourc..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
