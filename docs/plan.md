@@ -162,9 +162,9 @@ policies lower the capability needed to self-improve.
 
 ## Saga 1 -- foundation  [ACTIVE, begun 2026-11-24]
 
-1. scaffold: agentrail, CLAUDE.md/AGENTS.md, README, CHANGES, license
+1. scaffold [DONE]: agentrail, CLAUDE.md/AGENTS.md, README, CHANGES, license
    files, this plan, the asks file, `.gitignore`, justfile, the gate.
-2. xetal-pin: the pinned X_eTaL and X_eTaL-libraries (clones in
+2. xetal-pin [DONE]: the pinned X_eTaL and X_eTaL-libraries (clones in
    `work/`), `scripts/xt`, `just eval`, the X_eTaL check and the asks
    check in the gate.
 3. layout: `libs/` and `experiments/` with templates, runners (reg-rs),

@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
-# The pre-commit gate: spelling (American), ASCII-only markdown.
+# The pre-commit gate: the pinned X_eTaL, the asks against its ledger,
+# spelling (American), ASCII-only markdown.
 #   scripts/gate.sh
 set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$root"
 step() { printf '==> %s\n' "$*"; }
+step "the pinned X_eTaL"
+scripts/check-xetal.sh
+step "the asks"
+scripts/py scripts/check-asks.py --self-test
+scripts/py scripts/check-asks.py
 step "spelling"
 scripts/py scripts/check-spelling.py --self-test
 scripts/py scripts/check-spelling.py

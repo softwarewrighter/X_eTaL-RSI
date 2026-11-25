@@ -60,6 +60,13 @@ The full list, the hypotheses and the roadmap are in
 
 ## Development
 
+X_eTaL is not part of this repository: `XETAL_COMMIT` and
+`XETAL_LIBRARIES_COMMIT` pin the known-good commits, and `just xetal`
+clones X_eTaL and X_eTaL-libraries into `work/` (gitignored), builds the
+CLI and links `bin/xetal`. It needs Rust (cargo), and
+[uv](https://docs.astral.sh/uv/) for the scripts. `just eval EXPR`
+evaluates an expression with every library on the search path.
+
 `just` lists the tasks; `just gate` is the pre-commit gate. Work is
 planned as agentrail sagas (`agentrail status`); the decisions are in
 [docs/plan.md](docs/plan.md), and what this repository needs from
