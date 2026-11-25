@@ -48,6 +48,15 @@ each one says so.
 The full list, the hypotheses and the roadmap are in
 [docs/plan.md](docs/plan.md).
 
+## Related work
+
+[docs/related.md](docs/related.md) sets this beside earlier ways of
+improving agents without retraining: in-context learning, in-context
+reinforcement learning, XSkill, Recursive Language Models, the Ralph
+loop, agentrail-rs, all-together-now, and a continuous-learning
+architecture, by what each changes, where it is kept, who checks it and
+whether the improver itself improves.
+
 ## Libraries
 
 | Library | What | Status |

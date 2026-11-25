@@ -18,7 +18,9 @@ question so that later architectures fit.
 
 Source: `docs/research.pdf` (an analysis of the Exo paper with
 proposed experiments, archival, not normative). This plan turns it
-into sagas and steps. Development is driven by agentrail sagas (one
+into sagas and steps; `docs/related.md` relates it to earlier work on
+improving agents (ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs,
+all-together-now). Development is driven by agentrail sagas (one
 active saga in `.agentrail/`, finished sagas archived to
 `.agentrail-archive/`), as in the sibling repos. Every step ends with
 the gate (`just gate`), docs updated (`README.md`, `CHANGES.md`, this
@@ -172,19 +174,23 @@ policies lower the capability needed to self-improve.
 4. econ [DONE]: the Econ library and experiment 05 (specialization cost):
    break-even over workloads of varying repetition, and a bounded
    budget allocated by expected reuse.
-5. pages: the first live page, on GitHub Pages (pulled forward at the
+5. related [DONE]: docs/related.md (the user): this repository beside
+   ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs,
+   all-together-now and the continuous-learning architecture of the
+   author's blog.
+6. pages: the first live page, on GitHub Pages (pulled forward at the
    user's request): X_eTaL-ML's page shell and publishing, and
    experiment 05 as the break-even simulator, computed in X_eTaL in the
    browser.
-6. journal: the Journal library: events as columns, n-gram counts of
+7. journal: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
-7. workshop: the Workshop world and the Policy interpreter: op codes,
+8. workshop: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
-8. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
+9. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and
    correctness compared, held-out tasks.
-9. guardian: the Guardian library and experiment 07: layered checks,
+10. guardian: the Guardian library and experiment 07: layered checks,
    deliberately defective candidates, rollback with history intact.
 
 ## Saga 2 -- recursion  [PROPOSED]

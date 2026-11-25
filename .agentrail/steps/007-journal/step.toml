@@ -1,4 +1,4 @@
-number = 6
+number = 7
 slug = "journal"
 status = "pending"
 description = "The Journal library (jr:): the append-only event history as columns (task, po..."

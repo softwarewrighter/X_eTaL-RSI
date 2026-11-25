@@ -376,6 +376,8 @@ Read before working:
   libraries, the experiments, the saga roadmap
 - `docs/xetal-asks.md` -- what the experiments and libraries need from
   X_eTaL
+- `docs/related.md` -- this repo beside ICL, ICRL, XSkill, RLM, Ralph,
+  agentrail-rs, all-together-now
 - `docs/research.pdf` -- the analysis this repo started from
   (archival, NOT normative)
 - `work/xetal/docs/lang-choices.md`, `work/xetal/docs/reference.md`,

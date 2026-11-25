@@ -1,0 +1,1 @@
+docs/related.md (the user: compare this repo to their prior work on improving agents): Exo and this repo beside ICL, ICRL, XSkill, agentrail-rs (trajectories, skills, distill), X_eTaL-ML's in-context-learning saga, and all-together-now if found; what each changes, where it is stored, whether it persists, who verifies it, and what this repo can reuse or test.

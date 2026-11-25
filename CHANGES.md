@@ -11,6 +11,8 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 19:21 `docs` docs/related.md (step 5, the user): this repository and Exo beside ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs, all-together-now, the continuous-learning agent and the local-model plan-execute-review loop, by six questions (what changes, where kept, persists, checked by, does the improver improve, what is taken here), with links to the author's blog posts; linked from the README, the plan and CLAUDE.md; in the gate's markdown check.
+- 17:45 `chore` Step 4 (econ) closed.
 - 18:57 `exp` Experiment 05, specialization cost (step 4): repetition swept over 40 tasks and four workload shapes for the fixed harness, always improving, the cost-aware ski-rental rule, hindsight and a budget; always improving costs 3.45 times the fixed harness on one-off work, ski rental stays within 1.5 times hindsight, a budget with known reuse reaches it.
 - 18:57 `feat` The Econ library (step 4): a_fter, f_ixed, e_ager, h_indsight, b_reakEven, s_kiRental, r_atio, a_llocate, n_et; 18 doc examples, basics, eight property checks, the break-even demo.
 - 18:57 `plan` A pages step (5) inserted after econ: the first live page on GitHub Pages, pulled forward at the user's request.
