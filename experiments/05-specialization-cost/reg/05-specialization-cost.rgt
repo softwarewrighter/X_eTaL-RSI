@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../05-specialization-cost.xtl"
+exit_code = 0

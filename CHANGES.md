@@ -11,6 +11,10 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 18:57 `exp` Experiment 05, specialization cost (step 4): repetition swept over 40 tasks and four workload shapes for the fixed harness, always improving, the cost-aware ski-rental rule, hindsight and a budget; always improving costs 3.45 times the fixed harness on one-off work, ski rental stays within 1.5 times hindsight, a budget with known reuse reaches it.
+- 18:57 `feat` The Econ library (step 4): a_fter, f_ixed, e_ager, h_indsight, b_reakEven, s_kiRental, r_atio, a_llocate, n_et; 18 doc examples, basics, eight property checks, the break-even demo.
+- 18:57 `plan` A pages step (5) inserted after econ: the first live page on GitHub Pages, pulled forward at the user's request.
+- 17:20 `chore` Step 3 (layout) closed.
 - 18:06 `build` Layout (step 3): libs/<Name>/ as in X_eTaL-libraries (templates/Library, libs.py, test-libs.sh, new-lib.sh, run-lib.sh, doc-test.sh) and experiments/NN-slug/ (templates/Experiment, experiments.sh, test-experiments.sh, run-experiment.sh, new-experiment.sh), reg-rs baselines, FAIL lines fail; just test, new-lib, new-exp, run-exp, show-exp, test-lib, test-exp, bless-lib, bless-exp, doc-test; the gate runs them all; xetal.sh keeps cargo's warnings for a failed build.
 - 17:00 `chore` Step 2 (xetal-pin) closed.
 - 16:54 `build` The pinned X_eTaL (step 2): XETAL_COMMIT c925f58 and XETAL_LIBRARIES_COMMIT c7e812e, cloned into work/ and built by scripts/xetal.sh (just xetal, xetal-pin, libs-pin, xetal-version); Check, Parsing, Lists, Strings, Format and Statistics from X_eTaL-libraries; scripts/xt (just eval) with every library on XETAL_PATH; check-xetal and check-asks (asks R1.. against X_eTaL's ledger) in the gate.

@@ -1,0 +1,7 @@
+break-even after tasks:
+5.454545454545454
+first task where improving is cheaper:
+6
+cumulative cost after 5, 10, 20, 30 tasks (fixed, then improving):
+5000 10000 20000 30000
+5250 7500 12000 16500

@@ -1,0 +1,9 @@
+ok: hindsight is never beaten by fixed or eager
+ok: ski rental costs at most twice hindsight
+ok: k = 0 is eager
+ok: a huge k is fixed
+ok: eager pays once past the break-even
+ok: the budget is never exceeded
+ok: nothing that loses is bought
+ok: an improvement that never pays is never bought
+8 checks, all passed

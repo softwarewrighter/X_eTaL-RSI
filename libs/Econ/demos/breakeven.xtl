@@ -1,0 +1,19 @@
+#!/usr/bin/env xetal
+## Econ in use: the research's break-even example. An improvement costs
+## 3000 tokens and cuts a 1000-token task by 55%, to 450: the
+## cumulative cost of 30 tasks, never improving and improving at once,
+## and where the second overtakes the first.
+
+"ec:" u_se< "Econ"
+
+s := (3000, 1000, 450)
+n := r_ange 30
+fixed := s ec:f_ixed n
+rsi := s ec:e_ager n
+"break-even after tasks:"
+ec:b_reakEven s
+"first task where improving is cheaper:"
+f_irst w_here rsi < fixed
+"cumulative cost after 5, 10, 20, 30 tasks (fixed, then improving):"
+5 10 20 30 s_elect fixed
+5 10 20 30 s_elect rsi

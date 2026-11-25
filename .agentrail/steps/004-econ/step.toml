@@ -1,6 +1,6 @@
 number = 4
 slug = "econ"
-status = "pending"
+status = "in-progress"
 description = "The Econ library (ec:): fixed cost nB against improving cost I + nA, break-ev..."
 role = "production"
 context_files = []

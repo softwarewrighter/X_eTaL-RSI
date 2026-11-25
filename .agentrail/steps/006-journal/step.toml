@@ -1,7 +1,7 @@
 number = 6
-slug = "workshop"
+slug = "journal"
 status = "pending"
-description = "The Workshop world and Policy interpreter (ws:, po:): a deterministic resourc..."
+description = "The Journal library (jr:): the append-only event history as columns (task, po..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"

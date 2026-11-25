@@ -42,7 +42,7 @@ each one says so.
 | # | Experiment | Status |
 | - | ---------- | ------ |
 | 01 | tool synthesis: repeated action sequences become tools | planned |
-| 05 | specialization cost: when improvement pays, and a bounded budget | planned |
+| 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done |
 | 07 | guardian: defective revisions rejected or rolled back | planned |
 
 The full list, the hypotheses and the roadmap are in
@@ -52,7 +52,7 @@ The full list, the hypotheses and the roadmap are in
 
 | Library | What | Status |
 | ------- | ---- | ------ |
-| Econ | the economics of specialization: break-even, budgets | planned |
+| [Econ](libs/Econ/docs/README.md) | the economics of specialization: break-even, ski rental, budgets | done |
 | Journal | the event history as columns; repeated sequences and their cost | planned |
 | Workshop | a deterministic resource and manufacturing world (gather, carry, make, deliver) | planned |
 | Policy | policies as op-code programs: run, compose, define tools | planned |

@@ -1,0 +1,9 @@
+l:a_fter : (Num a, Truthy a) => (a, a, a, a) -> a -> a
+l:f_ixed : (Any a, Num b, Any c) => (a, b, c) -> b -> b
+l:e_ager : (Num a, Truthy a) => (a, a, a) -> a -> a
+l:h_indsight : (Num a, Truthy a) => (a, a, a) -> a -> a
+l:b_reakEven : Num a => (a, a, a) -> Float
+l:s_kiRental : Num a => (a, a, a) -> Int
+l:r_atio : (Num a, Truthy a) => (a, a, a, a) -> a -> Float
+l:a_llocate : (Num a, Truthy a, Truthy b) => a -> (a, a, a) -> b
+l:n_et : Num a => (a, a, a) -> a -> a

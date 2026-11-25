@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+## Econ's properties, checked with Check over many counts.
+
+"ec:" u_se< "Econ"
+"k:" u_se< "Check"
+
+s := (3000, 1000, 450)
+k := ec:s_kiRental s
+c := r_ange 200
+fixed := s ec:f_ixed c
+eager := s ec:e_ager c
+best := s ec:h_indsight c
+ski := (3000, 1000, 450, k) ec:a_fter c
+c1 := "hindsight is never beaten by fixed or eager" k:t_est ('& r_/ (best <= fixed) & best <= eager) k:i_s 1
+c2 := "ski rental costs at most twice hindsight" k:t_est ('& r_/ ski <= 2 * best) k:i_s 1
+c3 := "k = 0 is eager" k:t_est ((3000, 1000, 450, 0) ec:a_fter c) k:i_s eager
+c4 := "a huge k is fixed" k:t_est ((3000, 1000, 450, 1000000) ec:a_fter c) k:i_s fixed
+c6 := "eager pays once past the break-even" k:t_est (f_irst w_here eager < fixed) k:i_s c_eiling ec:b_reakEven s
+c7 := "the budget is never exceeded" k:t_est (5000 >= '+ r_/ (3000 1000 2000 4000) * 5000 ec:a_llocate (3000 1000 2000 4000, 500 100 400 50, 20 5 10 100)) k:i_s 1
+c8 := "nothing that loses is bought" k:t_est (2 s_elect 1000000 ec:a_llocate (3000 1000 2000 4000, 500 100 400 50, 20 5 10 100)) k:i_s 0
+c9 := "an improvement that never pays is never bought" k:t_est ((3000, 1000, 1000, ec:s_kiRental (3000, 1000, 1000)) ec:a_fter c) k:i_s (3000, 1000, 1000) ec:f_ixed c
+k:r_eport c1 k:a_nd c2 k:a_nd c3 k:a_nd c4 k:a_nd c6 k:a_nd c7 k:a_nd c8 k:a_nd c9

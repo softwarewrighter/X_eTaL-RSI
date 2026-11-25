@@ -169,18 +169,22 @@ policies lower the capability needed to self-improve.
    check in the gate.
 3. layout [DONE]: `libs/` and `experiments/` with templates, runners (reg-rs),
    `just new-lib`, `just new-experiment`, `just test`.
-4. econ: the Econ library and experiment 05 (specialization cost):
+4. econ [DONE]: the Econ library and experiment 05 (specialization cost):
    break-even over workloads of varying repetition, and a bounded
    budget allocated by expected reuse.
-5. journal: the Journal library: events as columns, n-gram counts of
+5. pages: the first live page, on GitHub Pages (pulled forward at the
+   user's request): X_eTaL-ML's page shell and publishing, and
+   experiment 05 as the break-even simulator, computed in X_eTaL in the
+   browser.
+6. journal: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
-6. workshop: the Workshop world and the Policy interpreter: op codes,
+7. workshop: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
-7. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
+8. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and
    correctness compared, held-out tasks.
-8. guardian: the Guardian library and experiment 07: layered checks,
+9. guardian: the Guardian library and experiment 07: layered checks,
    deliberately defective candidates, rollback with history intact.
 
 ## Saga 2 -- recursion  [PROPOSED]

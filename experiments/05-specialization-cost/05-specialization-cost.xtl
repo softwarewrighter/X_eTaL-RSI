@@ -1,0 +1,74 @@
+#!/usr/bin/env xetal
+## 05 Specialization cost: when an improvement pays for itself, when it
+## does not, and a rule that is never far from the best.
+##
+## Run with "just run-exp 05". A deterministic simulation: each task
+## kind can be improved once for i = 3000 tokens, which cuts its cost
+## from b = 1000 to a = 450 tokens a task (the research's example).
+## A workload is how many times each kind recurs. Groups:
+##   A      fixed harness: never improves
+##   D      always improves: improves every kind before its first task
+##   D-ski  cost-aware: improves a kind once it has been done k times at
+##          the baseline, k the break-even rounded up (ski rental)
+##   best   hindsight: the cheaper choice per kind, knowing its count
+##          (not achievable without knowing the future: the yardstick)
+
+"ec:" u_se< "Econ"
+
+s := (3000, 1000, 450)
+k := ec:s_kiRental s
+
+### The break-even
+
+"break-even (tasks of one kind):"
+ec:b_reakEven s
+"the cost-aware rule improves after k baseline tasks, k ="
+k
+
+### Repetition swept, 40 tasks in all
+
+## r tasks of each of 40 / r kinds: from all different to all the same.
+r := 1 2 4 5 8 10 20 40
+kinds := 40 d_iv r
+fixed := kinds * s ec:f_ixed r
+eager := kinds * s ec:e_ager r
+ski := kinds * (3000, 1000, 450, k) ec:a_fter r
+best := kinds * s ec:h_indsight r
+"uses per kind:"
+r
+"total tokens, rows A, D, D-ski, best:"
+4 8 r_eshape fixed c_at eager c_at ski c_at best
+"D against A, percent (above 100 the improving harness costs more):"
+f_loor 0.5 + 100 * eager / fixed
+"D-ski against best, percent (never above 200):"
+f_loor 0.5 + 100 * ski / best
+
+### Four workload shapes
+
+## Each a vector of uses per kind; the totals per group.
+u:t_otals := { c -> ('+ r_/ s ec:f_ixed c) c_at ('+ r_/ s ec:e_ager c) c_at ('+ r_/ (3000, 1000, 450, k) ec:a_fter c) c_at '+ r_/ s ec:h_indsight c }
+"totals for A, D, D-ski, best; one-off (40 kinds once):"
+u:t_otals 40 r_eshape 1
+"routine (4 kinds, 10 each):"
+u:t_otals 4 r_eshape 10
+"heavy tail (most kinds rare, a few common):"
+u:t_otals 1 1 1 1 1 1 1 1 2 2 3 5 8 13 21
+"drifting (each kind just short of the break-even):"
+u:t_otals 8 r_eshape 5
+
+### A budget, knowing the expected reuse
+
+## The heavy tail again, with at most 9000 tokens to invest: which
+## kinds to improve (a mask over the 15 kinds), what that saves, and
+## the total cost (the improved kinds at a, the others at b, plus the
+## investments).
+c := 1 1 1 1 1 1 1 1 2 2 3 5 8 13 21
+n := t_ally c
+cands := (n r_eshape 3000, n r_eshape 550, c)
+bought := 9000 ec:a_llocate cands
+"improved kinds (budget 9000):"
+bought
+"net saving:"
+cands ec:n_et bought
+"total tokens with the budget:"
+('+ r_/ s ec:f_ixed c) - cands ec:n_et bought

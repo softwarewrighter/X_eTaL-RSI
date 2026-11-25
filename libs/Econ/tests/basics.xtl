@@ -1,0 +1,24 @@
+#!/usr/bin/env xetal
+## Econ: each function's answers on one improvement, pinned.
+## i = 3000 to invest, b = 1000 a task without it, a = 450 with it.
+
+"ec:" u_se< "Econ"
+
+s := (3000, 1000, 450)
+c := 0 1 5 6 7 10 40
+s ec:f_ixed c
+s ec:e_ager c
+s ec:h_indsight c
+ec:b_reakEven s
+k := ec:s_kiRental s
+k
+(3000, 1000, 450, k) ec:a_fter c
+(3000, 1000, 450, k) ec:r_atio 1 5 6 7 10 40
+## An improvement that does not lower the cost never pays.
+ec:b_reakEven (3000, 1000, 1000)
+ec:s_kiRental (3000, 1000, 1000)
+(3000, 1000, 1000, -1) ec:a_fter 1 10
+## A budget over four candidates: investments, savings per use, uses.
+cands := (3000 1000 2000 4000, 500 100 400 50, 20 5 10 100)
+m_ix '{ m -> m ec:a_llocate cands } m_ap 0 3000 5000 9000
+cands ec:n_et 5000 ec:a_llocate cands

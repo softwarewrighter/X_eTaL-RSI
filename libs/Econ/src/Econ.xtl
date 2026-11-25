@@ -1,0 +1,101 @@
+## Econ: the economics of self-improvement: what an improvement costs, when it pays, and which to buy with a budget
+## Import it with an alias of your choice: "ec:" u_se< "Econ".
+## Put libs/Econ/src on XETAL_PATH ("just path"); the reference is libs/Econ/docs.
+## Names with l: are exported; the others are private to this file.
+##
+## An improvement (a tool, a procedure, a better policy) costs an
+## investment i once and lowers the cost of each later task of its
+## kind from b (the baseline) to a. It pays only when it is used often
+## enough: c tasks cost c * b without it and i + c * a with it. Costs
+## are in any one unit (tokens, model calls); counts c may be arrays,
+## so a whole workload, or a cumulative curve over r_ange n, is one
+## call. This is the ski-rental problem: rent (b a task) or buy (i).
+
+### Costs of a policy
+
+## `(i, b, a, k) a_fter c`: the cost of c tasks of one kind under the
+## rule "improve when the k-th task at the baseline is done": the first
+## k tasks (or c, if fewer) cost b each, then i is paid once and the
+## rest cost a. k = 0 improves at once (eager), a k larger than any c
+## never improves (the fixed harness). Item by item over c, so over
+## r_ange n it is the cumulative cost after each task. A negative k
+## (what s_kiRental gives for an improvement that never pays) never
+## improves.
+## >> "ec:" u_se< "Econ"
+## >> (3000, 1000, 450, 6) ec:a_fter 1 6 7 40
+## 1000 6000 9450 24300
+l:a_fter := { (i, b, a, k) c -> k < 0 ? c * b; (b * k m_in c) + (i * c > k) + a * 0 m_ax c - k }
+
+## `(i, b, a) f_ixed c`: the cost of c tasks never improving, c * b.
+## >> "ec:" u_se< "Econ"
+## >> (3000, 1000, 450) ec:f_ixed 1 10
+## 1000 10000
+l:f_ixed := { (i, b, a) c -> c * b }
+
+## `(i, b, a) e_ager c`: the cost of c tasks improving before the
+## first, i + c * a (nothing when c is 0).
+## >> "ec:" u_se< "Econ"
+## >> (3000, 1000, 450) ec:e_ager 0 1 10
+## 0 3450 7500
+l:e_ager := { (i, b, a) c -> (i, b, a, 0) l:a_fter c }
+
+## `(i, b, a) h_indsight c`: the least cost of c tasks, knowing c in
+## advance: the cheaper of never improving and improving at once.
+## No rule that does not know c can do better.
+## >> "ec:" u_se< "Econ"
+## >> (3000, 1000, 450) ec:h_indsight 1 5 6 40
+## 1000 5000 5700 21000
+l:h_indsight := { (i, b, a) c -> ((i, b, a) l:f_ixed c) m_in (i, b, a) l:e_ager c }
+
+### When it pays
+
+## `b_reakEven (i, b, a)`: the number of tasks at which improving at
+## once and never improving cost the same, i / (b - a). Beyond it the
+## improvement has paid for itself. When a >= b it never pays, and
+## the value is -1.0.
+## >> "ec:" u_se< "Econ"
+## >> ec:b_reakEven (3000, 1000, 450)
+## 5.454545454545454
+l:b_reakEven := { (i, b, a) -> b <= a ? -1.0; i / b - a }
+
+## `s_kiRental (i, b, a)`: the rule that waits: k, the break-even
+## rounded up, so that "improve after k baseline tasks" never costs
+## more than twice the hindsight cost, whatever c turns out to be; -1
+## (never improve) when it never pays.
+## >> "ec:" u_se< "Econ"
+## >> ec:s_kiRental (3000, 1000, 450)
+## 6
+l:s_kiRental := { s -> c_eiling l:b_reakEven s }
+
+## `(i, b, a, k) r_atio c`: how many times the hindsight cost the rule
+## "improve after k" pays for c tasks (1 is the best possible).
+## >> "ec:" u_se< "Econ"
+## >> (3000, 1000, 450, 6) ec:r_atio 1 7 40
+## 1.0 1.5365853658536586 1.1571428571428573
+l:r_atio := { (i, b, a, k) c -> ((i, b, a, k) l:a_fter c) / (i, b, a) l:h_indsight c }
+
+### A budget
+
+## `m a_llocate (i, s, n)`: which improvements to buy with a budget m,
+## given each one's investment i, its saving per use s (b - a) and its
+## expected number of uses n (three vectors of one length): a mask,
+## 1 for each one bought. Greedy by return on investment: the net
+## value n * s - i over i, best first, only those that pay, bought
+## while the running total of investments stays within m.
+## >> "ec:" u_se< "Econ"
+## >> 5000 ec:a_llocate (3000 1000 2000 4000, 500 100 400 50, 20 5 10 100)
+## 1 0 1 0
+l:a_llocate := { m (i, s, n) ->
+  v := (n * s) - i
+  o := r_ev g_rade v / i
+  p := o s_elect v > 0
+  t := p & m >= '+ s_\ p * o s_elect i
+  (g_rade o) s_elect t
+}
+
+## `(i, s, n) n_et mask`: the net value of the improvements a mask
+## buys: what they save over their expected uses, less what they cost.
+## >> "ec:" u_se< "Econ"
+## >> (3000 1000 2000 4000, 500 100 400 50, 20 5 10 100) ec:n_et 1 0 1 0
+## 9000
+l:n_et := { (i, s, n) mask -> '+ r_/ mask * (n * s) - i }
