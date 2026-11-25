@@ -1,8 +1,9 @@
 number = 7
 slug = "journal"
-status = "in-progress"
+status = "completed"
 description = "The Journal library (jr:): the append-only event history as columns (task, po..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
-commits = []
+completed_at = "2026-11-24T19:58:04"
+commits = ["bc6fde7f83e78e16c6cf5e4796b0685ad7377877"]

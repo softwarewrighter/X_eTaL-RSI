@@ -1,0 +1,1 @@
+journal: Journal library (columns, append-only record, n-gram keys, sequences with count/cost/failed ranked by calls saved, decode); doc examples, basics, brute-force checks, demo
