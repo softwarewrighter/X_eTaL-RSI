@@ -1,0 +1,1 @@
+explain-05: page panel and README Background on Exo, the ablation groups, D-ski as ski rental (Karlin et al. 1988), hindsight; republished, check-live ok
