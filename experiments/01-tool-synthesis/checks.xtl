@@ -1,0 +1,32 @@
+#!/usr/bin/env xetal
+## 01 Tool synthesis: the claims its README makes, checked with Check
+## (the same workloads and costs as 01-tool-synthesis.xtl).
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+"k:" u_se< "Check"
+
+train := 8 3 r_eshape 1 1 1 3 1 1 2 1 1 5 1 1 1 1 1 4 1 1 2 1 1 3 1 1
+(dt, jt) := (train, po:n_one 8, 0, 500) po:w_orkload 200
+tools := (2, 8, 3, 8) po:s_ynthesize jt
+short := (2, 3, 3, 8) po:s_ynthesize jt
+same := 4 3 r_eshape 2 1 1 4 1 1 6 1 1 3 1 1
+shift := 4 3 r_eshape 2 2 1 3 1 2 2 2 2 4 1 3
+u:r_un := { (tasks, T, extra, every) -> (tasks, T, 1, 500, extra, every) po:w_orkloadWith 200 }
+(a1, ja1) := u:r_un (same, po:n_one 8, 0, 0)
+(b1, jb1) := u:r_un (same, tools, 180, 4)
+(c1, jc1) := u:r_un (same, tools, 60, 0)
+(a2, ja2) := u:r_un (shift, po:n_one 8, 0, 0)
+(c2, jc2) := u:r_un (shift, tools, 60, 0)
+(s2, js2) := u:r_un (shift, short, 60, 0)
+(tA, vA, oA, cA, kA) := ja1
+(tC, vC, oC, cC, kC) := jc1
+x1 := "every group finishes every held-out task" k:t_est (a1 c_at b1 c_at c1 c_at a2 c_at c2 c_at s2) k:i_s 6 r_eshape 4
+x2 := "tools never change the ops done" k:t_est oC k:i_s oA
+x3 := "the learned route is the make-a-device sequence" k:t_est (1 s_elect tools) k:i_s 1 2 3 4 5 6 0 0
+x4 := "tools more than halve the calls on the same recipe" k:t_est ((2 * po:c_alls jc1) < po:c_alls ja1) k:i_s 1
+x5 := "hints cost more tokens than tools for the same calls" k:t_est ((jr:t_otal jb1) > jr:t_otal jc1) k:i_s 1
+x6 := "on shifted recipes the long tools save no call" k:t_est (po:c_alls jc2) k:i_s po:c_alls ja2
+x7 := "and cost more tokens than none" k:t_est ((jr:t_otal jc2) > jr:t_otal ja2) k:i_s 1
+x8 := "the short tools still save calls there" k:t_est ((po:c_alls js2) < po:c_alls ja2) k:i_s 1
+k:r_eport x1 k:a_nd x2 k:a_nd x3 k:a_nd x4 k:a_nd x5 k:a_nd x6 k:a_nd x7 k:a_nd x8

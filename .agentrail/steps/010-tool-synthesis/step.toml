@@ -1,6 +1,6 @@
 number = 10
 slug = "tool-synthesis"
-status = "pending"
+status = "in-progress"
 description = "Experiment 01 (tool synthesis): groups A, B, C on the Workshop; tools synthes..."
 role = "production"
 context_files = []

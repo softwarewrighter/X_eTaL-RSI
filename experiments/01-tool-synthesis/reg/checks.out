@@ -1,0 +1,9 @@
+ok: every group finishes every held-out task
+ok: tools never change the ops done
+ok: the learned route is the make-a-device sequence
+ok: tools more than halve the calls on the same recipe
+ok: hints cost more tokens than tools for the same calls
+ok: on shifted recipes the long tools save no call
+ok: and cost more tokens than none
+ok: the short tools still save calls there
+8 checks, all passed

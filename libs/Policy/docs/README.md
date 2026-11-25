@@ -34,6 +34,9 @@ and 0 on the rest, so the calls are the events with a cost.
 | `task po:r_un (s, seq)` | `(a, b, c) -> ((...), f) -> ((...), f, g)` | run seq until an op fails: (state, ops, oks) |
 | `(task, T, id, ver, call) po:e_pisode budget` | `(...) -> Int -> ((...), journal)` | one task, at most budget calls: (state, journal) |
 | `(tasks, T, ver, call) po:w_orkload budget` | `(a, Int, Int, Int) -> Int -> (Int, journal)` | each row (q, w, r) of tasks in turn: (tasks done, journal) |
+| `(task, T, id, ver, call, extra, every) po:e_pisodeWith budget` | `(...) -> Int -> ((...), journal)` | as e_pisode, each call costing call + extra, the table ignored on every every-th call (0: never) |
+| `(tasks, T, ver, call, extra, every) po:w_orkloadWith budget` | `(...) -> Int -> (Int, journal)` | as w_orkload, by e_pisodeWith |
+| `(lo, hi, k, L) po:s_ynthesize j` | `(Int, Int, Int, Int) -> journal -> Int` | the k sequences of lo to hi ops in j worth most calls saved, as a tool table of rows of L ops |
 | `po:c_alls j` | `journal -> Int` | the model calls in a journal |
 
 ## Examples

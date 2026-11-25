@@ -1,0 +1,32 @@
+training (group A): tasks done, model calls, tokens
+8
+142
+71000
+learned (one row per tool, op codes, 0 padding):
+1 2 3 4 5 6 0 0
+1 2 3 4 5 6 1 2
+2 3 4 5 6 1 2 3
+learned, at most 3 ops:
+1 2 3 0 0 0 0 0
+2 3 4 0 0 0 0 0
+3 4 5 0 0 0 0 0
+the first tool by name:
+.>----------------------------------------------------------------------.
+| .>--------. .>----------. .>------. .>---------. .>----------. .>---. |
+| |go-forest| |gather-wood| |go-mine| |gather-ore| |go-workshop| |make| |
+| '---------' '-----------' '-------' '----------' '-----------' '----' |
+'e----------------------------------------------------------------------'
+held out, same recipe; rows A, B, C, C-short; columns tasks done, calls, tokens:
+4 98 49000
+4 44 29920
+4 44 24640
+4 68 38080
+held out, shifted recipes; rows A, B, C, C-short:
+4 91 45500
+4 91 61880
+4 91 50960
+4 69 38640
+tokens on all 8 held-out tasks, A, B, C, C-short:
+94500 91800 75600 76720
+net tokens saved against A after paying to learn, B, C, C-short:
+-1800 14400 13280

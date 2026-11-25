@@ -1,0 +1,80 @@
+#!/usr/bin/env xetal
+## 01 Tool synthesis: repeated action sequences found in the journal
+## become tools; model calls fall, and what transfers.
+##
+## Run with "just run-exp 01". A deterministic simulation on the
+## Workshop world: the model is Workshop's expert (always right), so
+## what differs between groups is only how many times it is called and
+## what each call costs. Assumed costs (tokens): a model call 500; the
+## model writing a tool or a hint 1500 each, once; each tool's schema
+## adds 20 to every prompt, each hint's text 60. A model given hints
+## ignores them on every 4th call. Groups:
+##   A        fixed harness: one call per op
+##   B        memory: the learned sequences as hints in the prompt
+##            (in-context, as XSkill and agentrail-rs do)
+##   C        tools: the same sequences as tools the harness runs
+##   C-short  tools of at most 3 ops
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+"ws:" u_se< "Workshop"
+
+### Training: the fixed harness's own history
+
+## Eight tasks of devices made from 1 wood and 1 ore.
+train := 8 3 r_eshape 1 1 1 3 1 1 2 1 1 5 1 1 1 1 1 4 1 1 2 1 1 3 1 1
+(dt, jt) := (train, po:n_one 8, 0, 500) po:w_orkload 200
+"training (group A): tasks done, model calls, tokens"
+dt
+po:c_alls jt
+jr:t_otal jt
+
+### What is learned from it
+
+## The three sequences of 2 to 8 ops worth the most calls, and the
+## three of 2 or 3 ops.
+tools := (2, 8, 3, 8) po:s_ynthesize jt
+short := (2, 3, 3, 8) po:s_ynthesize jt
+"learned (one row per tool, op codes, 0 padding):"
+tools
+"learned, at most 3 ops:"
+short
+"the first tool by name:"
+first := 1 s_elect tools
+'ws:n_ame m_ap (w_here first != 0) s_elect first
+learn := 1500 * t_ally tools
+
+### Held out
+
+## Same recipe, other sizes; then shifted recipes (2 wood, 2 ore).
+same := 4 3 r_eshape 2 1 1 4 1 1 6 1 1 3 1 1
+shift := 4 3 r_eshape 2 2 1 3 1 2 2 2 2 4 1 3
+## Tasks done, calls and tokens of a harness on a task set.
+u:r_esult := { (tasks, T, extra, every) ->
+  (d, j) := (tasks, T, 1, 500, extra, every) po:w_orkloadWith 200
+  d c_at (po:c_alls j) c_at jr:t_otal j
+}
+u:g_roups := { tasks ->
+  a := u:r_esult (tasks, po:n_one 8, 0, 0)
+  b := u:r_esult (tasks, tools, 60 * t_ally tools, 4)
+  c := u:r_esult (tasks, tools, 20 * t_ally tools, 0)
+  cs := u:r_esult (tasks, short, 20 * t_ally short, 0)
+  4 3 r_eshape a c_at b c_at c c_at cs
+}
+"held out, same recipe; rows A, B, C, C-short; columns tasks done, calls, tokens:"
+s1 := u:g_roups same
+s1
+"held out, shifted recipes; rows A, B, C, C-short:"
+s2 := u:g_roups shift
+s2
+
+### Paid back?
+
+## Tokens on both held-out sets together (A, B, C, C-short); then the
+## tokens each learning group saved against A, less what learning cost
+## (1500 a tool or hint, three each; group A learns nothing).
+tok := (3 s_elect_2 s1) + 3 s_elect_2 s2
+"tokens on all 8 held-out tasks, A, B, C, C-short:"
+tok
+"net tokens saved against A after paying to learn, B, C, C-short:"
+((f_irst tok) - 1 d_rop tok) - learn

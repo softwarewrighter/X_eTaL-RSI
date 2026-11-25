@@ -11,6 +11,9 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 20:19 `exp` Experiment 01, tool synthesis (step 10): groups A, B (hints in the prompt), C (tools) and C-short on the Workshop, tools learned from the fixed harness's journal; on held-out tasks of the training recipe tools cut calls 98 to 44 with the same ops, hints match the calls at 21% more tokens; on shifted recipes the long route never fits and its schema costs 12% (hints 36%), while tools of at most 3 ops still cut calls 24%; 8 claim checks.
+- 20:19 `feat` Policy gains e_pisodeWith and w_orkloadWith (a per-call context cost, a table ignored every k-th call) and s_ynthesize (the k sequences worth most calls saved, from a journal, as a tool table); 30 doc examples; the existing baselines unchanged, types reblessed after review (three new exports).
+- 22:15 `chore` Step 9 (explain-05) closed.
 - 20:07 `docs` Experiment 05 explains where its rules come from (step 9, the user asked): a page panel and a README Background section on the Exo paper (arXiv 2611.00463), the ablation groups, D-ski as group D with the ski-rental rent-or-buy rule and its 2x bound (Karlin, Manasse, Rudolph and Sleator 1988), and the hindsight yardstick; republished.
 - 21:30 `chore` Step 8 (workshop) closed.
 - 20:06 `feat` The Workshop world and the Policy interpreter (step 8): nine op codes over four places, pure s_tep with preconditions, d_one, the e_xpert that stands in for a model's choice, n_ame; tool tables as data (plan A1) run by po:e_pisode and po:w_orkload, one charged and journaled call per primitive op or per fitting tool (longest by lookahead), a step budget; 32 doc examples, basics, 14 checks (the expert's op counts, tools change calls but never outcomes or ops, 5 calls saved per device, a never-fitting tool is inert, the budget stops an episode); the fixed harness on six tasks: 120 calls, 55 with the route as a tool.

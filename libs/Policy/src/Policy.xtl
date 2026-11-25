@@ -96,15 +96,32 @@ l:r_un := { task (s, seq) ->
 ## >> (s, j) := ((1, 1, 1), po:n_one 1, 1, 0, 500) po:e_pisode 20
 ## >> jr:t_otal j
 ## 4000
-l:e_pisode := { (task, T, id, ver, call) budget ->
+l:e_pisode := { (task, T, id, ver, call) budget -> (task, T, id, ver, call, 0, 0) l:e_pisodeWith budget }
+
+## `(task, T, id, ver, call, extra, every) e_pisodeWith budget`: as
+## e_pisode, with each call costing call + extra (context the tools or
+## hints add to every prompt), and, when every > 0, the table ignored on
+## every every-th call (call 4, 8, ... for every = 4: a model that does
+## not always follow what it is given; plan, experiment 01, group B).
+## >> "po:" u_se< "Policy"
+## >> "jr:" u_se< "Journal"
+## >> (s, j) := ((2, 1, 1), 1 6 r_eshape 1 2 3 4 5 6, 1, 0, 500, 100, 2) po:e_pisodeWith 50
+## >> po:c_alls j
+## 9
+## >> jr:t_otal j
+## 5400
+l:e_pisodeWith := { (task, T, id, ver, call, extra, every) budget ->
   L := 2 s_elect s_hape T
-  budget '{ (s, j) ->
-    task ws:d_one s ? (s, j)
+  (s9, j9, _) := budget '{ (s, j, i) ->
+    task ws:d_one s ? (s, j, i)
     la := (task, s) l:l_ookahead L
-    (s2, ops, oks) := task l:r_un (s, T h:o_ps (T l:c_hoose la, f_irst la))
+    use := (every = 0) | 0 != i m_od every m_ax 1
+    pick := use * T l:c_hoose la
+    (s2, ops, oks) := task l:r_un (s, T h:o_ps (pick, f_irst la))
     n := t_ally ops
-    (s2, j jr:r_ecord (n r_eshape id, n r_eshape ver, ops, call * 1 = r_ange n, oks))
-  } p_ower (ws:s_tart @, jr:e_mpty @)
+    (s2, j jr:r_ecord (n r_eshape id, n r_eshape ver, ops, (call + extra) * 1 = r_ange n, oks), i + 1)
+  } p_ower (ws:s_tart @, jr:e_mpty @, 1)
+  (s9, j9)
 }
 
 ## `(tasks, T, ver, call) w_orkload budget`: each task in turn (tasks
@@ -117,11 +134,15 @@ l:e_pisode := { (task, T, id, ver, call) budget ->
 ## 2
 ## >> jr:l_ength j
 ## 22
-l:w_orkload := { (tasks, T, ver, call) budget ->
+l:w_orkload := { (tasks, T, ver, call) budget -> (tasks, T, ver, call, 0, 0) l:w_orkloadWith budget }
+
+## `(tasks, T, ver, call, extra, every) w_orkloadWith budget`: as
+## w_orkload, each episode run by e_pisodeWith.
+l:w_orkloadWith := { (tasks, T, ver, call, extra, every) budget ->
   (done, j, _) := (t_ally tasks) '{ (d, jj, i) ->
     row := i s_elect tasks
     task := (1 s_elect row, 2 s_elect row, 3 s_elect row)
-    (s, je) := (task, T, i, ver, call) l:e_pisode budget
+    (s, je) := (task, T, i, ver, call, extra, every) l:e_pisodeWith budget
     (d + task ws:d_one s, jj jr:r_ecord je, i + 1)
   } p_ower (0, jr:e_mpty @, 1)
   (done, j)
@@ -132,3 +153,27 @@ l:w_orkload := { (tasks, T, ver, call) budget ->
 ## >> po:c_alls (1 1 1, 0 0 0, 1 2 3, 500 0 500, 1 1 1)
 ## 2
 l:c_alls := { (t, v, o, c, k) -> '+ r_/ c > 0 }
+
+### Synthesis
+
+## `(lo, hi, k, L) s_ynthesize j`: a tool table learned from a journal:
+## of the op sequences of lengths lo to hi that occur within tasks in
+## j (Journal's s_equences), the k worth the most model calls saved,
+## count * (n - 1), each a row of L ops padded with 0 (best first;
+## fewer rows if fewer sequences repeat at all).
+## >> "po:" u_se< "Policy"
+## >> (2, 3, 2, 4) po:s_ynthesize (1 1 1 1 1 1, 0 0 0 0 0 0, 1 2 3 1 2 3, 1 1 1 1 1 1, 1 1 1 1 1 1)
+## 1 2 3 0
+## 1 2 0 0
+l:s_ynthesize := { (lo, hi, k, L) j ->
+  (keys, lens, worth, _) := (1 + hi - lo) '{ (ks, ns, ws, n) ->
+    (key, count, cost, failed) := n jr:s_equences j
+    m := t_ally key
+    (ks c_at key, ns c_at m r_eshape n, ws c_at count * n - 1, n + 1)
+  } p_ower (0 r_eshape 0, 0 r_eshape 0, 0 r_eshape 0, lo)
+  keep := w_here worth > 1
+  order := k t_ake g_rade n_eg keep s_elect worth
+  best := order s_elect keep
+  rows := m_ix '{ i -> L t_ake r_avel (i s_elect lens) jr:d_ecode i s_elect keys } m_ap best
+  ((t_ally best) c_at L) r_eshape r_avel rows
+}

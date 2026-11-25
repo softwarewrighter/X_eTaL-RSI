@@ -46,7 +46,7 @@ each one says so.
 
 | # | Experiment | Status |
 | - | ---------- | ------ |
-| 01 | tool synthesis: repeated action sequences become tools | planned |
+| 01 | [tool synthesis](experiments/01-tool-synthesis/README.md): repeated action sequences become tools; tools beat hints, short tools transfer | done |
 | 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |
 | 07 | guardian: defective revisions rejected or rolled back | planned |
 

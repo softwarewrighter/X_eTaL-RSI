@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../01-tool-synthesis.xtl"
+exit_code = 0

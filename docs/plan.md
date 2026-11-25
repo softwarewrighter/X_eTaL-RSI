@@ -187,7 +187,7 @@ policies lower the capability needed to self-improve.
 8. workshop [DONE]: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
-9. tool-synthesis: experiment 01: groups A, B, C on the Workshop,
+9. tool-synthesis [DONE]: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and
    correctness compared, held-out tasks.
 10. guardian: the Guardian library and experiment 07: layered checks,
