@@ -1,0 +1,8 @@
+l:e_mpty : Num a => Unit -> (a, a, a, a, a)
+l:r_ecord : (a, b, c, d, e) -> (a, b, c, d, e) -> (a, b, c, d, e)
+l:l_ength : (Any a, Any b, Any d, Any e) => (a, b, c, d, e) -> Int
+l:t_otal : (Any a, Any b, Any c, Num d, Any e) => (a, b, c, d, e) -> d
+l:v_ersion : Eq a => a -> (b, a, c, d, e) -> (b, a, c, d, e)
+l:k_eys : (Eq a, Any b, Any c, Any d) => Int -> (a, b, Int, c, d) -> Int
+l:s_equences : (Eq a, Any b, Num c) => Int -> (a, b, Int, Int, c) -> (Int, Int, Int, Int)
+l:d_ecode : Int -> Int -> Int

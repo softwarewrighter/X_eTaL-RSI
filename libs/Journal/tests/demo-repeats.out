@@ -1,0 +1,11 @@
+events, total tokens:
+64
+6400
+the three most valuable 4-op sequences (ops, count, tokens):
+1 2 3 4
+2 3 4 5
+3 4 5 6
+8 8 8
+3200 3200 3200
+a tool for the whole route (8 ops), occurrences:
+8

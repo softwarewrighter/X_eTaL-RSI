@@ -1,0 +1,106 @@
+## Journal: the append-only event history of an agent as columns, and the action sequences that repeat in it
+## Import it with an alias of your choice: "jr:" u_se< "Journal".
+## Put libs/Journal/src on XETAL_PATH ("just path"); the reference is libs/Journal/docs.
+## Names with l: are exported; h: names are private to this file.
+##
+## A journal is five Int columns of one length, as a tuple
+## (task, version, op, cost, ok): for each event in order, the task it
+## belongs to, the policy version that acted, the operation (an op code
+## from 1 to 99), what it cost (tokens, calls) and whether it succeeded
+## (1) or failed (0). It only grows: r_ecord gives a new journal with
+## the events after the old ones, and nothing changes the old ones (the
+## protected history of plan A4). Questions an optimizer asks of it
+## (which op sequences repeat, what they cost, which fail) are array
+## expressions over the columns, not prompts.
+
+### The journal
+
+## `e_mpty @`: a journal with no events.
+## >> "jr:" u_se< "Journal"
+## >> (t, v, o, c, k) := jr:e_mpty @
+## >> t_ally o
+## 0
+l:e_mpty := { @ ->
+  z := 0 r_eshape 0
+  (z, z, z, z, z)
+}
+
+## `j r_ecord e`: the journal j with the events e (a journal too) after
+## its own.
+## >> "jr:" u_se< "Journal"
+## >> j := (1 1, 0 0, 5 6, 10 20, 1 1) jr:r_ecord (2, 0, 5, 10, 0)
+## >> (t, v, o, c, k) := j
+## >> o
+## 5 6 5
+l:r_ecord := { (t, v, o, c, k) (t2, v2, o2, c2, k2) -> (t c_at t2, v c_at v2, o c_at o2, c c_at c2, k c_at k2) }
+
+## `l_ength j`: the number of events.
+l:l_ength := { (t, v, o, c, k) -> t_ally o }
+
+## `t_otal j`: the cost of every event together.
+## >> "jr:" u_se< "Journal"
+## >> jr:t_otal (1 1 2, 0 0 0, 5 6 5, 10 20 10, 1 1 0)
+## 40
+l:t_otal := { (t, v, o, c, k) -> '+ r_/ c }
+
+## `ver v_ersion j`: the events of one policy version, a journal.
+## >> "jr:" u_se< "Journal"
+## >> (t, v, o, c, k) := 1 jr:v_ersion (1 1 2, 0 1 1, 5 6 5, 10 20 10, 1 1 0)
+## >> o
+## 6 5
+l:v_ersion := { ver (t, v, o, c, k) ->
+  w := w_here v = ver
+  (w s_elect t, w s_elect v, w s_elect o, w s_elect c, w s_elect k)
+}
+
+### Sequences
+
+## The n by events array of x rotated by 0 to n - 1: column e holds
+## the n values from event e on (wrapping at the end).
+h:w_indows := { n x -> m_ix '{ i -> i o_- x } m_ap (r_ange n) - 1 }
+
+## `n k_eys j`: for each event, the n-gram of ops that starts there as
+## one number (the op codes as base-100 digits), or 0 where the n
+## events from there run past the end or cross into another task.
+## >> "jr:" u_se< "Journal"
+## >> 2 jr:k_eys (1 1 1 2 2, 0 0 0 0 0, 3 4 3 4 3, 1 1 1 1 1, 1 1 1 1 1)
+## 304 403 0 403 0
+l:k_eys := { n (t, v, o, c, k) ->
+  e := t_ally o
+  inside := (r_ange e) <= 1 + e - n
+  same := '& r_/ (n h:w_indows t) = (n c_at e) r_eshape t
+  (inside & same) * (100 ^ r_ev (r_ange n) - 1) '+ '* i_nner n h:w_indows o
+}
+
+## `n s_equences j`: the op sequences of length n that occur within a
+## task, as (key, count, cost, failed): each distinct n-gram's key (see
+## k_eys, d_ecode), how often it occurs (overlapping), what its
+## occurrences cost in all, and in how many of them an event failed;
+## ordered by the calls a tool for it would save, count * (n - 1),
+## most first (ties in order of first occurrence).
+## >> "jr:" u_se< "Journal"
+## >> (key, count, cost, failed) := 2 jr:s_equences (1 1 1 1 2 2, 0 0 0 0 0 0, 3 4 3 4 3 4, 5 5 5 5 5 5, 1 1 1 0 1 1)
+## >> key
+## 304 403
+## >> count
+## 3 1
+## >> failed
+## 1 0
+l:s_equences := { n (t, v, o, c, k) ->
+  keys := n l:k_eys (t, v, o, c, k)
+  all := u_nique keys
+  u := (w_here all != 0) s_elect all
+  hits := u '= t_able keys
+  count := '+ r_/_2 hits
+  cost := hits '+ '* i_nner '+ r_/ n h:w_indows c
+  failed := hits '+ '* i_nner 0 < '+ r_/ 0 = n h:w_indows k
+  order := g_rade n_eg count * n - 1
+  (order s_elect u, order s_elect count, order s_elect cost, order s_elect failed)
+}
+
+## `n d_ecode keys`: the op codes of n-gram keys, one row per key.
+## >> "jr:" u_se< "Journal"
+## >> 3 jr:d_ecode 30405 10101
+## 3 4 5
+## 1 1 1
+l:d_ecode := { n keys -> o_\ (n r_eshape 100) e_ncode keys }

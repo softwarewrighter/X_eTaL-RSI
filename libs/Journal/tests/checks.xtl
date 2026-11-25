@@ -1,0 +1,30 @@
+#!/usr/bin/env xetal
+## Journal's properties, checked with Check against brute force on a
+## journal of 60 events in 9 tasks, ops 1 to 4.
+
+"jr:" u_se< "Journal"
+"k:" u_se< "Check"
+
+t := 1 1 1 1 1 2 2 2 2 2 2 2 3 3 3 4 4 4 4 4 4 5 5 5 5 6 6 6 6 6 6 6 6 7 7 7 7 7 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9
+o := 60 r_eshape 1 2 3 1 2 4 1 2 3 3 4 1 2
+c := 60 r_eshape 7 3 2 9
+ok := 60 r_eshape 1 1 1 1 1 1 0 1 1 1 1
+j := (t, 0 * t, o, c, ok)
+## Brute force for 2-grams: a at an event, b at the next, same task.
+u:b_rute := { (a, b) ->
+  next := (1 o_- o) = b
+  same := t = 1 o_- t
+  inside := (r_ange 60) < 60
+  '+ r_/ (o = a) & next & same & inside
+}
+(key, count, cost, failed) := 2 jr:s_equences j
+## 9 tasks of these lengths: windows of 2 = sum of (length - 1).
+lens := 5 7 3 6 4 8 5 7 15
+c1 := "the counts add up to the windows inside tasks" k:t_est ('+ r_/ count) k:i_s '+ r_/ lens - 1
+c2 := "each count is the brute force count" k:t_est count k:i_s m_ix '{ x -> u:b_rute (x d_iv 100, x m_od 100) } m_ap key
+c3 := "ordered by calls saved" k:t_est (count) k:i_s r_ev s_ort count
+c4 := "decoding a key gives its ops" k:t_est (r_avel 2 jr:d_ecode f_irst key) k:i_s ((f_irst key) d_iv 100) c_at (f_irst key) m_od 100
+c5 := "recording adds the events" k:t_est (jr:l_ength j jr:r_ecord j) k:i_s 120
+c6 := "the total cost is the sum of costs" k:t_est (jr:t_otal j) k:i_s '+ r_/ c
+c7 := "no 3-gram crosses a task" k:t_est ('+ r_/ 0 != 3 jr:k_eys j) k:i_s '+ r_/ 0 m_ax lens - 2
+k:r_eport c1 k:a_nd c2 k:a_nd c3 k:a_nd c4 k:a_nd c5 k:a_nd c6 k:a_nd c7

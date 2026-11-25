@@ -182,7 +182,7 @@ policies lower the capability needed to self-improve.
    user's request): X_eTaL-ML's page shell and publishing, and
    experiment 05 as the break-even simulator, computed in X_eTaL in the
    browser.
-7. journal: the Journal library: events as columns, n-gram counts of
+7. journal [DONE]: the Journal library: events as columns, n-gram counts of
    action sequences, cost per sequence, the top candidates for a tool.
 8. workshop: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for

@@ -11,6 +11,8 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 19:57 `feat` The Journal library (step 7): an agent's history as five columns (task, version, op, cost, ok), append-only (e_mpty, r_ecord, l_ength, t_otal, v_ersion); n-grams of ops within a task as base-100 keys (k_eys, d_ecode) and each one's count, cost and failures ordered by calls a tool would save (s_equences); 21 doc examples, basics, seven checks against brute force, the repeats demo.
+- 20:00 `chore` Step 6 (pages) closed.
 - 19:53 `docs` The site is live (GitHub Pages from gh-pages, enabled by the user): just check-live finds the catalog at 761b797 and experiment 05's page running X_eTaL in headless Chrome (4 checks).
 - 19:43 `feat` The first live page (step 6, the user): experiment 05 in the browser, the investment, baseline, saving and tasks on sliders, the three harnesses' cumulative curves with the break-even, the repetition table and the X_eTaL program that computed them (Econ, the pinned X_eTaL in WebAssembly); shared/microscope (the core of X_eTaL-ML's page shell on this repo's pin); build-pages, catalog, serve, browser-check (headless Chrome), publish to gh-pages (browser-checked first), check-live; the gate runs the pages' native tests and wasm32 check; four page tests against the command-line experiment and the formulas.
 - 18:35 `chore` Step 5 (related) closed.

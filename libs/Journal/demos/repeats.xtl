@@ -1,0 +1,22 @@
+#!/usr/bin/env xetal
+## Journal in use: an agent's history of 8 manufacturing tasks, every
+## action chosen by the model (one call each). Which sequences repeat
+## enough to be worth a tool? Ops: 1 go-forest 2 gather-wood 3 go-mine
+## 4 gather-ore 5 go-workshop 6 make 7 go-store 8 deliver 9 check.
+
+"jr:" u_se< "Journal"
+
+route := 1 2 3 4 5 6 7 8
+ops := 64 r_eshape route
+j := (c_eiling (r_ange 64) / 8, 64 r_eshape 0, ops, 64 r_eshape 100, 64 r_eshape 1)
+"events, total tokens:"
+jr:l_ength j
+jr:t_otal j
+"the three most valuable 4-op sequences (ops, count, tokens):"
+(key, count, cost, failed) := 4 jr:s_equences j
+4 jr:d_ecode 3 t_ake key
+3 t_ake count
+3 t_ake cost
+"a tool for the whole route (8 ops), occurrences:"
+(k8, n8, c8, f8) := 8 jr:s_equences j
+n8

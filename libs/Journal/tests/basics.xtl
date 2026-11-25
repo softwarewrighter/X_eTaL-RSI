@@ -1,0 +1,23 @@
+#!/usr/bin/env xetal
+## Journal: each function's answers on a small journal, pinned.
+## Three tasks; ops 1 look, 2 fetch, 3 make, 4 check; task 2's check fails.
+
+"jr:" u_se< "Journal"
+
+j := (1 1 1 1 2 2 2 2 3 3 3, 0 0 0 0 0 0 0 0 1 1 1, 1 2 3 4 1 2 3 4 1 2 3, 10 5 20 3 10 5 20 3 10 5 20, 1 1 1 1 1 1 1 0 1 1 1)
+jr:l_ength j
+jr:t_otal j
+2 jr:k_eys j
+3 jr:k_eys j
+(key, count, cost, failed) := 3 jr:s_equences j
+key
+count
+cost
+failed
+3 jr:d_ecode key
+(t1, v1, o1, c1, k1) := 1 jr:v_ersion j
+o1
+j2 := j jr:r_ecord (4 4, 1 1, 1 2, 10 5, 1 1)
+jr:l_ength j2
+(t0, v0, o0, c0, k0) := jr:e_mpty @
+t_ally o0

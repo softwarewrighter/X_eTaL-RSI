@@ -1,6 +1,6 @@
 number = 7
 slug = "journal"
-status = "pending"
+status = "in-progress"
 description = "The Journal library (jr:): the append-only event history as columns (task, po..."
 role = "production"
 context_files = []

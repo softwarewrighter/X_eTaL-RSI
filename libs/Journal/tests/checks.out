@@ -1,0 +1,8 @@
+ok: the counts add up to the windows inside tasks
+ok: each count is the brute force count
+ok: ordered by calls saved
+ok: decoding a key gives its ops
+ok: recording adds the events
+ok: the total cost is the sum of costs
+ok: no 3-gram crosses a task
+7 checks, all passed
