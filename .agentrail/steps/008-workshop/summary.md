@@ -1,0 +1,1 @@
+workshop: Workshop world (ops, step, expert) and Policy interpreter (tool tables as data, episodes, workloads, calls journaled); tests and demos; fixed harness 120 calls vs 55 with a tool
