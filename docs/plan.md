@@ -162,7 +162,7 @@ revisions; H6 stronger guardians pay for their cost; H7
 specialization partly makes up for a weaker model; H8 structured
 policies lower the capability needed to self-improve.
 
-## Saga 1 -- foundation  [ACTIVE, begun 2026-11-24]
+## Saga 1 -- foundation  [DONE 2026-11-24]
 
 1. scaffold [DONE]: agentrail, CLAUDE.md/AGENTS.md, README, CHANGES, license
    files, this plan, the asks file, `.gitignore`, justfile, the gate.
@@ -187,13 +187,15 @@ policies lower the capability needed to self-improve.
 8. workshop [DONE]: the Workshop world and the Policy interpreter: op codes,
    a fixed-harness baseline (group A) that consults the oracle for
    every action.
-9. tool-synthesis [DONE]: experiment 01: groups A, B, C on the Workshop,
+9. explain-05 [DONE]: experiment 05's page and README explain where its
+   rules come from (the user asked), with references.
+10. tool-synthesis [DONE]: experiment 01: groups A, B, C on the Workshop,
    tools synthesized from the journal's n-grams, model calls and
    correctness compared, held-out tasks.
-10. guardian [DONE]: the Guardian library and experiment 07: layered checks,
+11. guardian [DONE]: the Guardian library and experiment 07: layered checks,
    deliberately defective candidates, rollback with history intact.
 
-12. page-01: the second live page (the user asked when): experiment 01
+12. page-01 [DONE]: the second live page (the user asked when): experiment 01
     in the browser.
 
 ## Saga 2 -- recursion  [PROPOSED]

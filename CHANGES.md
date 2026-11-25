@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 22:11 `docs` The second page is live (check-live: the catalog at f2f6061, both pages run X_eTaL there); the plan's step list matches the saga's numbering; Saga 1 done.
 - 22:02 `feat` The second live page (step 12, the user): experiment 01 in the browser, the longest tool, tools learned, a hint's cost and how often hints are ignored on sliders, the tools learned by name, groups A, B, C on both held-out sets with token bars, the background (Exo, XSkill, agentrail-rs, docs/related.md) and the program; four page tests against the command-line experiment; the browser check waits up to 20 s of virtual time.
 - 23:50 `chore` Step 11 (guardian) closed.
 - 20:36 `exp` Experiment 07, the guardian (step 11): eight candidates, each with one defect, under Exo's default (it builds), the same with a circuit breaker, the layered guardian and the layered one judging regressions on recent work; the layers stop each defect at its own layer, the default lets through 3 unsupervised deliveries and a failed task, the breaker rolls back only after it, a fixed held-out set rejects the adaptation to drifted work while a recent one accepts it; reviews cost 35k to 40k tokens a candidate; 7 claims checked.
