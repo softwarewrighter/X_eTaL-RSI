@@ -1,0 +1,1 @@
+guardian: Guardian library (six layers, history, rollback); experiment 07 with four guardians and eight defective candidates; layered stops each at its layer; drift-aware held-out accepts adaptation; verification cost reported
