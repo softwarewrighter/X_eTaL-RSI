@@ -1,0 +1,6 @@
+# Text the page shows only after X_eTaL has run (scripts/browser-check.sh).
+Learned from 142 model calls of training
+go-forest, gather-wood, go-mine, gather-ore, go-workshop, make
+Held-out tasks, same recipe
+Held-out tasks, shifted recipes
+Where this comes from

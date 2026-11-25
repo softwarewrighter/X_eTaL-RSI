@@ -193,6 +193,9 @@ policies lower the capability needed to self-improve.
 10. guardian [DONE]: the Guardian library and experiment 07: layered checks,
    deliberately defective candidates, rollback with history intact.
 
+12. page-01: the second live page (the user asked when): experiment 01
+    in the browser.
+
 ## Saga 2 -- recursion  [PROPOSED]
 
 Experiments 03 (policy evolution), 04 (recursive optimizer: groups D

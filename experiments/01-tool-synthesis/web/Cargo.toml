@@ -1,0 +1,15 @@
+[package]
+name = "tool-synthesis-web"
+description = "Experiment 01 in the browser: tools learned from an agent's history, computed by the Policy, Journal and Workshop libraries in X_eTaL"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[dependencies]
+microscope = { path = "../../../shared/microscope" }
+yew = { version = "0.21", features = ["csr"] }
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
+console_error_panic_hook = "0.1"
+
+[workspace]

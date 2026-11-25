@@ -47,12 +47,22 @@ below hold for the direction of each result, not the exact values.
 | C tools | yes | yes | no | no | the same 3 sequences as tools the harness runs |
 | C-short | yes | yes | no | no | 3 tools of at most 3 ops |
 
+## Live
+
+[The page](https://softwarewrighter.github.io/X_eTaL-RSI/01-tool-synthesis/)
+runs the experiment in your browser: set the longest tool and how many
+are learned, what a hint costs and how often it is ignored, and see the
+tools learned and the three harnesses on both held-out sets. Every
+number is computed by X_eTaL (Policy, Journal, Workshop), from the
+program shown on the page.
+
 ## Run
 
 ```bash
 just run-exp 01        # the experiment, and its checks
 just show-exp 01       # each statement, then its output
 just test-exp 01       # check its baselines
+just pages 01          # build its page; just serve, just browser-check 01
 ```
 
 ## Results

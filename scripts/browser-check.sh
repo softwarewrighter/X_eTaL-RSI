@@ -11,7 +11,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 e="$(basename "$("$root/scripts/experiments.sh" find "${1:?usage: browser-check.sh NN|slug}")")"
 want="$root/experiments/$e/web/browser.txt"
 [ -f "$want" ] || { echo "browser-check: no $want" >&2; exit 1; }
-"$root/scripts/browser-dom.sh" "$e" | "$root/scripts/py" -c '
+"$root/scripts/browser-dom.sh" "$e" "${BROWSER_MS:-20000}" | "$root/scripts/py" -c '
 import html, re, sys
 dom = sys.stdin.read()
 want = [l.rstrip("\n") for l in open(sys.argv[1]) if l.strip() and not l.startswith("#")]
