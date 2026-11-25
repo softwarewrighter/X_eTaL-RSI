@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # The pre-commit gate: the pinned X_eTaL, the asks against its ledger,
+# every library (baselines, doc examples) and experiment (baselines),
 # spelling (American), ASCII-only markdown.
 #   scripts/gate.sh
 set -euo pipefail
@@ -11,6 +12,11 @@ scripts/check-xetal.sh
 step "the asks"
 scripts/py scripts/check-asks.py --self-test
 scripts/py scripts/check-asks.py
+step "the libraries"
+scripts/test-libs.sh
+scripts/doc-test.sh
+step "the experiments"
+scripts/test-experiments.sh
 step "spelling"
 scripts/py scripts/check-spelling.py --self-test
 scripts/py scripts/check-spelling.py

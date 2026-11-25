@@ -167,7 +167,7 @@ policies lower the capability needed to self-improve.
 2. xetal-pin [DONE]: the pinned X_eTaL and X_eTaL-libraries (clones in
    `work/`), `scripts/xt`, `just eval`, the X_eTaL check and the asks
    check in the gate.
-3. layout: `libs/` and `experiments/` with templates, runners (reg-rs),
+3. layout [DONE]: `libs/` and `experiments/` with templates, runners (reg-rs),
    `just new-lib`, `just new-experiment`, `just test`.
 4. econ: the Econ library and experiment 05 (specialization cost):
    break-even over workloads of varying repetition, and a bounded

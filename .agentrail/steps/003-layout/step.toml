@@ -1,6 +1,6 @@
 number = 3
 slug = "layout"
-status = "pending"
+status = "in-progress"
 description = "Libraries and experiments layout (plan A6): templates/Library and templates/E..."
 role = "production"
 context_files = []

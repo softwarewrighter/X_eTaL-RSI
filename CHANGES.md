@@ -11,6 +11,8 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 18:06 `build` Layout (step 3): libs/<Name>/ as in X_eTaL-libraries (templates/Library, libs.py, test-libs.sh, new-lib.sh, run-lib.sh, doc-test.sh) and experiments/NN-slug/ (templates/Experiment, experiments.sh, test-experiments.sh, run-experiment.sh, new-experiment.sh), reg-rs baselines, FAIL lines fail; just test, new-lib, new-exp, run-exp, show-exp, test-lib, test-exp, bless-lib, bless-exp, doc-test; the gate runs them all; xetal.sh keeps cargo's warnings for a failed build.
+- 17:00 `chore` Step 2 (xetal-pin) closed.
 - 16:54 `build` The pinned X_eTaL (step 2): XETAL_COMMIT c925f58 and XETAL_LIBRARIES_COMMIT c7e812e, cloned into work/ and built by scripts/xetal.sh (just xetal, xetal-pin, libs-pin, xetal-version); Check, Parsing, Lists, Strings, Format and Statistics from X_eTaL-libraries; scripts/xt (just eval) with every library on XETAL_PATH; check-xetal and check-asks (asks R1.. against X_eTaL's ledger) in the gate.
 - 16:49 `plan` The manipulator arms dropped from the Workshop (the user: a request meant for another project); the Workshop is again the research's resource and manufacturing world.
 - 16:22 `chore` Step 1 (scaffold) closed.

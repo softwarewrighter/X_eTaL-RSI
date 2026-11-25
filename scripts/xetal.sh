@@ -27,7 +27,8 @@ fi
 [ -z "$(git -C "$clone" status --porcelain)" ] || { echo "xetal: work/xetal has local changes; it must match XETAL_COMMIT" >&2; exit 1; }
 
 export CARGO_TARGET_DIR="$root/target/xetal"
-(cd "$clone/components/cli" && cargo build -q --release -p xetal-cli >&2)
+# cargo build quietly: its manifest warnings only when the build fails.
+out="$(cd "$clone/components/cli" && cargo build -q --release -p xetal-cli 2>&1)" || { printf "%s\n" "$out" >&2; exit 1; }
 
 # The libraries used from X_eTaL-libraries, the same way (work/libs).
 "$root/scripts/xetal-libraries.sh"

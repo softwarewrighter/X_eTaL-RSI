@@ -1,0 +1,6 @@
+#!/usr/bin/env xetal
+## __NUM__ __TITLE__: __SUMMARY__
+##
+## Run with "just run-exp __SLUG__". A deterministic simulation.
+
+"Experiment __NUM__: __TITLE__"

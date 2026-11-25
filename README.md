@@ -67,6 +67,14 @@ CLI and links `bin/xetal`. It needs Rust (cargo), and
 [uv](https://docs.astral.sh/uv/) for the scripts. `just eval EXPR`
 evaluates an expression with every library on the search path.
 
+Each library is its own directory, `libs/<Name>/` (`src/`, `tests/`
+with reg-rs baselines and its exports' types, `docs/`, `demos/`), and
+each experiment is `experiments/NN-slug/` (README, programs, `reg/`
+baselines). `just new-lib` and `just new-exp` start one from
+`templates/`; `just test` checks every baseline, `just run-exp NN` runs
+an experiment, and `just bless-lib` or `just bless-exp` accepts new
+output after its diff is reviewed.
+
 `just` lists the tasks; `just gate` is the pre-commit gate. Work is
 planned as agentrail sagas (`agentrail status`); the decisions are in
 [docs/plan.md](docs/plan.md), and what this repository needs from
