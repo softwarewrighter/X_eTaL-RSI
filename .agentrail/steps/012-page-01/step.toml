@@ -1,8 +1,9 @@
 number = 12
 slug = "page-01"
-status = "in-progress"
+status = "completed"
 description = "The second live page (the user asked when): experiment 01 (tool synthesis) in..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T20:36:34"
-commits = []
+completed_at = "2026-11-24T22:11:50"
+commits = ["834ac34d58dcd82d741ec14d2ba69e7e28d69a33"]
