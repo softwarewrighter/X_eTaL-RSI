@@ -1,6 +1,6 @@
 number = 6
 slug = "pages"
-status = "pending"
+status = "in-progress"
 description = "The first live page (the user asked for a live demo on GitHub Pages soon): po..."
 role = "production"
 context_files = []

@@ -1,0 +1,5 @@
+# Text the page shows only after X_eTaL has run (scripts/browser-check.sh).
+Break-even after 5.45 tasks
+The cost-aware rule improves after 6 baseline tasks
+Cumulative tokens after 30 tasks
+Totals for 40 tasks by uses per kind

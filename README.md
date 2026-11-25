@@ -3,6 +3,11 @@
   X_eTaL-RSI
 </h1>
 
+<p align="center">
+  <b><a href="https://softwarewrighter.github.io/X_eTaL-RSI/">The live experiments</a></b>
+  -- X_eTaL running in your browser (WebAssembly)
+</p>
+
 Recursive self-improvement (RSI) in
 [X_eTaL](https://github.com/softwarewrighter/X_eTaL), the eXperimental
 Extensible Typed Array Language: small, deterministic experiments in
@@ -42,7 +47,7 @@ each one says so.
 | # | Experiment | Status |
 | - | ---------- | ------ |
 | 01 | tool synthesis: repeated action sequences become tools | planned |
-| 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done |
+| 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |
 | 07 | guardian: defective revisions rejected or rolled back | planned |
 
 The full list, the hypotheses and the roadmap are in
@@ -83,6 +88,12 @@ baselines). `just new-lib` and `just new-exp` start one from
 `templates/`; `just test` checks every baseline, `just run-exp NN` runs
 an experiment, and `just bless-lib` or `just bless-exp` accepts new
 output after its diff is reviewed.
+
+An experiment with a `web/` app has a live page: `just pages` builds the
+site into `pages/` (not tracked) with trunk, `just serve` serves it
+locally, and `just publish` makes it the `gh-pages` branch that GitHub
+Pages serves (each page is checked in headless Chrome first). The pages
+share `shared/microscope`, which runs the pinned X_eTaL in the browser.
 
 `just` lists the tasks; `just gate` is the pre-commit gate. Work is
 planned as agentrail sagas (`agentrail status`); the decisions are in

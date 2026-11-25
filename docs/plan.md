@@ -178,7 +178,7 @@ policies lower the capability needed to self-improve.
    ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs,
    all-together-now and the continuous-learning architecture of the
    author's blog.
-6. pages: the first live page, on GitHub Pages (pulled forward at the
+6. pages [DONE]: the first live page, on GitHub Pages (pulled forward at the
    user's request): X_eTaL-ML's page shell and publishing, and
    experiment 05 as the break-even simulator, computed in X_eTaL in the
    browser.

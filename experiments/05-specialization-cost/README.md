@@ -31,12 +31,21 @@ example, a 55% saving). Break-even: 3000 / 550 = 5.45 tasks of a kind.
 | best (yardstick) | - | - | - | - | per kind, the cheaper choice knowing its count |
 | budgeted | yes | yes | yes | no | knows each kind's expected uses; spends at most 9000 tokens by return on investment |
 
+## Live
+
+[The page](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/)
+runs the same costs in your browser: set the investment, the baseline
+and the saving, and watch the three harnesses' cumulative curves, the
+break-even and the repetition table change. Every number is computed
+by X_eTaL (the Econ library), from the program shown on the page.
+
 ## Run
 
 ```bash
 just run-exp 05        # the experiment
 just show-exp 05       # each statement, then its output
 just test-exp 05       # check its baseline
+just pages 05          # build its page; just serve, just browser-check 05
 ```
 
 ## Results

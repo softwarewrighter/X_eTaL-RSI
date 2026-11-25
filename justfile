@@ -107,3 +107,23 @@ test-exp exp:
 # Accept one experiment's current output as its baselines (review the diff!)
 bless-exp exp:
     XETAL_BLESS=1 scripts/test-experiments.sh "$1"
+
+# Build the live site into pages/ (not tracked): every experiment's web app and the catalog; or only the named ones
+pages *exps:
+    scripts/build-pages.sh "$@"
+
+# Serve pages/ as GitHub Pages will: http://127.0.0.1:8435/X_eTaL-RSI/
+serve port="8435":
+    scripts/serve-pages.sh "$1"
+
+# Check an experiment's built page in headless Chrome: X_eTaL ran, its web/browser.txt lines shown
+browser-check exp:
+    scripts/browser-check.sh "$1"
+
+# Publish pages/ as the gh-pages branch (after committing; every page browser-checked first)
+publish:
+    scripts/publish-pages.sh
+
+# Check the deployed site: the catalog reports this commit, every page runs X_eTaL there
+check-live:
+    scripts/check-live.sh

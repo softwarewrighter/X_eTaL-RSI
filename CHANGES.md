@@ -11,6 +11,8 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-24
 
+- 19:43 `feat` The first live page (step 6, the user): experiment 05 in the browser, the investment, baseline, saving and tasks on sliders, the three harnesses' cumulative curves with the break-even, the repetition table and the X_eTaL program that computed them (Econ, the pinned X_eTaL in WebAssembly); shared/microscope (the core of X_eTaL-ML's page shell on this repo's pin); build-pages, catalog, serve, browser-check (headless Chrome), publish to gh-pages (browser-checked first), check-live; the gate runs the pages' native tests and wasm32 check; four page tests against the command-line experiment and the formulas.
+- 18:35 `chore` Step 5 (related) closed.
 - 19:21 `docs` docs/related.md (step 5, the user): this repository and Exo beside ICL, ICRL, XSkill, RLM, the Ralph loop, agentrail-rs, all-together-now, the continuous-learning agent and the local-model plan-execute-review loop, by six questions (what changes, where kept, persists, checked by, does the improver improve, what is taken here), with links to the author's blog posts; linked from the README, the plan and CLAUDE.md; in the gate's markdown check.
 - 17:45 `chore` Step 4 (econ) closed.
 - 18:57 `exp` Experiment 05, specialization cost (step 4): repetition swept over 40 tasks and four workload shapes for the fixed harness, always improving, the cost-aware ski-rental rule, hindsight and a budget; always improving costs 3.45 times the fixed harness on one-off work, ski rental stays within 1.5 times hindsight, a budget with known reuse reaches it.

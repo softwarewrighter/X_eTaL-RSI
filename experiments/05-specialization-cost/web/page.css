@@ -1,0 +1,13 @@
+/* Experiment 05's page, beside the shared microscope.css. */
+.sim { font-style: italic; opacity: 0.8; }
+.slider { display: grid; grid-template-columns: 9em minmax(10em, 26em) auto; gap: 0.8em; align-items: center; margin: 0.3em 0; }
+.slider .value { font-variant-numeric: tabular-nums; }
+.chart { width: 100%; max-width: 760px; height: auto; display: block; }
+.chart .axis { font-size: 12px; fill: currentColor; opacity: 0.7; }
+.legend .key { margin-right: 1.4em; white-space: nowrap; }
+.legend .swatch { display: inline-block; width: 1.4em; height: 0.35em; margin-right: 0.4em; vertical-align: middle; }
+.sweep { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.sweep th, .sweep td { padding: 0.25em 0.6em; text-align: right; border-bottom: 1px solid rgba(128, 128, 128, 0.3); }
+.sweep th:first-child { text-align: left; }
+.sweep td.best { background: rgba(47, 111, 208, 0.15); }
+.slider input { width: 100%; }

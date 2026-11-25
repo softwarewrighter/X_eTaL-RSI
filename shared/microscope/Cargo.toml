@@ -1,0 +1,18 @@
+[package]
+name = "microscope"
+description = "The shared shell of the X_eTaL-RSI experiment pages (the core of X_eTaL-ML's microscope, built on this repo's pinned X_eTaL): running X_eTaL and reading arrays back, decorated source, header and footer"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[dependencies]
+xetal-play = { path = "../../work/xetal/components/web/crates/xetal-play" }
+xetal-store = { path = "../../work/xetal/components/base/crates/xetal-store" }
+xetal-program = { path = "../../work/xetal/components/macro/crates/xetal-program" }
+xetal-macro = { path = "../../work/xetal/components/macro/crates/xetal-macro" }
+yew = { version = "0.21", features = ["csr"] }
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = ["Window", "Performance"] }
+
+[workspace]
