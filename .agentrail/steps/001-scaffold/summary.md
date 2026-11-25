@@ -1,0 +1,1 @@
+Scaffold: agentrail saga (8 steps), CLAUDE.md rules + AGENTS.md symlink, README, plan (Exo, A1-A8, manipulators), asks, CHANGES, .gitignore, justfile, gate (spelling, markdown)

@@ -1,8 +1,9 @@
 number = 1
 slug = "scaffold"
-status = "in-progress"
+status = "completed"
 description = "Scaffold the repo as the siblings are (../X_eTaL-ML): CLAUDE.md with the agen..."
 role = "production"
 context_files = []
 created_at = "2026-11-24T16:14:14"
-commits = []
+completed_at = "2026-11-24T16:47:28"
+commits = ["bd5c150cb42c8250a914f204e20c01d89a787e54"]
