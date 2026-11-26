@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-25
 
+- 18:50 `chore` Step 1 (evolve) closed.
 - 18:42 `exp` Experiment 03, policy evolution (step 1): twelve batches whose recipe shifts twice; A fixed, C tools learned once, D revising before every batch (layered Guardian), D-unguarded (Exo's default), D-every-4; evolving halves production tokens (165k against 336k) while tools learned once save under 10%, D lags a shift by up to two batches (its 6-task window still holds the old recipe), reviewing every revision costs more than evolving saves at this scale (318k review tokens), unguarded evolution spends least, revising on a schedule blind to the work is worse than not revising; 8 claims checked.
 - 18:42 `feat` The Evolve library (step 1): the optimizer as data, a vector lo hi k window period, interpreted by e_volve (synthesize from the recent journal, review with the Guardian on the batch just done, record, run the batch; a per-batch report of verdict, version, tasks done, production, writing and review tokens), c_andidate, d_ue, r_ecent, t_okens; 15 doc examples, basics, the adapt demo.
 - 18:42 `feat` Guardian: when held-out and recent tasks are the same, layer 6 reuses layer 5's runs (the world is deterministic); verdicts unchanged, review tokens lower; r_eview's type now has held and recent of one type. Baselines reblessed after review: Guardian basics, demo and types, experiment 07 (drift guardian's review tokens 324520 to 215040, 40565 to 26880 a candidate; its README updated).
