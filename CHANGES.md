@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-25
 
+- 22:42 `chore` Step 2 (recursive) closed.
 - 21:28 `exp` Experiment 04, the recursive optimizer (step 2, H3): 24 batches, the recipe shifting every 6; D with fixed optimizers (experiment 03's, a badly tuned one, the best of 180 found in hindsight) against E, which retunes its optimizer every 3 batches by replaying the last 3 under each neighboring vector; tuning matters more than evolving (best fixed saves 32% against the fixed harness, 03's and the bad settings spend more than never evolving), E halves the bad optimizer's cost and cuts 03's by 21% for 4-6% of its tokens in meta-level reads, but never reaches the fixed harness from a poor start and is pure overhead from a tuned one; the meta-level's own settings matter too (no tower: they are fixed, still a choice); 9 claims checked.
 - 21:28 `feat` Evolve's meta-level (step 2): r_ecursive (the optimizer vector retuned before every M-th batch, by replaying the last R batches under it and its neighbors, charged per journal event read; 12 report columns), n_eighbors, p_redict; the per-batch step shared by e_volve and r_ecursive; 28 doc examples; basics extended and reblessed after review (three new exports in types).
 - 18:50 `chore` Step 1 (evolve) closed.
