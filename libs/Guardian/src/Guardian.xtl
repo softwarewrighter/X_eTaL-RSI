@@ -60,6 +60,16 @@ h:c_ost := { (tasks, T, b, call, per) ->
   (d, jr:t_otal j)
 }
 
+## Layer 6's runs: the candidate's and the running policy's tokens on
+## the recent tasks, those of layer 5 again when the tasks are the same
+## (the world is deterministic: running them twice tells nothing new).
+h:s_hadow := { (same, (k5, ki), (recent, T, b, Ti, bi, call, per)) ->
+  same ? (k5, ki)
+  (d6, k6) := h:c_ost (recent, T, b, call, per)
+  (dj, kj) := h:c_ost (recent, Ti, bi, call, per)
+  (k6, kj)
+}
+
 ### The review
 
 ## `(suite, held, recent, allowed, most, call, per, upto) r_eview
@@ -69,13 +79,15 @@ h:c_ost := { (tasks, T, b, call, per) ->
 ## are not checked (upto = 1 is Exo's default guardian, "it builds";
 ## 6 is all of them). suite, held and recent are task tables (rows
 ## q w r); allowed the ops tools may hold; most the most tools; call
-## a model call's tokens; per a tool's tokens in every prompt.
+## a model call's tokens; per a tool's tokens in every prompt. When
+## recent and held are the same tasks, layer 6 reuses layer 5's runs.
+
 ## >> "gd:" u_se< "Guardian"
 ## >> "po:" u_se< "Policy"
 ## >> tasks := 2 3 r_eshape 2 1 1 3 1 1
 ## >> g := (tasks, tasks, tasks, r_ange 9, 5, 500, 20, 6)
 ## >> g gd:r_eview ((1 8 r_eshape 1 2 3 4 5 6 0 0, 50), (po:n_one 8, 50))
-## (0, 48040)
+## (0, 26360)
 ## >> g gd:r_eview ((po:n_one 8, 5), (po:n_one 8, 50))
 ## (4, 5000)
 l:r_eview := { (suite, held, recent, allowed, most, call, per, upto) ((T, b), (Ti, bi)) ->
@@ -93,10 +105,11 @@ l:r_eview := { (suite, held, recent, allowed, most, call, per, upto) ((T, b), (T
   (di, ki) := h:c_ost (held, Ti, bi, call, per)
   (d5 < t_ally held) | k5 > ki ? (5, k4 + k5 + ki)
   upto < 6 ? (0, k4 + k5 + ki)
-  (d6, k6) := h:c_ost (recent, T, b, call, per)
-  (dj, kj) := h:c_ost (recent, Ti, bi, call, per)
-  k6 >= kj ? (6, k4 + k5 + ki + k6 + kj)
-  (0, k4 + k5 + ki + k6 + kj)
+  same := recent m_atch held
+  (k6, kj) := h:s_hadow (same, (k5, ki), (recent, T, b, Ti, bi, call, per))
+  spent := k4 + k5 + ki + (1 - same) * k6 + kj
+  k6 >= kj ? (6, spent)
+  (0, spent)
 }
 
 ### Versions

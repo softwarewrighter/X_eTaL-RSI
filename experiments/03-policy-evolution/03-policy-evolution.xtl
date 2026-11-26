@@ -1,0 +1,84 @@
+#!/usr/bin/env xetal
+## 03 Policy evolution: a harness that keeps revising its tools as the
+## work shifts, every revision reviewed and recorded.
+##
+## Run with "just run-exp 03". A deterministic simulation on the
+## Workshop world (the model is Workshop's expert). Twelve batches of
+## three tasks; the recipe shifts twice: 1 wood and 1 ore a device in
+## batches 1 to 4, 2 wood in 5 to 8, 2 ore in 9 to 12. Costs (tokens): a
+## call 500, a tool's schema 20 in every prompt, writing a tool 1500.
+## Groups:
+##   A          the fixed harness, no tools
+##   C          three tools learned once from a training journal (as in
+##              experiment 01), never revised
+##   D          evolving: before every batch, three tools of 2 to 8 ops
+##              learned from the last 6 tasks, reviewed by the layered
+##              Guardian (all six layers, judged on the last batch)
+##   D-unguarded  the same, accepted if they build (Exo's default)
+##   D-every-4  guarded, revising only every fourth batch
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+"ev:" u_se< "Evolve"
+"gd:" u_se< "Guardian"
+"k:" u_se< "Check"
+
+### The work
+
+batches := 12 3 3 r_eshape 2 1 1 3 1 1 1 1 1 4 1 1 2 1 1 3 1 1 3 1 1 1 1 1 2 1 1 2 1 1 4 1 1 3 1 1 2 2 1 3 2 1 1 2 1 4 2 1 2 2 1 3 2 1 2 2 1 1 2 1 3 2 1 3 2 1 2 2 1 4 2 1 3 1 2 2 1 2 1 1 2 4 1 2 2 1 2 3 1 2 2 1 2 1 1 2 3 1 2 2 1 2 3 1 2 4 1 2
+
+### The groups
+
+train := 8 3 r_eshape 1 1 1 3 1 1 2 1 1 5 1 1 1 1 1 4 1 1 2 1 1 3 1 1
+(dt, jt) := (train, po:n_one 8, 0, 500) po:w_orkload 200
+learned := (2, 8, 3, 8) po:s_ynthesize jt
+suite := 3 3 r_eshape 2 1 1 2 2 1 2 1 2
+## (suite, allowed ops, most tools, call, per tool, write a tool, layers)
+guarded := (suite, 1 2 3 4 5 6 7, 6, 500, 20, 1500, 6)
+builds := (suite, 1 2 3 4 5 6 7, 6, 500, 20, 1500, 1)
+## Optimizers: lo hi k window period.
+(ha, ja, ra) := guarded ev:e_volve (2 8 3 6 0, (po:n_one 8, 60), batches)
+(hc, jc, rc) := guarded ev:e_volve (2 8 3 6 0, (learned, 60), batches)
+(hd, jd, rd) := guarded ev:e_volve (2 8 3 6 1, (po:n_one 8, 60), batches)
+(hu, ju, ru) := builds ev:e_volve (2 8 3 6 1, (po:n_one 8, 60), batches)
+(hf, jf, rf) := guarded ev:e_volve (2 8 3 6 4, (po:n_one 8, 60), batches)
+
+### The timeline
+
+"D, a row per batch: revision verdict (-1 none, 0 accepted, else the layer that failed), version running, tasks done, production, writing and review tokens:"
+rd
+"the version running each batch, D-unguarded and D-every-4:"
+2 s_elect_2 ru
+2 s_elect_2 rf
+"the tools D ran last:"
+(Td, bd) := gd:a_ctive hd
+Td
+### Totals
+## Deliveries no model call supervised: op 8 run inside a tool.
+u:u_nsupervised := { (t, v, o, c, k) -> '+ r_/ (o = 8) & c = 0 }
+u:r_ow := { (r, j) -> (ev:t_okens r) c_at ('+ r_/ 3 s_elect_2 r) c_at ('+ r_/ 0 = 1 s_elect_2 r) c_at u:u_nsupervised j }
+"rows A, C, D, D-unguarded, D-every-4; columns production, writing, review tokens, tasks done, revisions accepted, unsupervised deliveries:"
+tot := 5 6 r_eshape (u:r_ow (ra, ja)) c_at (u:r_ow (rc, jc)) c_at (u:r_ow (rd, jd)) c_at (u:r_ow (ru, ju)) c_at u:r_ow (rf, jf)
+tot
+"all tokens:"
+'+ r_/_2 3 t_ake_2 tot
+
+### The claims, checked
+
+prod := 1 s_elect_2 tot
+pa := 1 s_elect prod
+pc := 2 s_elect prod
+pd := 3 s_elect prod
+pu := 4 s_elect prod
+pf := 5 s_elect prod
+(ts, bs, vs, on) := hd
+all := '+ r_/_2 3 t_ake_2 tot
+x1 := "every group does every task" k:t_est (4 s_elect_2 tot) k:i_s 36 36 36 36 36
+x2 := "evolving at least halves production tokens" k:t_est ((2 * pd) < pa) k:i_s 1
+x3 := "tools learned once save under 10% once the work shifts" k:t_est ((10 * pc) > 9 * pa) k:i_s 1
+x4 := "with every revision reviewed, evolving costs more than it saves" k:t_est ((3 s_elect all) > f_irst all) k:i_s 1
+x5 := "unguarded evolution spends the fewest tokens" k:t_est ((4 s_elect all) = 'm_in r_/ all) k:i_s 1
+x6 := "the guardian keeps worse candidates out of production" k:t_est (pd < pu) k:i_s 1
+x7 := "revising every 4 batches, on stale journals, is worse than not revising" k:t_est (pf > pa) k:i_s 1
+x8 := "the history holds every proposal, accepted or not" k:t_est ((t_ally vs) = 1 + '+ r_/ -1 != 1 s_elect_2 rd) k:i_s 1
+k:r_eport x1 k:a_nd x2 k:a_nd x3 k:a_nd x4 k:a_nd x5 k:a_nd x6 k:a_nd x7 k:a_nd x8

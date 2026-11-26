@@ -138,6 +138,7 @@ work/                   gitignored: the X_eTaL clones, scratch
 | Workshop | `ws:` | the deterministic task world: gather, carry, make, deliver (the research's resource and manufacturing world), with an op-code action set and its cost meter |
 | Policy | `po:` | policies as op-code programs: interpret, compose, define a tool (macro op), diff two versions |
 | Guardian | `gd:` | the layered acceptance checks, version history and rollback |
+| Evolve | `ev:` | the improvement loop: an optimizer vector interpreted by fixed code that learns, reviews and swaps tools |
 
 ## The experiments (from the research, renumbered as built)
 
@@ -206,7 +207,7 @@ and E, the optimizer's own parameters as an editable policy), 06
 optimization), with a written report of the results, negative ones
 included.
 
-1. evolve: the Evolve library (`ev:`), the improvement loop as
+1. evolve [DONE]: the Evolve library (`ev:`), the improvement loop as
    protected mechanism: an optimizer is a parameter vector (shortest
    and longest tool, tools kept, the journal window learned from, how
    often to revise), interpreted by fixed code that synthesizes

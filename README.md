@@ -47,6 +47,7 @@ each one says so.
 | # | Experiment | Status |
 | - | ---------- | ------ |
 | 01 | [tool synthesis](experiments/01-tool-synthesis/README.md): repeated action sequences become tools; tools beat hints, short tools transfer | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/01-tool-synthesis/) |
+| 03 | [policy evolution](experiments/03-policy-evolution/README.md): a harness revising its tools as the work shifts; reviews cost more than they save at small scale | done |
 | 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |
 | 07 | [guardian](experiments/07-guardian/README.md): defective revisions rejected or rolled back; what verifying costs | done |
 
@@ -71,6 +72,7 @@ whether the improver itself improves.
 | [Workshop](libs/Workshop/docs/README.md) | a deterministic resource and manufacturing world (gather, carry, make, deliver) | done |
 | [Policy](libs/Policy/docs/README.md) | policies as op-code tables run by a fixed interpreter: episodes, tools, calls | done |
 | [Guardian](libs/Guardian/docs/README.md) | layered acceptance checks, versions and rollback | done |
+| [Evolve](libs/Evolve/docs/README.md) | the improvement loop: an optimizer vector that learns, reviews and swaps tools as work goes on | done |
 
 ## Development
 

@@ -1,0 +1,125 @@
+## Evolve: the improvement loop as protected mechanism: an optimizer vector that learns, reviews and swaps a harness's tools as the work goes on
+## Import it with an alias of your choice: "ev:" u_se< "Evolve".
+## Put libs/Evolve/src on XETAL_PATH ("just path"); the reference is libs/Evolve/docs.
+## Names with l: are exported; h: names are private to this file.
+##
+## Exo's executor rewrites its own harness as it works. Here the harness
+## is a Policy tool table and a call budget, and what decides how it is
+## rewritten, the optimizer, is data too (plan A1): an Int vector
+##
+##   o = lo hi k window period
+##
+## tools of lo to hi ops, the k worth the most calls saved, learned from
+## the journal of the last window tasks, a revision before every
+## period-th batch of work (0: never). This library is the fixed
+## interpreter of that vector: before a batch that is due it synthesizes
+## a candidate (Policy's s_ynthesize), has the Guardian review it
+## against the running policy on the most recent batch, records it in
+## the append-only history, and runs the batch with whatever is then
+## running. A candidate equal to the running table, or empty, is not
+## proposed. Every token is counted: production, writing the candidate,
+## the review.
+##
+## The settings the optimizer cannot change, g:
+##
+##   (suite, allowed, most, call, per, write, upto)
+##
+## the Guardian's test suite (a task table), the ops a tool may hold,
+## the most tools, a model call's tokens, a tool's tokens in every
+## prompt, the tokens to write one tool, and how many of the Guardian's
+## layers are checked (1: Exo's default, "it builds"; 6: all).
+
+"po:" u_se< "Policy"
+"jr:" u_se< "Journal"
+"gd:" u_se< "Guardian"
+
+### Journals
+
+## `n r_ecent j`: the events of the last n tasks of journal j (tasks
+## numbered in order, as e_volve numbers them).
+## >> "ev:" u_se< "Evolve"
+## >> (t, v, o, c, k) := 2 ev:r_ecent (1 2 2 3 3, 0 0 0 0 0, 1 2 3 4 5, 1 1 1 1 1, 1 1 1 1 1)
+## >> o
+## 2 3 4 5
+l:r_ecent := { n (t, v, o, c, k) ->
+  0 = t_ally t ? (t, v, o, c, k)
+  w := w_here t > ('m_ax r_/ t) - n
+  (w s_elect t, w s_elect v, w s_elect o, w s_elect c, w s_elect k)
+}
+
+### Revising
+
+## `o c_andidate (j, L)`: the tool table optimizer o learns from journal
+## j, rows of L ops.
+## >> "ev:" u_se< "Evolve"
+## >> 2 3 1 6 1 ev:c_andidate ((1 1 1 1 1 1, 0 0 0 0 0 0, 1 2 3 1 2 3, 1 1 1 1 1 1, 1 1 1 1 1 1), 4)
+## 1 2 3 0
+l:c_andidate := { o (j, L) ->
+  (1 s_elect o, 2 s_elect o, 3 s_elect o, L) po:s_ynthesize (4 s_elect o) l:r_ecent j
+}
+
+## `i d_ue period`: 1 if a revision comes before batch i (never before
+## the first, never for period 0).
+## >> "ev:" u_se< "Evolve"
+## >> m_ix '{ i -> i ev:d_ue 2 } m_ap 1 2 3 4 5
+## 0 0 1 0 1
+l:d_ue := { i period -> (period > 0) & (i > 1) & 0 = (i - 1) m_od period m_ax 1 }
+
+## One revision: (history, verdict, write tokens, review tokens), the
+## verdict -1 when nothing was proposed.
+h:r_evise := { ((suite, allowed, most, call, per, write, upto), o, h0, j0, last, due) ->
+  due = 0 ? (h0, -1, 0, 0)
+  (Ta, ba) := gd:a_ctive h0
+  T := o l:c_andidate (j0, 2 s_elect s_hape Ta)
+  (0 = t_ally T) | T m_atch Ta ? (h0, -1, 0, 0)
+  (verdict, cost) := (suite, last, last, allowed, most, call, per, upto) gd:r_eview ((T, ba), (Ta, ba))
+  (h0 gd:p_ropose ((T, ba), verdict), verdict, write * t_ally T, cost)
+}
+
+### The loop
+
+## `g e_volve (o, (T0, b), batches)`: the work in batches (an n by m by
+## 3 array: n batches of m tasks, rows q w r) done by a harness starting
+## from policy (T0, b) and revised by optimizer o under settings g:
+## (history, journal, report). The journal numbers the tasks 1 to n*m
+## in order and records each event's running version; the report has a
+## row per batch:
+##
+##   verdict  version  done  production  writing  review
+##
+## the revision before the batch (-1 none, 0 accepted, else the
+## Guardian layer that failed), the version that ran it, its tasks done
+## and the tokens each part cost.
+## >> "ev:" u_se< "Evolve"
+## >> "po:" u_se< "Policy"
+## >> work := 3 2 3 r_eshape 2 1 1 3 1 1 2 1 1 3 1 1 2 1 1 3 1 1
+## >> g := (2 3 r_eshape 2 1 1 1 1 1, 1 2 3 4 5 6 7, 3, 500, 20, 1500, 6)
+## >> (h, j, rep) := g ev:e_volve (2 8 3 6 1, (po:n_one 8, 60), work)
+## >> rep
+## -1 1 2 17000    0     0
+##  0 2 2  8400 4500 31000
+## -1 2 2  8400    0     0
+l:e_volve := { g (o, (T0, b), batches) ->
+  (suite, allowed, most, call, per, write, upto) := g
+  n := t_ally batches
+  (h, j, _, rows) := n '{ (h0, j0, i, acc) ->
+    last := ((i - 1) m_ax 1) s_elect batches
+    (h1, verdict, wrote, cost) := h:r_evise (g, o, h0, j0, last, i l:d_ue 5 s_elect o)
+    work := i s_elect batches
+    (T, bb) := gd:a_ctive h1
+    (_, _, _, on) := h1
+    (d, je) := (work, T, on, call, per * t_ally T, 0) po:w_orkloadWith bb
+    (t, v, op, c, k) := je
+    jn := j0 jr:r_ecord (t + (i - 1) * t_ally work, v, op, c, k)
+    (h1, jn, i + 1, acc c_at verdict c_at on c_at d c_at ('+ r_/ c) c_at wrote c_at cost)
+  } p_ower (gd:b_egin (T0, b), jr:e_mpty @, 1, 0 r_eshape 0)
+  (h, j, (n c_at 6) r_eshape rows)
+}
+
+### Reading a report
+
+## `t_okens report`: production, writing and review tokens in all.
+## >> "ev:" u_se< "Evolve"
+## >> ev:t_okens 2 6 r_eshape -1 1 2 100 0 0 0 2 2 50 30 70
+## 150 30 70
+l:t_okens := { rep -> '+ r_/ 4 5 6 s_elect_2 rep }

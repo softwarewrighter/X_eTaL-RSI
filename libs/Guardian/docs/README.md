@@ -28,7 +28,9 @@ never sees.
 | 6 | shadow | recent tasks do not cost strictly fewer tokens than under the running policy |
 
 Layers 4 to 6 run episodes, so the review costs tokens; it reports how
-many.
+many. When the held-out and recent tasks are the same, layer 6 reuses
+layer 5's runs (the world is deterministic), so judging both on the
+latest work costs no more than judging regressions alone.
 
 ## Functions
 
@@ -58,8 +60,8 @@ see:
 (3, 0)
 (4, 3120)
 (5, 61600)
-(6, 100000)
-(0, 55600)
+(6, 60000)
+(0, 30400)
 (0, 0)
 ```
 

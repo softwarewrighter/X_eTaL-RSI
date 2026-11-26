@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../03-policy-evolution.xtl"
+exit_code = 0

@@ -69,7 +69,7 @@ Over the eight production batches:
 | builds | 131600 | 0 | 1 | 3 | 0 |
 | breaker | 131600 | 0 | 1 | 3 | 1 |
 | layered | 138880 | 281080 | 0 | 0 | 0 |
-| drift | 131040 | 324520 | 0 | 0 | 0 |
+| drift | 131040 | 215040 | 0 | 0 | 0 |
 
 What it shows:
 
@@ -86,11 +86,14 @@ What it shows:
   that suit the shifted work, as a regression, and ran stale tools for
   the last two batches. Judging regressions on recent work (drift)
   accepted them, and that guardian spent the least in production.
-- Verifying is not free: about 35,000 to 40,000 tokens a candidate here,
-  more than the whole production run at this toy scale (each review
-  reruns the running policy too; its results could be cached, as the
-  world is deterministic). What the layers bought is safety and
-  correctness (no failed task, no unsupervised delivery), not tokens;
+- Verifying is not free: about 27,000 (drift) to 35,000 (layered)
+  tokens a candidate here, more than the whole production run at this
+  toy scale. The drift guardian's held-out and recent tasks are the
+  same batch, and the world is deterministic, so its shadow layer
+  reuses the regression layer's runs; each review still reruns the
+  running policy, whose cost production has already measured. What
+  the layers bought is safety and correctness (no failed task, no
+  unsupervised delivery), not tokens;
   in tokens a review pays only when production between revisions is
   large. H6 holds here for correctness, not for cost.
 

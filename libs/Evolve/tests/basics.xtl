@@ -1,0 +1,32 @@
+#!/usr/bin/env xetal
+## Evolve: the loop's parts and its report on a small stream, pinned.
+
+"ev:" u_se< "Evolve"
+"po:" u_se< "Policy"
+"gd:" u_se< "Guardian"
+
+## Revision schedules for periods 0, 1 and 3 over seven batches.
+m_ix '{ p -> m_ix '{ i -> i ev:d_ue p } m_ap 1 2 3 4 5 6 7 } m_ap 0 1 3
+## The last 1 task of a journal of three.
+(t, v, o, c, k) := 1 ev:r_ecent (1 2 3, 0 0 0, 5 6 7, 1 1 1, 1 1 1)
+o
+## Four batches of two tasks, the recipe shifting to 2 wood at batch 3.
+work := 4 2 3 r_eshape 2 1 1 3 1 1 2 1 1 1 1 1 2 2 1 3 2 1 2 2 1 2 2 1
+g := (2 3 r_eshape 2 1 1 2 2 1, 1 2 3 4 5 6 7, 3, 500, 20, 1500, 6)
+u := (2 3 r_eshape 2 1 1 2 2 1, 1 2 3 4 5 6 7, 3, 500, 20, 1500, 1)
+## Never revised; revised before every batch, guarded and not.
+(h0, j0, r0) := g ev:e_volve (2 8 3 4 0, (po:n_one 8, 60), work)
+r0
+(h1, j1, r1) := g ev:e_volve (2 8 3 4 1, (po:n_one 8, 60), work)
+r1
+(h2, j2, r2) := u ev:e_volve (2 8 3 4 1, (po:n_one 8, 60), work)
+r2
+ev:t_okens r1
+## The journal numbers tasks across batches and records the version.
+(tj, vj, oj, cj, kj) := j1
+u_nique tj
+u_nique vj
+## The history: every proposal, the verdicts, the running version.
+(ts, bs, vs, on) := h1
+vs
+on
