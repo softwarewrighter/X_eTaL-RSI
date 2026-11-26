@@ -1,0 +1,1 @@
+Third live page: experiment 04 in the browser (optimizer and meta-level sliders, cumulative chart, totals by part, batch-by-batch revisions and E's optimizer, background, program); 3 page tests match the CLI; published, check-live ok at d832906 (all three pages).
