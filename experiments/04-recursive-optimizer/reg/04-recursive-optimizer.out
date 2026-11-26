@@ -1,0 +1,35 @@
+all tokens: the fixed harness; D from 03's, the bad and the best optimizer; E from the same three (its meta-level's tokens included):
+647000
+948940 1809720 442680
+745680 880740 470780
+E's meta-level tokens, from each start:
+44240
+39340
+28100
+the optimizer E ran each batch (hi k window period), from 03's settings:
+8 8 8 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2
+6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+from the bad one:
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+from the best one:
+8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+E from the bad optimizer, replaying R batches every M: (3, 3), (6, 3), (3, 6):
+880740 1062535 1094360
+ok: E does every task from every start
+ok: tuned in hindsight, a fixed optimizer saves over 30% against the fixed harness
+ok: badly tuned, evolving costs more than not evolving at all
+ok: E at least halves what the badly tuned optimizer costs
+ok: E beats D from experiment 03's settings
+ok: but from neither poor start does E reach the fixed harness
+ok: started tuned, E costs more than D: retuning is overhead
+ok: the meta-level reads under 10% of E's tokens
+ok: the meta-level's own settings matter: other ones do worse from the bad start
+9 checks, all passed

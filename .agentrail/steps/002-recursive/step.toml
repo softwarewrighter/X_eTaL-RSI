@@ -1,6 +1,6 @@
 number = 2
 slug = "recursive"
-status = "pending"
+status = "in-progress"
 description = "Experiment 04, the recursive optimizer (the paper's central question, hypothe..."
 role = "production"
 context_files = []

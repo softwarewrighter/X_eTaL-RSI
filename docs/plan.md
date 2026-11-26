@@ -216,7 +216,7 @@ included.
    evolution): A fixed, C tools learned once, D evolving (guarded and
    unguarded) on a stream of batches whose recipe shifts; the timeline
    of accepted and rejected revisions and what each cost.
-2. recursive: experiment 04 (the paper's central question, H3): group
+2. recursive [DONE]: experiment 04 (the paper's central question, H3): group
    E edits its own optimizer vector (a fixed meta-level replays recent
    work under neighboring optimizers and adopts a better one through
    the guardian) against D with fixed optimizers, well and badly

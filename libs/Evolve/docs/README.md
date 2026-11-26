@@ -50,12 +50,31 @@ and the Guardian layers checked (1 is Exo's default, "it builds").
 | `o ev:c_andidate (j, L)` | `Int -> (journal, Int) -> Int` | the tool table optimizer o learns from journal j, rows of L ops |
 | `i ev:d_ue period` | `Int -> Int -> a` | 1 if a revision comes before batch i |
 | `n ev:r_ecent j` | `a -> journal -> journal` | the events of the last n tasks |
-| `ev:t_okens report` | `a -> a` | production, writing and review tokens in all |
+| `(g, R, M, read) ev:r_ecursive (o, (T0, b), batches)` | `(...) -> (Int, (Int, Int), c) -> (history, journal, Int)` | as e_volve, the optimizer retuned before every M-th batch by the fixed meta-level; 12 report columns |
+| `ev:n_eighbors o` | `a -> a` | o, then the optimizers one step from it, a row each |
+| `g ev:p_redict (o, (T, b), batches)` | `(...) -> (Int, (Int, Int), c) -> Int` | the tokens o would spend on batches from policy (T, b) |
+| `ev:t_okens report` | `Int -> Int` | production, writing and review tokens in all |
 
 A report row is `verdict version done production writing review`: the
 revision before the batch (-1 none proposed, 0 accepted, else the
 Guardian layer that failed), the version that ran the batch, its tasks
 done and the tokens of each part.
+
+## The meta-level
+
+Group E (plan A5) revises the optimizer vector too, with a meta-level
+that is fixed: what improves the optimizer does not improve itself.
+`r_ecursive`, before every M-th batch once R batches are done, replays
+the last R batches under the running optimizer and each of its
+`n_eighbors` (`hi`, `k` and `period` plus or minus 1, `window` plus or
+minus 3, within bounds), starting from the running policy, and adopts
+the one whose replay (`p_redict`) spends the fewest tokens, the running
+one on a tie. The replay calls no model: tools change how many calls a
+task takes, never which ops it runs, so it needs only the recorded
+ops; it is charged `read` tokens for each journal event of the R
+batches, for each optimizer replayed. Its report adds two things to
+`e_volve`'s row: the meta-level's read tokens and the optimizer that
+ran the batch.
 
 ## Examples
 
@@ -77,6 +96,8 @@ after the first batch of the new recipe and refined once more.
 
 - [`demos/adapt.xtl`](../demos/adapt.xtl): a harness adapting to a
   shifted recipe, against the fixed harness.
+- [experiment 04](../../../experiments/04-recursive-optimizer/README.md):
+  the meta-level against fixed optimizers.
 
 ## Provenance
 

@@ -78,6 +78,21 @@ h:r_evise := { ((suite, allowed, most, call, per, write, upto), o, h0, j0, last,
 
 ### The loop
 
+## One batch, i: the revision due before it, then the batch run by the
+## policy then running: (history, journal, report row).
+h:b_atch := { (g, o, batches) (h0, j0, i) ->
+  (suite, allowed, most, call, per, write, upto) := g
+  last := ((i - 1) m_ax 1) s_elect batches
+  (h1, verdict, wrote, cost) := h:r_evise (g, o, h0, j0, last, i l:d_ue 5 s_elect o)
+  work := i s_elect batches
+  (T, bb) := gd:a_ctive h1
+  (_, _, _, on) := h1
+  (d, je) := (work, T, on, call, per * t_ally T, 0) po:w_orkloadWith bb
+  (t, v, op, c, k) := je
+  jn := j0 jr:r_ecord (t + (i - 1) * t_ally work, v, op, c, k)
+  (h1, jn, verdict c_at on c_at d c_at ('+ r_/ c) c_at wrote c_at cost)
+}
+
 ## `g e_volve (o, (T0, b), batches)`: the work in batches (an n by m by
 ## 3 array: n batches of m tasks, rows q w r) done by a harness starting
 ## from policy (T0, b) and revised by optimizer o under settings g:
@@ -100,20 +115,99 @@ h:r_evise := { ((suite, allowed, most, call, per, write, upto), o, h0, j0, last,
 ##  0 2 2  8400 4500 31000
 ## -1 2 2  8400    0     0
 l:e_volve := { g (o, (T0, b), batches) ->
-  (suite, allowed, most, call, per, write, upto) := g
   n := t_ally batches
   (h, j, _, rows) := n '{ (h0, j0, i, acc) ->
-    last := ((i - 1) m_ax 1) s_elect batches
-    (h1, verdict, wrote, cost) := h:r_evise (g, o, h0, j0, last, i l:d_ue 5 s_elect o)
-    work := i s_elect batches
-    (T, bb) := gd:a_ctive h1
-    (_, _, _, on) := h1
-    (d, je) := (work, T, on, call, per * t_ally T, 0) po:w_orkloadWith bb
-    (t, v, op, c, k) := je
-    jn := j0 jr:r_ecord (t + (i - 1) * t_ally work, v, op, c, k)
-    (h1, jn, i + 1, acc c_at verdict c_at on c_at d c_at ('+ r_/ c) c_at wrote c_at cost)
+    (h1, j1, row) := (g, o, batches) h:b_atch (h0, j0, i)
+    (h1, j1, i + 1, acc c_at row)
   } p_ower (gd:b_egin (T0, b), jr:e_mpty @, 1, 0 r_eshape 0)
   (h, j, (n c_at 6) r_eshape rows)
+}
+
+### The meta-level
+
+## Group E (plan A5): the optimizer vector is itself revised, by a
+## meta-level that is fixed (there is no tower: what improves the
+## optimizer does not improve itself). Every M batches it replays the
+## last R batches under the running optimizer and each one a step from
+## it, starting from the running policy, and adopts the one whose replay
+## spends the fewest tokens (production, writing and review; the running
+## one on a tie). The replay calls no model: tools change how many calls
+## a task takes, never which ops it runs (Policy's checks), so what the
+## replay needs is in the recorded ops; it is charged read tokens for
+## each journal event of the R batches, for each optimizer replayed. The
+## Guardian's settings are not the optimizer's to change.
+
+## `n_eighbors o`: o, then the optimizers one step from it: hi, k and
+## period +-1, window +-3, within hi 2 to 8, k 1 to 5, window 3 to 12,
+## period 1 to 6 (lo kept). One per row.
+## >> "ev:" u_se< "Evolve"
+## >> ev:n_eighbors 2 8 3 6 1
+## 2 8 3 6 1
+## 2 7 3 6 1
+## 2 8 4 6 1
+## 2 8 2 6 1
+## 2 8 3 9 1
+## 2 8 3 3 1
+## 2 8 3 6 2
+l:n_eighbors := { o ->
+  steps := 9 5 r_eshape 0 0 0 0 0 0 1 0 0 0 0 -1 0 0 0 0 0 1 0 0 0 0 -1 0 0 0 0 0 3 0 0 0 0 -3 0 0 0 0 0 1 0 0 0 0 -1
+  all := steps + 9 5 r_eshape o
+  low := 9 5 r_eshape 1 2 1 3 1
+  high := 9 5 r_eshape 8 8 5 12 6
+  ok := ((r_ange 9) = 1) | '& r_/_2 (all >= low) & all <= high
+  (w_here ok) s_elect all
+}
+
+## `g p_redict (o, (T, b), batches)`: the tokens optimizer o would spend
+## on batches, starting from policy (T, b): production, writing and
+## review together.
+## >> "ev:" u_se< "Evolve"
+## >> "po:" u_se< "Policy"
+## >> work := 2 2 3 r_eshape 2 1 1 3 1 1 2 1 1 3 1 1
+## >> g := (2 3 r_eshape 2 1 1 1 1 1, 1 2 3 4 5 6 7, 3, 500, 20, 1500, 6)
+## >> m_ix '{ p -> g ev:p_redict (2 8 3 6 c_at p, (po:n_one 8, 60), work) } m_ap 1 2
+## 60900 34000
+l:p_redict := { g (o, P, batches) ->
+  (_, _, rep) := g l:e_volve (o, P, batches)
+  '+ r_/ l:t_okens rep
+}
+
+## One retuning: the optimizer adopted and the read tokens it cost.
+h:r_etune := { (g, read, due, tasks) (o, h0, j0, recent) ->
+  due = 0 ? (o, 0)
+  cands := l:n_eighbors o
+  P := gd:a_ctive h0
+  scores := m_ix '{ i -> g l:p_redict (i s_elect cands, P, recent) } m_ap r_ange t_ally cands
+  best := f_irst g_rade scores
+  (best s_elect cands, read * (jr:l_ength tasks l:r_ecent j0) * t_ally cands)
+}
+
+## `(g, R, M, read) r_ecursive (o, (T0, b), batches)`: as e_volve, with
+## the optimizer retuned before every M-th batch once R batches are done
+## (the meta-level above): (history, journal, report). A report row is
+## e_volve's six columns, then the meta-level's read tokens, then the
+## optimizer that ran the batch (lo hi k window period): 12 columns.
+## >> "ev:" u_se< "Evolve"
+## >> "po:" u_se< "Policy"
+## >> work := 4 2 3 r_eshape 2 1 1 3 1 1 2 1 1 3 1 1 2 1 1 3 1 1 2 1 1 3 1 1
+## >> g := (2 3 r_eshape 2 1 1 1 1 1, 1 2 3 4 5 6 7, 3, 500, 20, 1500, 6)
+## >> (h, j, rep) := (g, 2, 2, 5) ev:r_ecursive (2 8 3 6 1, (po:n_one 8, 60), work)
+## >> rep
+## -1 1 2 17000    0     0    0 2 8 3 6 1
+##  0 2 2  8400 4500 31000    0 2 8 3 6 1
+## -1 2 2  8400    0     0 2380 2 8 3 6 1
+## -1 2 2  8400    0     0    0 2 8 3 6 1
+l:r_ecursive := { (g, R, M, read) (o0, (T0, b), batches) ->
+  n := t_ally batches
+  m := t_ally 1 s_elect batches
+  (h, j, _, _, rows) := n '{ (h0, j0, o, i, acc) ->
+    recent := (1 m_ax (r_ange R) + (i - R) - 1) s_elect batches
+    due := (i > R) & i l:d_ue M
+    (o1, meta) := (g, read, due, R * m) h:r_etune (o, h0, j0, recent)
+    (h1, j1, row) := (g, o1, batches) h:b_atch (h0, j0, i)
+    (h1, j1, o1, i + 1, acc c_at row c_at meta c_at o1)
+  } p_ower (gd:b_egin (T0, b), jr:e_mpty @, o0, 1, 0 r_eshape 0)
+  (h, j, (n c_at 12) r_eshape rows)
 }
 
 ### Reading a report

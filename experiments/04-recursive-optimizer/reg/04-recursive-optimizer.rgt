@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../04-recursive-optimizer.xtl"
+exit_code = 0
