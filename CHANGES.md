@@ -9,6 +9,10 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 `design` a decision recorded, `plan` saga planning and reordering,
 `chore` agentrail bookkeeping (step complete, saga archive).
 
+## 2026-11-26
+
+- 10:35 `feat` The third live page (step 3): experiment 04 in the browser; the optimizer D runs and E starts from (longest tool, tools kept, window, period) and E's meta-level (replay, retune every) on sliders; cumulative tokens of A, D and E over the 24 batches with the recipe shifts marked, totals by part (production, writing, reviews, meta-level) with bars, a batch-by-batch table of D's and E's revisions and E's optimizer (changes marked), the background (Exo, the groups, Evolve, Guardian) and the program; three page tests against the command-line experiment (03's start, the bad start); about 5 s in headless Chrome.
+
 ## 2026-11-25
 
 - 22:42 `chore` Step 2 (recursive) closed.

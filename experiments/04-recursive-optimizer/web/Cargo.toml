@@ -1,0 +1,15 @@
+[package]
+name = "recursive-optimizer-web"
+description = "Experiment 04 in the browser: a harness that edits its own optimizer against fixed ones, computed by the Evolve, Guardian and Policy libraries in X_eTaL"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[dependencies]
+microscope = { path = "../../../shared/microscope" }
+yew = { version = "0.21", features = ["csr"] }
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
+console_error_panic_hook = "0.1"
+
+[workspace]

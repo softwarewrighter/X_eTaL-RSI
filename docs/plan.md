@@ -221,7 +221,7 @@ included.
    work under neighboring optimizers and adopts a better one through
    the guardian) against D with fixed optimizers, well and badly
    tuned; what the meta-level costs and when it pays.
-3. page-04: the third live page: experiments 03 and 04 in the browser
+3. page-04 [DONE]: the third live page: experiments 03 and 04 in the browser
    (the policy timeline, D against E).
 4. transfer: experiment 06: a harness evolved on one family run on
    near (new recipes) and unrelated (wood-only, ore-only) families,

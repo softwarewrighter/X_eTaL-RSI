@@ -48,6 +48,17 @@ nothing improves the improver of the optimizer (no tower).
 | D best | `2 8 1 3 1`: the best of 180 fixed optimizers on this very stream, found afterwards (no harness could know it in advance) | no |
 | E from each | the same three starts | every third batch |
 
+## Live
+
+[The page](https://softwarewrighter.github.io/X_eTaL-RSI/04-recursive-optimizer/)
+runs the experiment in your browser: set the optimizer D runs and E
+starts from, and E's meta-level (how many batches it replays, how
+often it retunes), and see the cumulative tokens of the fixed harness,
+D and E, the totals by part, and every revision and change of E's
+optimizer batch by batch. Every number is computed by X_eTaL (Evolve,
+Guardian, Policy), from the program shown on the page; it takes a few
+seconds.
+
 ## Run
 
 ```bash
