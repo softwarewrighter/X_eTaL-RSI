@@ -1,0 +1,1 @@
+Experiment 06 transfer: specific 6-op route saves 72% at home, dead weight (+4%) elsewhere; short tools save 21% at home and 13-17% on near families (within 5% of continued evolution, no review cost); head start never beats fresh off-recipe; nothing transfers to far (wood-only). H2 holds for general tools on near work only.
