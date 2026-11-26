@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-26
 
+- 13:40 `exp` Experiment 06, transfer (step 4, H2): a harness evolved on 8 batches of 1-wood-1-ore devices (one 6-op route), and a second evolved for short tools (three of 3 ops), run on fresh streams of the same, near (2 wood, 2 of each) and far (wood only) families, frozen, still evolving, and against evolving from scratch; the route saves 72% on its own recipe and is dead weight (+4%) everywhere else, the short tools save 21% at home and still 13-17% on near families (within 5% of evolving on, with no learning or review), a head start never beats starting fresh off the source recipe, and nothing transfers to the far family; 8 claims checked.
 - 10:41 `docs` The third page is live (check-live: the catalog at d832906, pages 01, 04 and 05 run X_eTaL there); step 3 (page-04) closed.
 - 10:35 `feat` The third live page (step 3): experiment 04 in the browser; the optimizer D runs and E starts from (longest tool, tools kept, window, period) and E's meta-level (replay, retune every) on sliders; cumulative tokens of A, D and E over the 24 batches with the recipe shifts marked, totals by part (production, writing, reviews, meta-level) with bars, a batch-by-batch table of D's and E's revisions and E's optimizer (changes marked), the background (Exo, the groups, Evolve, Guardian) and the program; three page tests against the command-line experiment (03's start, the bad start); about 5 s in headless Chrome.
 

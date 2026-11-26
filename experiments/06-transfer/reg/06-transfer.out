@@ -1,0 +1,24 @@
+the source's tools at the end (op codes):
+1 2 3 4 5 6 0 0
+a second source, evolved for short tools (2 to 3 ops, 3 kept: optimizer 2 3 3 3 1), its tools:
+1 2 3 0 0 0 0 0
+2 3 4 0 0 0 0 0
+3 4 5 0 0 0 0 0
+tokens over the 8 source batches (production, writing, review): the fixed harness, the source, the short source:
+204000 0 0
+70920 1500 45960
+165480 4500 56840
+rows: the same recipe (1,1), 2 wood (2,1; 2 ore is the same by symmetry), 2 of each (2,2), wood only (1,0; ore only the same); columns: all tokens for A, frozen, continued, fresh, frozen-short, then production tokens for the same five, then tasks done by all five (of 60):
+102000  28080  28080  90300  80640 102000  28080 28080 42840  80640 60
+117000 121680  97180  95260  97440 117000 121680 46800 45840  97440 60
+132000 137280 109660 107500 114240 132000 137280 49920 48840 114240 60
+ 72000  74880  87820  86620  80640  72000  74880 38480 37880  80640 60
+ok: every group does every task on every family
+ok: on its own recipe the evolved route saves over 70%
+ok: elsewhere the route is dead weight: it costs more than no tools
+ok: short tools transfer to the near families, saving at least 10%
+ok: there they come within 5% of evolving on, with no learning or review
+ok: on its own recipe the specific route beats the short tools
+ok: a head start from the source never beats evolving from scratch off its recipe
+ok: nothing transfers to the far family: every group costs more than no tools
+8 checks, all passed

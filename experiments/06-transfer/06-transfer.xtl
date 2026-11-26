@@ -1,0 +1,95 @@
+#!/usr/bin/env xetal
+## 06 Transfer: a harness evolved on one family of tasks, run on near
+## and far ones, frozen and still evolving.
+##
+## Run with "just run-exp 06". A deterministic simulation on the
+## Workshop world (the model is Workshop's expert). The source: a
+## harness evolves for 8 batches on devices of 1 wood and 1 ore. Each
+## target family is a fresh stream of 4 batches of 3 tasks (2 to 4
+## devices a task): the same recipe (control), near ones (2 wood, 2 ore,
+## 2 of each) and far ones (wood only, ore only: a different route).
+## Costs (tokens): a call 500, a tool's schema 20 in every prompt,
+## writing a tool 1500. Groups on each target:
+##   A          the fixed harness, no tools
+##   frozen     the source's final tools, never revised
+##   continued  the source's final tools, still evolving
+##   fresh      no tools, evolving from scratch
+## Evolution uses one optimizer throughout, 2 8 1 3 1 (one tool of 2 to
+## 8 ops from the last 3 tasks, revised every batch: the best fixed
+## optimizer of experiment 04), each candidate reviewed by all six
+## Guardian layers.
+
+"po:" u_se< "Policy"
+"ev:" u_se< "Evolve"
+"gd:" u_se< "Guardian"
+"k:" u_se< "Check"
+
+### Streams
+
+qs := 2 3 1 4 2 3 3 1 2 2 4 3
+## `n s_tream (w, r)`: n batches of 3 tasks, devices of w wood and r ore.
+u:s_tream := { n (w, r) ->
+  q := (3 * n) r_eshape qs
+  m := 3 * n
+  (n c_at 3 3) r_eshape r_avel o_\ (3 c_at m) r_eshape q c_at (m r_eshape w) c_at m r_eshape r
+}
+suite := 3 3 r_eshape 2 1 1 2 2 1 2 1 2
+g := (suite, 1 2 3 4 5 6 7, 6, 500, 20, 1500, 6)
+o := 2 8 1 3 1
+none := (po:n_one 8, 60)
+
+### The source
+
+(hs, js, rs) := g ev:e_volve (o, none, 8 u:s_tream (1, 1))
+src := gd:a_ctive hs
+(Ts, bs) := src
+"the source's tools at the end (op codes):"
+Ts
+(hs3, js3, rs3) := g ev:e_volve (2 3 3 3 1, none, 8 u:s_tream (1, 1))
+short := gd:a_ctive hs3
+(Tt, bt) := short
+"a second source, evolved for short tools (2 to 3 ops, 3 kept: optimizer 2 3 3 3 1), its tools:"
+Tt
+(ha8, ja8, ra8) := g ev:e_volve (2 8 1 3 0, none, 8 u:s_tream (1, 1))
+"tokens over the 8 source batches (production, writing, review): the fixed harness, the source, the short source:"
+ev:t_okens ra8
+ev:t_okens rs
+ev:t_okens rs3
+
+### The targets
+
+families := 4 2 r_eshape 1 1 2 1 2 2 1 0
+## One family: all tokens and production tokens for A, frozen,
+## continued, fresh (8 numbers).
+u:f_amily := { i ->
+  (w, r) := (1 s_elect i s_elect families, 2 s_elect i s_elect families)
+  work := 4 u:s_tream (w, r)
+  (ha, ja, ra) := g ev:e_volve (2 8 1 3 0, none, work)
+  (hf, jf, rf) := g ev:e_volve (2 8 1 3 0, src, work)
+  (hc, jc, rc) := g ev:e_volve (o, src, work)
+  (hn, jn, rn) := g ev:e_volve (o, none, work)
+  (hz, jz, rz) := g ev:e_volve (2 8 1 3 0, short, work)
+  all := (('+ r_/ ev:t_okens ra) c_at ('+ r_/ ev:t_okens rf) c_at ('+ r_/ ev:t_okens rc) c_at '+ r_/ ev:t_okens rn) c_at '+ r_/ ev:t_okens rz
+  done := '+ r_/ (3 s_elect_2 ra) c_at (3 s_elect_2 rf) c_at (3 s_elect_2 rc) c_at (3 s_elect_2 rn) c_at 3 s_elect_2 rz
+  all c_at (f_irst ev:t_okens ra) c_at (f_irst ev:t_okens rf) c_at (f_irst ev:t_okens rc) c_at (f_irst ev:t_okens rn) c_at (f_irst ev:t_okens rz) c_at done
+}
+res := m_ix '{ i -> u:f_amily i } m_ap r_ange 4
+"rows: the same recipe (1,1), 2 wood (2,1; 2 ore is the same by symmetry), 2 of each (2,2), wood only (1,0; ore only the same); columns: all tokens for A, frozen, continued, fresh, frozen-short, then production tokens for the same five, then tasks done by all five (of 60):"
+res
+
+### The claims, checked
+
+a := 1 s_elect_2 res
+fz := 2 s_elect_2 res
+co := 3 s_elect_2 res
+fr := 4 s_elect_2 res
+sh := 5 s_elect_2 res
+x1 := "every group does every task on every family" k:t_est (11 s_elect_2 res) k:i_s 60 60 60 60
+x2 := "on its own recipe the evolved route saves over 70%" k:t_est ((10 * f_irst fz) < 3 * f_irst a) k:i_s 1
+x3 := "elsewhere the route is dead weight: it costs more than no tools" k:t_est (1 d_rop fz > a) k:i_s 1 1 1
+x4 := "short tools transfer to the near families, saving at least 10%" k:t_est (1 2 s_elect 1 d_rop (10 * sh) <= 9 * a) k:i_s 1 1
+x5 := "there they come within 5% of evolving on, with no learning or review" k:t_est (1 2 s_elect 1 d_rop (100 * sh) <= 105 * co) k:i_s 1 1
+x6 := "on its own recipe the specific route beats the short tools" k:t_est ((f_irst fz) < f_irst sh) k:i_s 1
+x7 := "a head start from the source never beats evolving from scratch off its recipe" k:t_est (1 d_rop co >= fr) k:i_s 1 1 1
+x8 := "nothing transfers to the far family: every group costs more than no tools" k:t_est (((4 s_elect fz) c_at (4 s_elect co) c_at (4 s_elect fr) c_at 4 s_elect sh) > 4 s_elect a) k:i_s 1 1 1 1
+k:r_eport x1 k:a_nd x2 k:a_nd x3 k:a_nd x4 k:a_nd x5 k:a_nd x6 k:a_nd x7 k:a_nd x8

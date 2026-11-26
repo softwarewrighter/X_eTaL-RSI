@@ -50,6 +50,7 @@ each one says so.
 | 03 | [policy evolution](experiments/03-policy-evolution/README.md): a harness revising its tools as the work shifts; reviews cost more than they save at small scale | done |
 | 04 | [recursive optimizer](experiments/04-recursive-optimizer/README.md): an optimizer that edits its own settings rescues a badly tuned one, but tuning matters more | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/04-recursive-optimizer/) |
 | 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |
+| 06 | [transfer](experiments/06-transfer/README.md): general tools transfer to near work, specific ones nowhere, nothing to a far family | done |
 | 07 | [guardian](experiments/07-guardian/README.md): defective revisions rejected or rolled back; what verifying costs | done |
 
 The full list, the hypotheses and the roadmap are in

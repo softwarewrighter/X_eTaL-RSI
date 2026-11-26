@@ -223,7 +223,7 @@ included.
    tuned; what the meta-level costs and when it pays.
 3. page-04 [DONE]: the third live page: experiments 03 and 04 in the browser
    (the policy timeline, D against E).
-4. transfer: experiment 06: a harness evolved on one family run on
+4. transfer [DONE]: experiment 06: a harness evolved on one family run on
    near (new recipes) and unrelated (wood-only, ore-only) families,
    with and without continued evolution (H2).
 5. context: experiment 02: which tools stay in the prompt (retiring

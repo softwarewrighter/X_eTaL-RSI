@@ -1,6 +1,6 @@
 number = 4
 slug = "transfer"
-status = "pending"
+status = "in-progress"
 description = "Experiment 06, transfer (H2): a harness evolved on one family of Workshop tas..."
 role = "production"
 context_files = []
