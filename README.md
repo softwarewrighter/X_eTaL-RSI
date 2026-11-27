@@ -54,8 +54,9 @@ each one says so.
 | 06 | [transfer](experiments/06-transfer/README.md): general tools transfer to near work, specific ones nowhere, nothing to a far family | done |
 | 07 | [guardian](experiments/07-guardian/README.md): defective revisions rejected or rolled back; what verifying costs | done |
 
-The full list, the hypotheses and the roadmap are in
-[docs/plan.md](docs/plan.md).
+What the experiments show, hypothesis by hypothesis and with their
+negative results, is in [docs/report.md](docs/report.md). The full
+list, the hypotheses and the roadmap are in [docs/plan.md](docs/plan.md).
 
 ## Related work
 

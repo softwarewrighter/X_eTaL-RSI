@@ -378,6 +378,8 @@ Read before working:
   X_eTaL
 - `docs/related.md` -- this repo beside ICL, ICRL, XSkill, RLM, Ralph,
   agentrail-rs, all-together-now
+- `docs/report.md` -- what the experiments show, hypothesis by
+  hypothesis
 - `docs/research.pdf` -- the analysis this repo started from
   (archival, NOT normative)
 - `work/xetal/docs/lang-choices.md`, `work/xetal/docs/reference.md`,

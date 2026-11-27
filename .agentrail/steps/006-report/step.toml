@@ -1,6 +1,6 @@
 number = 6
 slug = "report"
-status = "pending"
+status = "in-progress"
 description = "docs/report.md: what experiments 01 to 07 show, hypothesis by hypothesis (H1 ..."
 role = "production"
 context_files = []

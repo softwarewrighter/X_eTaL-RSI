@@ -199,7 +199,7 @@ policies lower the capability needed to self-improve.
 12. page-01 [DONE]: the second live page (the user asked when): experiment 01
     in the browser.
 
-## Saga 2 -- recursion  [ACTIVE 2026-11-25]
+## Saga 2 -- recursion  [DONE 2026-11-27]
 
 Experiments 03 (policy evolution), 04 (recursive optimizer: groups D
 and E, the optimizer's own parameters as an editable policy), 06
@@ -228,7 +228,7 @@ included.
    with and without continued evolution (H2).
 5. context [DONE]: experiment 02: which tools stay in the prompt (retiring
    unused ones by a learned rule), prompt size against calls saved.
-6. report: `docs/report.md`: what the experiments show, hypothesis by
+6. report [DONE]: `docs/report.md`: what the experiments show, hypothesis by
    hypothesis, negative results and limits included.
 
 ## Saga 3 -- models  [PROPOSED]
