@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-27
 
+- 08:49 `chore` Step 6 (report) closed; Saga 2 (recursion) complete.
 - 08:42 `docs` docs/report.md (step 6): what experiments 01 to 07 show, hypothesis by hypothesis: H1 holds for production, not once verification is paid at this scale; H2 for general tools on near work only; H3 only against a badly tuned optimizer; H6 for correctness, not tokens; H4, H5, H7, H8 need a model (Saga 3); the cross-cutting findings and limits; linked from README and CLAUDE.md, checked by the gate. Saga 2 done.
 - 08:34 `chore` Pages republished (check-live ok at 8a675fc, page 04 with the new writing charge); step 5 (context) closed.
 - 08:17 `exp` Experiment 02, context optimization (step 5): 24 batches whose recipes come back, every group evolving with experiment 04's best optimizer and differing in what stays in the prompt (replace, keep every tool used, retire tools idle for 3, 6 or 12 tasks), at 20 and 200 tokens a tool's schema; cheap schemas: keeping every tool wins (each route learned once, 536700 tokens against 565800 replacing); dear schemas: one tool at a time wins, though no evolving group then beats the fixed harness; retiring idle tools is worst at both prices (each retirement a reviewed revision, then relearned: 10-11 revisions accepted); 7 claims checked.
