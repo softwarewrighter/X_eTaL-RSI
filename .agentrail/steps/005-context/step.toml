@@ -1,8 +1,9 @@
 number = 5
 slug = "context"
-status = "in-progress"
+status = "completed"
 description = "Experiment 02, context optimization: which tools stay in the prompt; a rule t..."
 role = "production"
 context_files = []
 created_at = "2026-11-25T14:16:22"
-commits = []
+completed_at = "2026-11-27T08:34:26"
+commits = ["8a675fc35b5e36b17ebb7e526bb243c61f38e03a"]
