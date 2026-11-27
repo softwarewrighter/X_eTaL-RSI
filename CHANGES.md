@@ -11,6 +11,7 @@ Categories: `feat` new capability, `fix` a bug or wrong behavior,
 
 ## 2026-11-27
 
+- 13:03 `plan` Saga 5 (memory) proposed: self-improving memory (SIM, arXiv 2611.18856) as data: a Memory library read by Evolve (the optimizer's record of attempts by problem, prediction before review, outcome after, never pruned), experiment 11 with the paper's arms (cold start, harness transfer, problems only, full SIM) across a change of work and of world, a fourth live page; SIM added to docs/related.md.
 - 08:49 `chore` Step 6 (report) closed; Saga 2 (recursion) complete.
 - 08:42 `docs` docs/report.md (step 6): what experiments 01 to 07 show, hypothesis by hypothesis: H1 holds for production, not once verification is paid at this scale; H2 for general tools on near work only; H3 only against a badly tuned optimizer; H6 for correctness, not tokens; H4, H5, H7, H8 need a model (Saga 3); the cross-cutting findings and limits; linked from README and CLAUDE.md, checked by the gate. Saga 2 done.
 - 08:34 `chore` Pages republished (check-live ok at 8a675fc, page 04 with the new writing charge); step 5 (context) closed.

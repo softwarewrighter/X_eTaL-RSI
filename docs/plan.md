@@ -154,6 +154,7 @@ work/                   gitignored: the X_eTaL clones, scratch
 | 08 | incident diagnosis | runbooks learned in a simulated service graph | high |
 | 09 | coding harness | checks and context learned from compiler and test failures | high |
 | 10 | small models | a capability threshold, with constrained policies | high |
+| 11 | self-improving memory | the optimizer keeps a record of its attempts by problem (SIM); carried across a change of work or of world | medium |
 
 Hypotheses (from the research): H1 harness evolution cuts cost
 without cutting correctness; H2 learned policies transfer; H3 editable
@@ -245,6 +246,50 @@ The RSI Explorer page: a fixed and a self-improving agent side by side
 in the browser (WASM, the deterministic mode, clearly labeled a
 simulation), the policy timeline, each version's code, pause and
 replay; published as X_eTaL-ML's pages are.
+
+## Saga 5 -- memory  [PROPOSED]
+
+Self-improving memory (SIM; Yu, Xia, Pan et al., Google, "Self-Improvement
+Memory Enables Continual Recursive Self-Improvement",
+[arXiv 2611.18856](https://arxiv.org/abs/2611.18856)): the harness
+optimizer, not the policy, keeps an append-only record of its edits
+grouped by the problem each addressed, with the prediction written
+before evaluation and the outcome after; the record is carried when the
+benchmark or the model changes (continual RSI). They report a 2.36
+point gain over continuing without it (9 of 10 paired coding runs),
+with no pruning, the whole record read every round, and the
+optimizer's own search fixed. Deterministic here, as data (A1):
+
+1. memory: a Memory library (`mm:`): the record as columns, a row per
+   attempt: problem (a deterministic diagnosis from the journal: the
+   costliest repeated op sequence the running tools do not cover, as
+   one number), round, candidate key (`ev:k_eys`), context (recipe and
+   costs), predicted calls saved (written before review), observed
+   saved, verdict; problems merged on equal keys; nothing deleted.
+   Evolve reads it through a seventh optimizer number, the memory mode:
+   none, problems only, full.
+2. sim: experiment 11: the paper's arms on the Workshop: cold start
+   (no harness, no memory), harness transfer (the tools, no memory),
+   problems only, full SIM, across a change of work (06's families,
+   recipes that come back as in 02) and a change of world (the price
+   of a call or of a schema, 02's two prices). What memory can save
+   here: a candidate that failed review for the same problem in the
+   same context is not proposed again (experiment 03's D had three
+   revisions in a row rejected at layer 5, each reviewed in full, and
+   reviews are the dominant cost);
+   a tool accepted for a problem that comes back is proposed again
+   instead of relearned (02); predictions that keep missing discount a
+   proposal. Charged: reading the whole record every round, by entry,
+   so its growth has a price; a capped-record ablation; and the
+   paper's own negative, retained harm, tested by a reader that
+   ignores the context column.
+3. page-11: the fourth live page: the record growing batch by batch,
+   each entry lit when it decides a proposal, the arms' totals.
+4. report: the results added to `docs/report.md`.
+
+A model-written variant (the proposer names the problem in words and
+decides which entry a diagnosis matches, as in the paper) belongs to
+Saga 3's host harness.
 
 ## Open questions
 

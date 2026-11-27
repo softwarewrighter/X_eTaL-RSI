@@ -31,6 +31,7 @@ Each approach is placed by six questions:
 | agentrail-rs | trajectories and distilled skills; the saga | `.agentrail/`, domain repos | yes | validation steps, audit | no (fixed engine) |
 | all-together-now | nothing learned: coordination | a wiki, an event timeline | yes | compare-and-swap | no |
 | Continuous-learning agent | adapters (and memory) | adapter files, a memory | yes | retention, transfer, regression gates | no (human-designed loop) |
+| SIM | the optimizer's record of attempts, by problem | a JSON record per run, carried | yes | the selector, on evolve-set feedback only | no (fixed search; the record informs it) |
 | Exo | the harness: its code, tools, memory, prompts | versioned artifacts | yes | a guardian (by default: it builds) | yes |
 | This repository | a policy as an array program, and the optimizer's own parameters | versioned arrays, an append-only journal | yes | a layered guardian (plan A8) | yes (group E) |
 
@@ -126,6 +127,31 @@ Here: experiment 01 (tool synthesis) is XSkill's accumulation phase
 with the skill compiled into code: a repeated sequence becomes a tool
 that runs, not a document a model reads. XSkill has no gate between
 accumulating a skill and using it; experiment 07 tests one.
+
+### SIM (self-improving memory)
+
+Google's SIM (Yu, Xia, Pan et al., "Self-Improvement Memory Enables
+Continual Recursive Self-Improvement",
+[arXiv 2611.18856](https://arxiv.org/abs/2611.18856)) gives a harness
+optimizer a memory of its own work: each edit is filed under the
+recurring problem it addressed (a root-cause hypothesis such as
+"premature completion without execution verification"), with what it
+changed, the tasks it was predicted to fix (written before evaluation),
+those it fixed and missed, and the setting it was evaluated in. The
+whole record is read every round and never pruned; problems with the
+same text are merged. Carried into a new benchmark or a new policy
+model, it beats carrying the harness alone (2.36 points on Terminal
+Bench over ten paired runs; 3.60 to 11.33 points across models). The
+optimizer's search stays fixed: the memory makes its choices better,
+not its code. Its own negatives: two selected edits fixed none of
+their predicted tasks, and a stale entry kept steering after the
+harness changed.
+
+Here: Saga 5 (plan) makes the record data, as the journal is: a
+Memory library read by Evolve, and experiment 11 with the paper's
+arms. Unlike the paper, every read of the record is charged, so its
+growth has a price, and what the record saves is measured in reviews
+not rerun, the dominant cost of experiments 03 and 02.
 
 ### The Ralph loop
 
