@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>01 Tool synthesis</title>
+  
+<script type="module">
+import init, * as bindings from '/X_eTaL-RSI/01-tool-synthesis/tool-synthesis-web-e5c89e320c94d5ad.js';
+const wasm = await init({ module_or_path: '/X_eTaL-RSI/01-tool-synthesis/tool-synthesis-web-e5c89e320c94d5ad_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+  
+  <link rel="icon" href="/X_eTaL-RSI/01-tool-synthesis/favicon-a11bc0a2bcd81290.ico" integrity="sha384-xOjSLs9ZRBKy2hF6zlqNv+0U86E4BqZOJy7H7a4GXSVwDQMNie0D851/sRBSYI9a"/>
+  <link rel="stylesheet" href="/X_eTaL-RSI/01-tool-synthesis/microscope-22257fd62318e7bf.css" integrity="sha384-HhCElH/+Dn/dCD6BMktfya0hcEUbJTzOz+U+aDZwhSMfcwqIb3L1cSWYSUVqWKI9"/>
+  <link rel="stylesheet" href="/X_eTaL-RSI/01-tool-synthesis/page-7bb9893719d016bf.css" integrity="sha384-N394LbSbxO383ymhp2SPzPUVdqRQ+tSF4PBViietSmsJd9Ku340F8v5++o9Xbazx"/>
+<link rel="modulepreload" href="/X_eTaL-RSI/01-tool-synthesis/tool-synthesis-web-e5c89e320c94d5ad.js" crossorigin="anonymous" integrity="sha384-w9t0OFYKjtx/oajHjpmYFOxPF3OrT4kFlviZE0xsHgOHGqRTrkSAfQGrUUqMjVog"><link rel="preload" href="/X_eTaL-RSI/01-tool-synthesis/tool-synthesis-web-e5c89e320c94d5ad_bg.wasm" crossorigin="anonymous" integrity="sha384-AHhnFI6yUmtIr+LyhpLmSKltn32JRa7jBTjue4uawnKyQkuGDUc4bBJKzdDpTGHr" as="fetch" type="application/wasm"></head>
+<body></body>
+</html>
