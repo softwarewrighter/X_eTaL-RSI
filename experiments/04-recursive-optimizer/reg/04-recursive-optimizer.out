@@ -1,7 +1,7 @@
 all tokens: the fixed harness; D from 03's, the bad and the best optimizer; E from the same three (its meta-level's tokens included):
 647000
-948940 1809720 442680
-745680 880740 470780
+930940 1775220 442680
+736680 870240 470780
 E's meta-level tokens, from each start:
 44240
 39340
@@ -22,7 +22,7 @@ from the best one:
 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 E from the bad optimizer, replaying R batches every M: (3, 3), (6, 3), (3, 6):
-880740 1062535 1094360
+870240 1050535 1079360
 ok: E does every task from every start
 ok: tuned in hindsight, a fixed optimizer saves over 30% against the fixed harness
 ok: badly tuned, evolving costs more than not evolving at all

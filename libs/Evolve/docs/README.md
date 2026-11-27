@@ -22,8 +22,12 @@ o = lo hi k window period
 
 tools of `lo` to `hi` ops, the `k` worth the most calls saved, learned
 from the journal of the last `window` tasks, a revision after every
-`period` batches of work (0: never). This library is the fixed
-interpreter of that vector. Before a batch that is due it:
+`period` batches of work (0: never). An optional sixth number, `idle`,
+makes the table a library (`l_ibrary`): the tools just learned are
+added to the running ones used in the last `idle` tasks (Policy's
+`u_ses`), up to the most tools the Guardian allows; with `idle` 0 or
+absent the table is replaced. This library is the fixed interpreter of
+that vector. Before a batch that is due it:
 
 1. synthesizes a candidate from the recent journal (Policy's
    `s_ynthesize`); an empty candidate, or one equal to the running
@@ -34,7 +38,8 @@ interpreter of that vector. Before a batch that is due it:
 3. records it and the verdict in the append-only history;
 
 and then runs the batch with whatever policy is running. Every token is
-counted: production, writing the candidate, the review.
+counted: production, writing the candidate (only its tools not already
+running), the review.
 
 The settings the optimizer cannot change are
 `g = (suite, allowed, most, call, per, write, upto)`: the Guardian's
@@ -51,6 +56,8 @@ and the Guardian layers checked (1 is Exo's default, "it builds").
 | `i ev:d_ue period` | `Int -> Int -> a` | 1 if a revision comes before batch i |
 | `n ev:r_ecent j` | `a -> journal -> journal` | the events of the last n tasks |
 | `(g, R, M, read) ev:r_ecursive (o, (T0, b), batches)` | `(...) -> (Int, (Int, Int), c) -> (history, journal, Int)` | as e_volve, the optimizer retuned before every M-th batch by the fixed meta-level; 12 report columns |
+| `(idle, most, j) ev:l_ibrary (new, Ta)` | `(Int, Int, journal) -> (Int, Int) -> Int` | the candidate table: new alone (idle 0), or new then the running tools used in the last idle tasks, without repeats, at most most |
+| `ev:k_eys T` | `Int -> Int` | each tool's ops as one number |
 | `ev:n_eighbors o` | `a -> a` | o, then the optimizers one step from it, a row each |
 | `g ev:p_redict (o, (T, b), batches)` | `(...) -> (Int, (Int, Int), c) -> Int` | the tokens o would spend on batches from policy (T, b) |
 | `ev:t_okens report` | `Int -> Int` | production, writing and review tokens in all |
@@ -86,7 +93,7 @@ checked:
 | Harness | Production | Writing | Review |
 | ------- | ---------- | ------- | ------ |
 | never revised (period 0) | 148000 | 0 | 0 |
-| revised before every batch | 66920 | 13500 | 93800 |
+| revised before every batch | 66920 | 12000 | 93800 |
 
 The version running each batch is `1 2 2 2 3 4`: tools accepted before
 batch 2, no other accepted until the recipe shifted, a new set accepted

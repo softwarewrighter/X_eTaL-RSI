@@ -1,0 +1,73 @@
+#!/usr/bin/env xetal
+## 02 Context optimization: which tools stay in the prompt; a library
+## that retires idle tools, against replacing the table and keeping
+## everything.
+##
+## Run with "just run-exp 02". A deterministic simulation on the
+## Workshop world (the model is Workshop's expert). Twenty-four batches
+## of three tasks; recipes come back: 1 wood and 1 ore a device, then 2
+## wood, 1-1 again, 2 wood again, 2 ore, 1-1 again (four batches each).
+## Costs (tokens): a call 500, a tool's schema 20 in every prompt,
+## writing a tool 1500 (only tools not already running). Every group
+## evolves with the same optimizer, one tool of 2 to 8 ops from the last
+## 3 tasks before every batch (experiment 04's best), each candidate
+## reviewed by all six Guardian layers (at most 6 tools). They differ
+## in its sixth number, what stays in the prompt:
+##   replace    idle 0: the tool just learned replaces the table
+##   keep-all   idle 72: every tool used at all stays (up to 6)
+##   retire-N   idle N: a tool stays while used in the last N tasks
+## and A, the fixed harness, has no tools.
+
+"po:" u_se< "Policy"
+"ev:" u_se< "Evolve"
+"k:" u_se< "Check"
+
+### The work
+
+qs := 2 3 1 4 2 3 3 1 2 2 4 3
+u:p_hase := { (w, r) -> 4 3 3 r_eshape r_avel o_\ 3 12 r_eshape qs c_at (12 r_eshape w) c_at 12 r_eshape r }
+batches := (u:p_hase (1, 1)) c_at (u:p_hase (2, 1)) c_at (u:p_hase (1, 1)) c_at (u:p_hase (2, 1)) c_at (u:p_hase (1, 2)) c_at u:p_hase (1, 1)
+suite := 3 3 r_eshape 2 1 1 2 2 1 2 1 2
+## The settings, a tool's schema costing per tokens in every prompt.
+u:s_ettings := { per -> (suite, 1 2 3 4 5 6 7, 6, 500, per, 1500, 6) }
+none := (po:n_one 8, 60)
+
+### The groups
+
+## The tools in the prompt each batch, from the history and the report.
+u:p_rompt := { ((ts, bs, vs, on), rep) -> m_ix '{ v -> t_ally d_isclose v s_elect ts } m_ap 2 s_elect_2 rep }
+## A group (idle -1: the fixed harness): production, writing, review,
+## all tokens, tasks done, revisions accepted, tools in the prompt
+## summed over the batches; and the prompt each batch.
+u:g_roup := { (per, idle) ->
+  o := (2 8 1 3 c_at idle >= 0) c_at 0 m_ax idle
+  (h, j, rep) := (u:s_ettings per) ev:e_volve (o, none, batches)
+  t := ev:t_okens rep
+  p := u:p_rompt (h, rep)
+  (t c_at ('+ r_/ t) c_at ('+ r_/ 3 s_elect_2 rep) c_at ('+ r_/ 0 = 1 s_elect_2 rep) c_at '+ r_/ p, p)
+}
+idles := -1 0 72 3 6 12
+u:t_able := { per -> m_ix '{ i -> (r, p) := u:g_roup (per, i); r } m_ap idles }
+"rows A, replace, keep-all, retire-3, retire-6, retire-12; columns production, writing, review, all tokens, tasks done, revisions accepted, tools in the prompt summed over the 24 batches."
+"a tool's schema 20 tokens a prompt:"
+t20 := u:t_able 20
+t20
+"200 tokens a prompt:"
+t200 := u:t_able 200
+t200
+"tools in the prompt each batch (20 tokens): replace, keep-all, retire-3, retire-6, retire-12:"
+m_ix '{ i -> (r, p) := u:g_roup (20, i); p } m_ap 1 d_rop idles
+
+### The claims, checked
+
+all20 := 4 s_elect_2 t20
+all200 := 4 s_elect_2 t200
+acc := 6 s_elect_2 t20
+x1 := "every group does every task at both prices" k:t_est ((5 s_elect_2 t20) c_at 5 s_elect_2 t200) k:i_s 72 72 72 72 72 72 72 72 72 72 72 72
+x2 := "with cheap schemas, keeping every tool spends the fewest tokens" k:t_est ((3 s_elect all20) = 'm_in r_/ all20) k:i_s 1
+x3 := "keeping every tool, each route is learned once" k:t_est (2 3 s_elect acc) k:i_s 6 3
+x4 := "retiring after 3 tasks is replacing the table" k:t_est ((2 s_elect t20) m_atch 4 s_elect t20) k:i_s 1
+x5 := "retiring after 6 or 12 tasks churns: more revisions, more tokens than replacing, at both prices" k:t_est (((5 6 s_elect acc) > 6) c_at ((5 6 s_elect all20) > 2 s_elect all20) c_at (5 6 s_elect all200) > 2 s_elect all200) k:i_s 1 1 1 1 1 1
+x6 := "with dear schemas, one tool at a time spends the fewest of the evolving groups" k:t_est ((2 s_elect all200) = 'm_in r_/ 1 d_rop all200) k:i_s 1
+x7 := "with dear schemas, no evolving group beats the fixed harness" k:t_est (1 d_rop all200 > f_irst all200) k:i_s 1 1 1 1 1
+k:r_eport x1 k:a_nd x2 k:a_nd x3 k:a_nd x4 k:a_nd x5 k:a_nd x6 k:a_nd x7

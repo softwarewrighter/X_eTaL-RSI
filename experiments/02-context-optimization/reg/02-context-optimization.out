@@ -1,0 +1,29 @@
+rows A, replace, keep-all, retire-3, retire-6, retire-12; columns production, writing, review, all tokens, tasks done, revisions accepted, tools in the prompt summed over the 24 batches.
+a tool's schema 20 tokens a prompt:
+657000    0      0 657000 72  0  0
+270600 9000 286200 565800 72  6 23
+228480 4500 303720 536700 72  3 49
+270600 9000 286200 565800 72  6 23
+272100 9000 430620 711720 72 11 28
+274800 9000 396000 679800 72 10 38
+200 tokens a prompt:
+657000    0      0 657000 72  0  0
+357000 9000 378000 744000 72  6 23
+367800 4500 499200 871500 72  3 49
+357000 9000 378000 744000 72  6 23
+372000 9000 616200 997200 72 11 28
+399000 9000 567000 975000 72 10 38
+tools in the prompt each batch (20 tokens): replace, keep-all, retire-3, retire-6, retire-12:
+0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+0 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3
+0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+0 1 1 1 1 2 1 1 1 2 1 1 1 2 1 1 1 2 1 1 1 2 1 1
+0 1 1 1 1 2 2 2 1 2 2 2 1 2 2 2 1 2 2 2 1 2 2 2
+ok: every group does every task at both prices
+ok: with cheap schemas, keeping every tool spends the fewest tokens
+ok: keeping every tool, each route is learned once
+ok: retiring after 3 tasks is replacing the table
+ok: retiring after 6 or 12 tasks churns: more revisions, more tokens than replacing, at both prices
+ok: with dear schemas, one tool at a time spends the fewest of the evolving groups
+ok: with dear schemas, no evolving group beats the fixed harness
+7 checks, all passed

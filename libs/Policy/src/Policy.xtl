@@ -177,3 +177,26 @@ l:s_ynthesize := { (lo, hi, k, L) j ->
   rows := m_ix '{ i -> L t_ake r_avel (i s_elect lens) jr:d_ecode i s_elect keys } m_ap best
   ((t_ally best) c_at L) r_eshape r_avel rows
 }
+
+### Use
+
+## `T u_ses j`: how many times each tool of T ran as one model call in
+## journal j: calls (an event with a cost, then the call's other ops at
+## no cost) of exactly the tool's ops. A primitive op never counts, as
+## a tool has at least two ops.
+## >> "po:" u_se< "Policy"
+## >> T := 2 4 r_eshape 1 2 0 0 3 4 0 0
+## >> T po:u_ses (1 1 1 1 1 1, 0 0 0 0 0 0, 1 2 3 4 1 2, 5 0 5 5 5 0, 1 1 1 1 1 1)
+## 2 0
+l:u_ses := { T (t, v, o, c, k) ->
+  0 = t_ally T ? 0 r_eshape 0
+  starts := w_here c > 0
+  lens := ((1 d_rop starts) c_at 1 + t_ally o) - starts
+  m_ix '{ i ->
+    row := i s_elect T
+    n := '+ r_/ row != 0
+    key := f_irst n jr:k_eys (n r_eshape 1, n r_eshape 0, n t_ake row, n r_eshape 1, n r_eshape 1)
+    at := starts s_elect n jr:k_eys (t, v, o, c, k)
+    '+ r_/ (lens = n) & at = key
+  } m_ap r_ange t_ally T
+}

@@ -1,6 +1,6 @@
 number = 5
 slug = "context"
-status = "pending"
+status = "in-progress"
 description = "Experiment 02, context optimization: which tools stay in the prompt; a rule t..."
 role = "production"
 context_files = []

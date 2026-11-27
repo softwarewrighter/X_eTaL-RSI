@@ -1,6 +1,8 @@
 l:r_ecent : Num a => a -> (a, b, c, d, e) -> (a, b, c, d, e)
 l:c_andidate : Num b => Int -> ((Int, a, Int, Int, b), Int) -> Int
 l:d_ue : Truthy a => Int -> Int -> a
+l:k_eys : Int -> Int
+l:l_ibrary : (Num a, Num c) => (a, Int, (a, b, Int, c, d)) -> (Int, Int) -> Int
 l:e_volve : (Num a, Num b, Num c) => (a, Int, Int, Int, Int, Int, b) -> (Int, (Int, Int), c) -> ((Box Int, Int, Int, Int), (Int, Int, Int, Int, Int), Int)
 l:n_eighbors : Num a => a -> a
 l:p_redict : (Num a, Num b, Num c) => (a, Int, Int, Int, Int, Int, b) -> (Int, (Int, Int), c) -> Int

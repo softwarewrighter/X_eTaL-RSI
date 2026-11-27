@@ -11,14 +11,18 @@
 ##
 ## tools of lo to hi ops, the k worth the most calls saved, learned from
 ## the journal of the last window tasks, a revision before every
-## period-th batch of work (0: never). This library is the fixed
+## period-th batch of work (0: never). An optional sixth number, idle,
+## makes the table a library: the tools just learned are added to the
+## running ones used in the last idle tasks (Policy's u_ses), at most
+## the most the Guardian allows; idle 0 or absent replaces the table.
+## This library is the fixed
 ## interpreter of that vector: before a batch that is due it synthesizes
 ## a candidate (Policy's s_ynthesize), has the Guardian review it
 ## against the running policy on the most recent batch, records it in
 ## the append-only history, and runs the batch with whatever is then
 ## running. A candidate equal to the running table, or empty, is not
-## proposed. Every token is counted: production, writing the candidate,
-## the review.
+## proposed. Every token is counted: production, writing the candidate
+## (only its tools not already running), the review.
 ##
 ## The settings the optimizer cannot change, g:
 ##
@@ -65,15 +69,43 @@ l:c_andidate := { o (j, L) ->
 ## 0 0 1 0 1
 l:d_ue := { i period -> (period > 0) & (i > 1) & 0 = (i - 1) m_od period m_ax 1 }
 
+## `k_eys T`: each tool's ops as one number (op codes are 0 to 9).
+## >> "ev:" u_se< "Evolve"
+## >> ev:k_eys 2 3 r_eshape 1 2 0 3 4 5
+## 120 345
+l:k_eys := { T -> m_ix '{ i -> '+ r_/ (i s_elect T) * 10 ^ r_ev (r_ange 2 s_elect s_hape T) - 1 } m_ap r_ange t_ally T }
+
+## `(idle, most, j) l_ibrary (new, Ta)`: the candidate table: with idle
+## 0, the tools just learned (the running ones replaced); else the tools
+## just learned, then the running ones used in the last idle tasks of
+## journal j, without repeats, at most most of them.
+## >> "ev:" u_se< "Evolve"
+## >> j := (1 1 1 1, 0 0 0 0, 1 2 3 4, 5 0 5 0, 1 1 1 1)
+## >> running := 2 4 r_eshape 1 2 0 0 5 6 0 0
+## >> (2, 3, j) ev:l_ibrary (1 4 r_eshape 3 4 0 0, running)
+## 3 4 0 0
+## 1 2 0 0
+l:l_ibrary := { (idle, most, j) (new, Ta) ->
+  idle = 0 ? new
+  used := Ta po:u_ses idle l:r_ecent j
+  all := new c_at (w_here used > 0) s_elect Ta
+  keys := l:k_eys all
+  firsts := m_ix '{ x -> f_irst w_here keys = x } m_ap u_nique keys
+  ((most m_in t_ally firsts) t_ake firsts) s_elect all
+}
+
 ## One revision: (history, verdict, write tokens, review tokens), the
-## verdict -1 when nothing was proposed.
+## verdict -1 when nothing was proposed. Only tools not already running
+## are written (and charged).
 h:r_evise := { ((suite, allowed, most, call, per, write, upto), o, h0, j0, last, due) ->
   due = 0 ? (h0, -1, 0, 0)
   (Ta, ba) := gd:a_ctive h0
-  T := o l:c_andidate (j0, 2 s_elect s_hape Ta)
+  new := o l:c_andidate (j0, 2 s_elect s_hape Ta)
+  T := (f_irst (5 d_rop o) c_at 0, most, j0) l:l_ibrary (new, Ta)
   (0 = t_ally T) | T m_atch Ta ? (h0, -1, 0, 0)
   (verdict, cost) := (suite, last, last, allowed, most, call, per, upto) gd:r_eview ((T, ba), (Ta, ba))
-  (h0 gd:p_ropose ((T, ba), verdict), verdict, write * t_ally T, cost)
+  fresh := '+ r_/ 0 = (l:k_eys T) m_ember? l:k_eys Ta
+  (h0 gd:p_ropose ((T, ba), verdict), verdict, write * fresh, cost)
 }
 
 ### The loop

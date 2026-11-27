@@ -47,6 +47,7 @@ each one says so.
 | # | Experiment | Status |
 | - | ---------- | ------ |
 | 01 | [tool synthesis](experiments/01-tool-synthesis/README.md): repeated action sequences become tools; tools beat hints, short tools transfer | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/01-tool-synthesis/) |
+| 02 | [context optimization](experiments/02-context-optimization/README.md): which tools stay in the prompt; the answer depends on the price of context, and retiring idle tools churns | done |
 | 03 | [policy evolution](experiments/03-policy-evolution/README.md): a harness revising its tools as the work shifts; reviews cost more than they save at small scale | done |
 | 04 | [recursive optimizer](experiments/04-recursive-optimizer/README.md): an optimizer that edits its own settings rescues a badly tuned one, but tuning matters more | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/04-recursive-optimizer/) |
 | 05 | [specialization cost](experiments/05-specialization-cost/README.md): when improvement pays, and a bounded budget | done, [live](https://softwarewrighter.github.io/X_eTaL-RSI/05-specialization-cost/) |

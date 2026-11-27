@@ -38,6 +38,7 @@ and 0 on the rest, so the calls are the events with a cost.
 | `(tasks, T, ver, call, extra, every) po:w_orkloadWith budget` | `(...) -> Int -> (Int, journal)` | as w_orkload, by e_pisodeWith |
 | `(lo, hi, k, L) po:s_ynthesize j` | `(Int, Int, Int, Int) -> journal -> Int` | the k sequences of lo to hi ops in j worth most calls saved, as a tool table of rows of L ops |
 | `po:c_alls j` | `journal -> Int` | the model calls in a journal |
+| `T po:u_ses j` | `Int -> journal -> Int` | how many times each tool ran as one call in j |
 
 ## Examples
 

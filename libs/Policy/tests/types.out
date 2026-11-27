@@ -8,3 +8,4 @@ l:w_orkload : Num a => (a, Int, Int, Int) -> Int -> (Int, (Int, Int, Int, Int, I
 l:w_orkloadWith : Num a => (a, Int, Int, Int, Int, Int) -> Int -> (Int, (Int, Int, Int, Int, Int))
 l:c_alls : (Any a, Any b, Any c, Num d, Any e) => (a, b, c, d, e) -> Int
 l:s_ynthesize : (Eq a, Any b, Num c) => (Int, Int, Int, Int) -> (a, b, Int, Int, c) -> Int
+l:u_ses : (Eq a, Any b, Num c, Any d) => Int -> (a, b, Int, c, d) -> Int

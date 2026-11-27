@@ -1,10 +1,10 @@
 D, a row per batch: revision verdict (-1 none, 0 accepted, else the layer that failed), version running, tasks done, production, writing and review tokens:
 -1 1 3 21000    0     0
  0 2 3  8400 4500 43400
- 5 2 3  6720 4500 45360
- 5 2 3  8400 4500 38640
- 5 2 3 13440 4500 45360
- 0 6 3 11760 4500 40320
+ 5 2 3  6720 3000 45360
+ 5 2 3  8400 3000 38640
+ 5 2 3 13440 3000 45360
+ 0 6 3 11760 3000 40320
  0 7 3  6720 4500 39200
 -1 7 3  8400    0     0
 -1 7 3 26880    0     0
@@ -21,11 +21,11 @@ the tools D ran last:
 rows A, C, D, D-unguarded, D-every-4; columns production, writing, review tokens, tasks done, revisions accepted, unsupervised deliveries:
 336000     0      0 36 0 0
 312480     0      0 36 0 0
-165480 31500 318360 36 4 0
-189000 22500      0 36 5 0
+165480 25500 318360 36 4 0
+189000 21000      0 36 5 0
 364080  9000 133040 36 2 0
 all tokens:
-336000 312480 515340 211500 506120
+336000 312480 509340 210000 506120
 ok: every group does every task
 ok: evolving at least halves production tokens
 ok: tools learned once save under 10% once the work shifts

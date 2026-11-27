@@ -1,6 +1,6 @@
 # Text the page shows only after X_eTaL has run (scripts/browser-check.sh).
 Tokens over 24 batches
-948940
-745680
+930940
+736680
 Revisions and E's optimizer, batch by batch
 Where this comes from

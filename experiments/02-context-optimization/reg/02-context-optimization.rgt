@@ -1,0 +1,2 @@
+command = "../../../scripts/xt run ../02-context-optimization.xtl"
+exit_code = 0

@@ -226,7 +226,7 @@ included.
 4. transfer [DONE]: experiment 06: a harness evolved on one family run on
    near (new recipes) and unrelated (wood-only, ore-only) families,
    with and without continued evolution (H2).
-5. context: experiment 02: which tools stay in the prompt (retiring
+5. context [DONE]: experiment 02: which tools stay in the prompt (retiring
    unused ones by a learned rule), prompt size against calls saved.
 6. report: `docs/report.md`: what the experiments show, hypothesis by
    hypothesis, negative results and limits included.

@@ -73,8 +73,8 @@ All tokens (production, writing, review, and E's meta-level):
 
 | Start | D (fixed) | E (edits itself) | E's meta-level |
 | ----- | --------- | ---------------- | -------------- |
-| experiment 03's settings | 948940 | 745680 | 44240 |
-| bad | 1809720 | 880740 | 39340 |
+| experiment 03's settings | 930940 | 736680 | 44240 |
+| bad | 1775220 | 870240 | 39340 |
 | best (hindsight) | 442680 | 470780 | 28100 |
 
 The fixed harness, which never evolves, spends 647000.
@@ -87,7 +87,7 @@ E from the bad start, with other meta-level settings:
 
 | Replay R batches, retune every M | 3, 3 | 6, 3 | 3, 6 |
 | -------------------------------- | ---- | ---- | ---- |
-| all tokens | 880740 | 1062535 | 1094360 |
+| all tokens | 870240 | 1050535 | 1079360 |
 
 What it shows:
 

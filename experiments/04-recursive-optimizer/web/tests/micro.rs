@@ -8,7 +8,7 @@ fn from_experiment_03s_optimizer() {
     // experiments/04-recursive-optimizer/README.md, Results.
     let r = results(&DEFAULT).unwrap();
     let all: Vec<i64> = r.totals.iter().map(|t| t.all()).collect();
-    assert_eq!(all, vec![647000, 948940, 745680]);
+    assert_eq!(all, vec![647000, 930940, 736680]);
     assert_eq!(r.totals[2].meta, 44240);
     // E moved hi 8 to 7 before batch 4 and k 3 to 2 before batch 16.
     assert_eq!(r.optimizer[2], [8, 3, 6, 1]);
@@ -23,7 +23,7 @@ fn from_experiment_03s_optimizer() {
 fn from_the_bad_optimizer() {
     let r = results(&Params { hi: 3, k: 3, window: 3, ..DEFAULT }).unwrap();
     let all: Vec<i64> = r.totals.iter().map(|t| t.all()).collect();
-    assert_eq!(all, vec![647000, 1809720, 880740]);
+    assert_eq!(all, vec![647000, 1775220, 870240]);
     assert_eq!(r.optimizer[9], [3, 4, 3, 1]);
 }
 
