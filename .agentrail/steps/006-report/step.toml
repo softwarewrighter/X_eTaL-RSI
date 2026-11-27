@@ -1,8 +1,9 @@
 number = 6
 slug = "report"
-status = "in-progress"
+status = "completed"
 description = "docs/report.md: what experiments 01 to 07 show, hypothesis by hypothesis (H1 ..."
 role = "production"
 context_files = []
 created_at = "2026-11-25T14:16:22"
-commits = []
+completed_at = "2026-11-27T08:49:54"
+commits = ["e519973c1a43d8f6092e40fb7c1f351c5857e903"]

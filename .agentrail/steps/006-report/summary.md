@@ -1,0 +1,1 @@
+docs/report.md: experiments 01-07 by hypothesis (H1 production yes / with verification no at this scale; H2 general tools near only; H3 vs badly tuned only; H6 correctness not tokens; H4/H5/H7/H8 need models). Saga 2 (recursion) complete: Evolve, experiments 02, 03, 04, 06, page 04, report.
